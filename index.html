@@ -2,12 +2,42 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>next-step-dance-studio</title>
+    <meta name="description" content="Next Step Dance Studio offers quality dance instruction for all ages in Shelby Township, Michigan. Classes in ballet, tap, jazz, hip hop, and more!" />
+    <meta name="keywords" content="dance studio, dance classes, ballet, tap, jazz, hip hop, Shelby Township, Michigan" />
+
+    <!-- Open Graph / Social Media -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Next Step Dance Studio" />
+    <meta property="og:description" content="Quality dance instruction for all ages in Shelby Township, Michigan" />
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700&family=Roboto:wght@300;400;500;700&family=Titillium+Web:wght@300;400;600;700&display=swap" rel="stylesheet" />
+
+    <title>Next Step Dance Studio</title>
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "DanceGroup",
+      "name": "Next Step Dance Studio",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Shelby Township",
+        "addressRegion": "MI",
+        "addressCountry": "US"
+      },
+      "description": "Quality dance instruction for all ages",
+      "url": window.location.origin
+    }
+    </script>
   </head>
   <body>
-    <div id="next-step-dance-studio"></div>
+    <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
