@@ -4,66 +4,55 @@ import { NavBarItem } from './NavBarItem'
 
 export const NavBar = (): ReactElement => {
   const [isOpen, setIsOpen] = useState(false)
+  const close = (): void => setIsOpen(false)
 
   return (
-    <div className="flex bg-pink-400 overflow-hidden">
-      <nav
-        className={`${
-          isOpen ? 'block' : 'hidden'
-        } bg-pink-400 basis-full transition-all ease-out duration-700 xl:block`}
-      >
-        <ul className="flex flex-col gap-8 text-slate-900 px-8 py-4 xl:flex-row">
-          <NavBarItem path="/" onClick={(): void => setIsOpen(!isOpen)}>
-            Home
-          </NavBarItem>
-          <NavBarItem path="/recital-2022" onClick={(): void => setIsOpen(!isOpen)}>
-            Recital 2022
-          </NavBarItem>
-          <NavBarItem path="/services" onClick={(): void => setIsOpen(!isOpen)}>
-            Services
-          </NavBarItem>
-          <NavBarItem path="/about" onClick={(): void => setIsOpen(!isOpen)}>
-            About
-          </NavBarItem>
-          <NavBarItem path="/schedule" onClick={(): void => setIsOpen(!isOpen)}>
-            Schedule
-          </NavBarItem>
-          <NavBarItem path="/registration" onClick={(): void => setIsOpen(!isOpen)}>
-            Registration
-          </NavBarItem>
-          <NavBarItem path="/contact" onClick={(): void => setIsOpen(!isOpen)}>
-            Contact
-          </NavBarItem>
-          <NavBarItem path="/photos" onClick={(): void => setIsOpen(!isOpen)}>
-            Photos
-          </NavBarItem>
-          <NavBarItem path="/location" onClick={(): void => setIsOpen(!isOpen)}>
-            Location
-          </NavBarItem>
+    <nav className="bg-studio-purple sticky top-0 z-50 shadow-lg">
+      <div className="flex items-center justify-between px-6">
+        {/* Desktop nav */}
+        <ul className="hidden md:flex items-center gap-1 py-1">
+          <NavBarItem path="/" onClick={close}>Home</NavBarItem>
+          <NavBarItem path="/classes" onClick={close}>Classes</NavBarItem>
+          <NavBarItem path="/staff" onClick={close}>Staff</NavBarItem>
+          <NavBarItem path="/recital" onClick={close}>Recital</NavBarItem>
+          <NavBarItem path="/registration" onClick={close}>Register</NavBarItem>
+          <NavBarItem path="/contact" onClick={close}>Contact</NavBarItem>
         </ul>
-      </nav>
-      <div className="ml-auto">
-        <button
-          aria-label="toggle navigation menu"
-          className="mx-8 my-4 xl:hidden"
-          onClick={(): void => setIsOpen(!isOpen)}
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="w-6 h-6"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
+
+        {/* Mobile: logo placeholder + hamburger */}
+        <div className="md:hidden flex items-center justify-between w-full py-2">
+          <span className="font-serif text-white text-lg font-semibold tracking-wide">Next Step</span>
+          <button
+            aria-label="Toggle navigation menu"
+            onClick={(): void => setIsOpen(!isOpen)}
+            className="text-white p-1"
           >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              d="M4 6h16M4 12h16M4 18h16"
-            />
-          </svg>
-        </button>
+            {isOpen ? (
+              <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            ) : (
+              <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+              </svg>
+            )}
+          </button>
+        </div>
       </div>
-    </div>
+
+      {/* Mobile menu */}
+      {isOpen && (
+        <div className="md:hidden border-t border-purple-800">
+          <ul className="flex flex-col py-2 px-4">
+            <NavBarItem path="/" onClick={close}>Home</NavBarItem>
+            <NavBarItem path="/classes" onClick={close}>Classes</NavBarItem>
+            <NavBarItem path="/staff" onClick={close}>Staff</NavBarItem>
+            <NavBarItem path="/recital" onClick={close}>Recital</NavBarItem>
+            <NavBarItem path="/registration" onClick={close}>Register</NavBarItem>
+            <NavBarItem path="/contact" onClick={close}>Contact</NavBarItem>
+          </ul>
+        </div>
+      )}
+    </nav>
   )
 }
