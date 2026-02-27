@@ -15,6 +15,9 @@ export default defineConfig({
     ViteImageOptimizer({
       png: { quality: 80 },
       jpeg: { quality: 80 },
+      svg: {
+        plugins: [{ name: 'preset-default' }, 'removeViewBox'],
+      },
     }),
   ],
   resolve: {
