@@ -9,17 +9,23 @@ export type TNavBarItem = {
 
 export const NavBarItem = ({ children, path, onClick }: TNavBarItem): ReactElement => {
   const location = useLocation()
-
-  const isCurrentRoute = location.pathname === path
+  const isCurrentRoute =
+    path === '/' ? location.pathname === '/' : location.pathname.startsWith(path)
 
   return (
     <li className="flex">
       <Link
         to={path}
-        className={`inline-block px-3 py-1 w-full overflow-hidden whitespace-nowrap hover:bg-pink-300 hover:font-semibold ${
-          isCurrentRoute && 'underline'
-        }`}
         onClick={onClick}
+        className={`relative px-3 py-1.5 text-sm font-semibold tracking-wide uppercase transition-colors whitespace-nowrap
+          ${
+            isCurrentRoute
+              ? 'text-studio-pink'
+              : 'text-purple-200 hover:text-white'
+          }
+          after:absolute after:bottom-0 after:left-3 after:right-3 after:h-0.5 after:rounded-full after:transition-all
+          ${isCurrentRoute ? 'after:bg-studio-pink' : 'after:bg-transparent hover:after:bg-purple-400'}
+        `}
       >
         {children}
       </Link>

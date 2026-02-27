@@ -10,7 +10,7 @@ export const Button = ({ type, text, isDisabled = false }: TButton): ReactElemen
   return (
     <button
       type={type || 'button'}
-      className="text-slate-900 bg-pink-400 hover:bg-pink-600 focus:ring-4 focus:outline-none focus:ring-pink-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"
+      className="bg-studio-pink text-white hover:bg-pink-700 focus:ring-4 focus:outline-none focus:ring-pink-300 font-semibold rounded-full text-sm w-full sm:w-auto px-7 py-3 text-center transition-colors disabled:opacity-50"
       disabled={isDisabled}
     >
       {text}

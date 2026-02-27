@@ -6,10 +6,10 @@ import { Footer } from '@components/Footer'
 
 const Root = (): ReactElement => {
   return (
-    <div className="min-h-screen flex flex-col font-body">
+    <div className="min-h-screen flex flex-col font-sans">
       <Header />
       <NavBar />
-      <main className="flex-grow pb-20">
+      <main className="flex-grow">
         <Outlet />
       </main>
       <Footer />

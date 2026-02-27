@@ -2,4 +2,15 @@
 
 @theme {
   --font-family-sans: "Nunito Sans", system-ui, sans-serif;
+  --font-family-serif: "Playfair Display", Georgia, serif;
+
+  --color-studio-purple: #2d0052;
+  --color-studio-purple-mid: #6b21a8;
+  --color-studio-purple-light: #f3e8ff;
+  --color-studio-pink: #db2777;
+  --color-studio-pink-light: #fce7f3;
+}
+
+* {
+  -webkit-font-smoothing: antialiased;
 }
