@@ -14,6 +14,7 @@ export const NavBar = (): ReactElement => {
           <NavBarItem path="/" onClick={close}>Home</NavBarItem>
           <NavBarItem path="/classes" onClick={close}>Classes</NavBarItem>
           <NavBarItem path="/staff" onClick={close}>Staff</NavBarItem>
+          <NavBarItem path="/gallery" onClick={close}>Gallery</NavBarItem>
           <NavBarItem path="/recital" onClick={close}>Recital</NavBarItem>
           <NavBarItem path="/registration" onClick={close}>Register</NavBarItem>
           <NavBarItem path="/contact" onClick={close}>Contact</NavBarItem>
@@ -47,6 +48,7 @@ export const NavBar = (): ReactElement => {
             <NavBarItem path="/" onClick={close}>Home</NavBarItem>
             <NavBarItem path="/classes" onClick={close}>Classes</NavBarItem>
             <NavBarItem path="/staff" onClick={close}>Staff</NavBarItem>
+            <NavBarItem path="/gallery" onClick={close}>Gallery</NavBarItem>
             <NavBarItem path="/recital" onClick={close}>Recital</NavBarItem>
             <NavBarItem path="/registration" onClick={close}>Register</NavBarItem>
             <NavBarItem path="/contact" onClick={close}>Contact</NavBarItem>

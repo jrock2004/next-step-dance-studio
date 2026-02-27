@@ -5,35 +5,26 @@ import { PageContainer } from '@components/PageContainer'
 import { PageTitle } from '@components/PageTitle'
 
 const mockImages = [
-  {
-    id: 1,
-    src: 'https://nebula.wsimg.com/6649c652c33d47c6694975717b47131d?AccessKeyId=B77414135F6586AF8FC2&disposition=0&alloworigin=1',
-    alt: 'Teaching the girls to dance',
-  },
-  {
-    id: 2,
-    src: 'https://nebula.wsimg.com/5359de8540918c74f2ada85af679f19c?AccessKeyId=B77414135F6586AF8FC2&disposition=0&alloworigin=1',
-    alt: 'Having fun doing hip hop',
-  },
-  {
-    id: 3,
-    src: 'https://nebula.wsimg.com/485a8b42953d61b37ec92f574103474c?AccessKeyId=B77414135F6586AF8FC2&disposition=0&alloworigin=1',
-    alt: 'The girls are stretching',
-  },
+  { id: 1, src: '/gallery/gallery-1.jpg', alt: 'Dancers performing on stage' },
+  { id: 2, src: '/gallery/gallery-2.jpg', alt: 'Ballet class in progress' },
+  { id: 3, src: '/gallery/gallery-3.jpg', alt: 'Hip hop dancers warming up' },
+  { id: 4, src: '/gallery/gallery-4.jpg', alt: 'Recital performance' },
+  { id: 5, src: '/gallery/gallery-5.jpg', alt: 'Young dancers at barre' },
+  { id: 6, src: '/gallery/gallery-6.jpg', alt: 'Jazz class ensemble' },
 ]
 
 function PhotosPage(): ReactElement {
   return (
     <>
       <Helmet>
-        <title>The Next Step Dance Studio - Photos</title>
+        <title>Gallery — Next Step Dance Studio</title>
         <meta
           name="description"
-          content="The Next Step Dance Studio, we offer classes in a variety of dance styles. Creative Movement, Combo Classes, Hip Hop, Tap, Ballet, Jazz, Lyrical. Serving the Berks County area of Birdsboro, Douglassville, Morgantown, and Reading."
+          content="Browse photos from Next Step Dance Studio classes, recitals, and performances in Birdsboro, PA."
         />
       </Helmet>
       <PageContainer>
-        <PageTitle>Photos</PageTitle>
+        <PageTitle>Gallery</PageTitle>
         <div className="mt-20">
           <Carousel images={mockImages} />
         </div>

@@ -6,6 +6,7 @@ import StaffPage from './routes/StaffPage'
 import RecitalPage from './routes/RecitalPage'
 import RegistrationPage from './routes/RegistrationPage'
 import ContactPage from './routes/ContactPage'
+import PhotosPage from './routes/PhotosPage'
 import NotFoundPage from './routes/NotFoundPage'
 
 export const router = createBrowserRouter([
@@ -36,6 +37,10 @@ export const router = createBrowserRouter([
       {
         path: 'contact',
         element: <ContactPage />,
+      },
+      {
+        path: 'gallery',
+        element: <PhotosPage />,
       },
       {
         path: '*',

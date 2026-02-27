@@ -1,4 +1,4 @@
-import type { ReactElement } from 'react'
+import type { KeyboardEvent, ReactElement } from 'react'
 import { useState } from 'react'
 import { ChevronLeftIcon, ChevronRightIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import { AnimatePresence, motion } from 'framer-motion'
@@ -65,10 +65,35 @@ export const Carousel = ({ images }: TCarousel): ReactElement => {
     setFullImage(image)
   }
 
+  const handleRegionKeyDown = (e: KeyboardEvent<HTMLDivElement>): void => {
+    if (e.key === 'ArrowLeft') handlePrevClick()
+    else if (e.key === 'ArrowRight') handleNextClick()
+    else if (e.key === 'Escape') setFullImage(null)
+  }
+
+  const handleImageKeyDown = (e: KeyboardEvent<HTMLDivElement>, image: TCarouselImage): void => {
+    if (e.key === 'Enter') handleImageClick(image)
+  }
+
   return (
     <>
-      <div>
-        <div className="flex justify-between">
+      <div
+        role="region"
+        aria-label="Image slideshow"
+        tabIndex={0}
+        onKeyDown={handleRegionKeyDown}
+        className="outline-none"
+      >
+        {/* Screen reader live region */}
+        <span
+          aria-live="polite"
+          aria-atomic="true"
+          className="sr-only"
+        >
+          {images[count - 1].alt}
+        </span>
+
+        <div className="flex items-center justify-between">
           <button
             aria-label="Go to the previous image"
             className="border border-slate-300 p-2 rounded hover:bg-slate-50"
@@ -76,6 +101,9 @@ export const Carousel = ({ images }: TCarousel): ReactElement => {
           >
             <ChevronLeftIcon className="w-7 h-7" />
           </button>
+          <span className="text-sm text-slate-600" aria-hidden="true">
+            {count} / {images.length}
+          </span>
           <button
             aria-label="Go to the next image"
             className="border border-slate-300 p-2 rounded hover:bg-slate-50"
@@ -100,7 +128,11 @@ export const Carousel = ({ images }: TCarousel): ReactElement => {
                 transition={{ duration: 0.5 }}
                 className={`absolute w-full h-full flex items-center justify-center text-white`}
               >
-                <div className="relative w-full h-full">
+                <div
+                  className="relative w-full h-full"
+                  tabIndex={0}
+                  onKeyDown={(e): void => handleImageKeyDown(e, images[count - 1])}
+                >
                   <img
                     className="absolute inset-0 w-full h-full object-cover hover:cursor-pointer"
                     src={images[count - 1].src}
@@ -119,7 +151,12 @@ export const Carousel = ({ images }: TCarousel): ReactElement => {
         </div>
 
         {fullImage && (
-          <div className="fixed top-0 left-0 right-0 bottom-0 z-50 flex items-center justify-center bg-white">
+          <div
+            className="fixed top-0 left-0 right-0 bottom-0 z-50 flex items-center justify-center bg-white"
+            role="dialog"
+            aria-modal="true"
+            aria-label="Full screen image"
+          >
             <div className="relative w-full h-full">
               <img
                 className="absolute inset-0 w-full h-full object-cover hover:cursor-pointer"
@@ -130,6 +167,7 @@ export const Carousel = ({ images }: TCarousel): ReactElement => {
                 }}
               />
               <button
+                aria-label="Close full screen image"
                 onClick={(): void => {
                   setFullImage(null)
                 }}
