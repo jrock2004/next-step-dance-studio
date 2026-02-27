@@ -20,11 +20,11 @@ export const NavBarItem = ({ children, path, onClick }: TNavBarItem): ReactEleme
         className={`relative px-3 py-1.5 text-sm font-semibold tracking-wide uppercase transition-colors whitespace-nowrap
           ${
             isCurrentRoute
-              ? 'text-studio-pink'
+              ? 'text-pink-300'
               : 'text-purple-200 hover:text-white'
           }
           after:absolute after:bottom-0 after:left-3 after:right-3 after:h-0.5 after:rounded-full after:transition-all
-          ${isCurrentRoute ? 'after:bg-studio-pink' : 'after:bg-transparent hover:after:bg-purple-400'}
+          ${isCurrentRoute ? 'after:bg-pink-300' : 'after:bg-transparent hover:after:bg-purple-400'}
         `}
       >
         {children}

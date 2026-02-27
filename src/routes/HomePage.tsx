@@ -118,12 +118,12 @@ function HomePage(): ReactElement {
         />
         <div className="absolute inset-0 bg-gradient-to-r from-studio-purple/90 via-studio-purple/70 to-studio-purple/30" />
         <div className="relative h-full flex flex-col justify-center px-8 sm:px-16 max-w-3xl">
-          <p className="text-studio-pink text-sm font-semibold uppercase tracking-widest mb-3">
+          <p className="text-pink-300 text-sm font-semibold uppercase tracking-widest mb-3">
             Birdsboro, PA · Celebrating 17+ Seasons
           </p>
           <h1 className="font-serif text-4xl sm:text-5xl md:text-6xl text-white leading-tight mb-5">
             Dare to Dance.<br />
-            <em className="not-italic text-studio-pink">Dare to Take</em> the Next Step.
+            <em className="not-italic text-pink-300">Dare to Take</em> the Next Step.
           </h1>
           <p className="text-purple-200 text-lg mb-8 max-w-xl leading-relaxed">
             Quality dance instruction for children of all ages in a supportive, nurturing studio
@@ -188,7 +188,7 @@ function HomePage(): ReactElement {
                     <h3 className="font-serif text-lg text-studio-purple font-semibold">
                       {cls.title}
                     </h3>
-                    <span className="text-xs bg-studio-pink-light text-studio-pink font-semibold px-2.5 py-1 rounded-full">
+                    <span className="text-xs bg-studio-pink-light text-studio-purple font-semibold px-2.5 py-1 rounded-full">
                       {cls.ages}
                     </span>
                   </div>
@@ -215,7 +215,7 @@ function HomePage(): ReactElement {
       <section className="py-16 px-6 bg-stone-50">
         <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-12 items-center">
           <div>
-            <p className="text-studio-pink text-sm font-semibold uppercase tracking-widest mb-2">
+            <p className="text-pink-700 text-sm font-semibold uppercase tracking-widest mb-2">
               Our Mission
             </p>
             <h2 className="font-serif text-3xl sm:text-4xl text-studio-purple font-semibold mb-5 leading-snug">
@@ -234,7 +234,7 @@ function HomePage(): ReactElement {
             </div>
             <Link
               to="/staff"
-              className="inline-block mt-6 text-studio-pink font-semibold hover:underline"
+              className="inline-block mt-6 text-pink-700 font-semibold hover:underline"
             >
               Meet our instructors →
             </Link>
@@ -255,7 +255,7 @@ function HomePage(): ReactElement {
 
       {/* Registration CTA */}
       <section className="bg-studio-purple py-16 px-6 text-center">
-        <p className="text-studio-pink text-sm font-semibold uppercase tracking-widest mb-3">
+        <p className="text-pink-300 text-sm font-semibold uppercase tracking-widest mb-3">
           Enrollment Open
         </p>
         <h2 className="font-serif text-3xl sm:text-4xl text-white font-semibold mb-4">

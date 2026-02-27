@@ -8,7 +8,7 @@ export const Footer = (): ReactElement => {
         {/* Brand */}
         <div>
           <p className="font-serif text-xl text-white font-semibold mb-1">Next Step</p>
-          <p className="text-xs uppercase tracking-widest text-studio-pink font-semibold mb-3">
+          <p className="text-xs uppercase tracking-widest text-pink-300 font-semibold mb-3">
             Dance Studio
           </p>
           <p className="text-sm text-purple-300 leading-relaxed">
