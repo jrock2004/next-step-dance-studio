@@ -20,22 +20,23 @@ export const Input = <T extends FieldValues = FieldValues>({
   register,
   errors,
 }: TInput<T>): ReactElement => {
+  const hasError = !!errors?.[id]
   return (
     <>
       <input
-        aria-invalid={!!errors && !!errors[id]}
+        aria-invalid={hasError}
         type={type || 'text'}
         id={id}
         className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 ${
-          !!errors && !!errors[id] && 'border-red-500'
+          hasError && 'border-red-500'
         }`}
         inputMode={inputMode || 'text'}
         placeholder={placeholder}
         required={isRequired}
         {...register(id as Path<T>)}
       />
-      {errors && errors[id] && (
-        <span className="text-red-500 text-sm ml-3">{String(errors[id]?.message || '')}</span>
+      {hasError && (
+        <span className="text-red-500 text-sm ml-3">{errors?.[id]?.message || ''}</span>
       )}
     </>
   )
