@@ -1,6 +1,7 @@
 import type { ReactElement } from 'react'
 import { Link } from 'react-router'
 import { Helmet } from 'react-helmet-async'
+import { SectionHeading } from '@components/SectionHeading'
 
 function RecitalPage(): ReactElement {
   return (
@@ -32,12 +33,7 @@ function RecitalPage(): ReactElement {
 
           {/* Program Info */}
           <section>
-            <div className="flex items-center gap-3 mb-6">
-              <div className="w-1 h-8 bg-studio-pink rounded-full" />
-              <h2 className="font-serif text-2xl sm:text-3xl text-studio-purple font-semibold">
-                Recital Program
-              </h2>
-            </div>
+            <SectionHeading>Recital Program</SectionHeading>
             <div className="bg-studio-purple-light rounded-2xl p-8 grid sm:grid-cols-2 gap-8">
               <div>
                 <h3 className="font-semibold text-studio-purple mb-2 text-sm uppercase tracking-widest">
@@ -90,12 +86,7 @@ function RecitalPage(): ReactElement {
 
           {/* Ticket Info */}
           <section>
-            <div className="flex items-center gap-3 mb-6">
-              <div className="w-1 h-8 bg-studio-pink rounded-full" />
-              <h2 className="font-serif text-2xl sm:text-3xl text-studio-purple font-semibold">
-                Ticket Information
-              </h2>
-            </div>
+            <SectionHeading>Ticket Information</SectionHeading>
             <div className="rounded-2xl border border-purple-100 overflow-hidden shadow-sm">
               <div className="bg-studio-purple px-8 py-5">
                 <p className="text-purple-200 text-sm">
@@ -122,12 +113,7 @@ function RecitalPage(): ReactElement {
 
           {/* Senior Spotlight */}
           <section>
-            <div className="flex items-center gap-3 mb-6">
-              <div className="w-1 h-8 bg-studio-pink rounded-full" />
-              <h2 className="font-serif text-2xl sm:text-3xl text-studio-purple font-semibold">
-                Senior Spotlight
-              </h2>
-            </div>
+            <SectionHeading>Senior Spotlight</SectionHeading>
             <div className="bg-gradient-to-br from-studio-purple to-studio-purple-mid rounded-2xl p-10 text-center">
               <div className="text-studio-pink text-5xl mb-5">✦</div>
               <h3 className="font-serif text-2xl text-white font-semibold mb-3">

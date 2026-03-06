@@ -3,6 +3,7 @@ import { Helmet } from 'react-helmet-async'
 import { z } from 'zod'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { SectionHeading } from '@components/SectionHeading'
 import { Label } from '@components/Label'
 import { Input } from '@components/Input'
 import { Button } from '@components/Button'
@@ -66,9 +67,7 @@ function ContactPage(): ReactElement {
 
           {/* Contact form */}
           <div>
-            <h2 className="font-serif text-2xl text-studio-purple font-semibold mb-6">
-              Send Us a Message
-            </h2>
+            <SectionHeading>Send Us a Message</SectionHeading>
 
             {isSubmitSuccessful && (
               <div className="mb-6 bg-green-50 border border-green-200 text-green-700 rounded-xl p-4 text-sm font-semibold">
@@ -117,9 +116,7 @@ function ContactPage(): ReactElement {
           {/* Location & info */}
           <div className="flex flex-col gap-8">
             <div>
-              <h2 className="font-serif text-2xl text-studio-purple font-semibold mb-5">
-                Find Us
-              </h2>
+              <SectionHeading>Find Us</SectionHeading>
               <div className="rounded-2xl overflow-hidden shadow-sm border border-purple-100 mb-6">
                 <iframe
                   className="w-full"

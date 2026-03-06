@@ -1,57 +1,10 @@
 import type { ReactElement } from 'react'
 import { Link } from 'react-router'
 import { Helmet } from 'react-helmet-async'
+import { classes } from '@/data/classes'
+import { DancerPlaceholder } from '@components/DancerPlaceholder'
 
-const classes = [
-  {
-    title: 'Creative Movement',
-    ages: 'Ages 3–4',
-    image:
-      'https://nebula.wsimg.com/a1393eca7721170dd144b399128551e1?AccessKeyId=B77414135F6586AF8FC2&disposition=0&alloworigin=1',
-    description:
-      'Discovering the world through movement using music and props to develop motor skills in ballet, tap, jazz, and tumbling.',
-  },
-  {
-    title: 'Combo Class',
-    ages: 'Ages 5–6',
-    image:
-      'https://nebula.wsimg.com/46b5df54a3964821600367f607fe0be5?AccessKeyId=B77414135F6586AF8FC2&disposition=0&alloworigin=1',
-    description:
-      'Ballet, tap, jazz, and tumbling combined to build a strong foundation for future dance classes.',
-  },
-  {
-    title: 'Tap',
-    ages: 'All Ages',
-    image:
-      'https://nebula.wsimg.com/d3cddc424f310dc233740115a3b5a60f?AccessKeyId=B77414135F6586AF8FC2&disposition=0&alloworigin=1',
-    description:
-      'From beginner through advanced, emphasizing rhythm, sound, and technical precision.',
-  },
-  {
-    title: 'Jazz',
-    ages: 'All Ages',
-    image:
-      'https://nebula.wsimg.com/59bb6bc9e6c761e32bf3dce386ed394d?AccessKeyId=B77414135F6586AF8FC2&disposition=0&alloworigin=1',
-    description:
-      'Jazz isolations, rhythm, and style to contemporary music — promoting flexibility and musical awareness.',
-  },
-  {
-    title: 'Ballet',
-    ages: 'All Ages',
-    image:
-      'https://nebula.wsimg.com/46b5df54a3964821600367f607fe0be5?AccessKeyId=B77414135F6586AF8FC2&disposition=0&alloworigin=1',
-    description:
-      'Classical technique with barre and center work, building strength, grace, and the foundation of all dance styles.',
-  },
-  {
-    title: 'Hip Hop',
-    ages: 'All Ages',
-    image:
-      'https://nebula.wsimg.com/025e9f6e19f84ce9e7e7ea2fecddc84a?AccessKeyId=B77414135F6586AF8FC2&disposition=0&alloworigin=1',
-    description:
-      'High-energy movement to the latest sounds in rap, R&B, and pop — presented in an age-appropriate way.',
-  },
-]
+const featuredClasses = classes.filter((c) => c.featured)
 
 const features = [
   {
@@ -171,17 +124,21 @@ function HomePage(): ReactElement {
             </h2>
           </div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {classes.map((cls) => (
+            {featuredClasses.map((cls) => (
               <div
                 key={cls.title}
                 className="group rounded-2xl overflow-hidden border border-purple-100 shadow-sm hover:shadow-md transition-shadow"
               >
                 <div className="h-48 overflow-hidden">
-                  <img
-                    src={cls.image}
-                    alt={cls.title}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                  />
+                  {cls.image ? (
+                    <img
+                      src={cls.image}
+                      alt={cls.title}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    />
+                  ) : (
+                    <DancerPlaceholder />
+                  )}
                 </div>
                 <div className="p-5">
                   <div className="flex items-center justify-between mb-2">
@@ -192,7 +149,7 @@ function HomePage(): ReactElement {
                       {cls.ages}
                     </span>
                   </div>
-                  <p className="text-gray-600 text-sm leading-relaxed">{cls.description}</p>
+                  <p className="text-gray-600 text-sm leading-relaxed">{cls.summary}</p>
                 </div>
               </div>
             ))}

@@ -3,6 +3,7 @@ import { Helmet } from 'react-helmet-async'
 import { z } from 'zod'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { SectionHeading } from '@components/SectionHeading'
 import { Label } from '@components/Label'
 import { Input } from '@components/Input'
 import { Button } from '@components/Button'
@@ -41,15 +42,6 @@ const classes = [
   { id: 'duo-request', label: 'Duo Request' },
   { id: 'trio-request', label: 'Trio Request' },
 ]
-
-function SectionHeading({ children }: { children: string }): ReactElement {
-  return (
-    <div className="flex items-center gap-3 mb-6 mt-10 first:mt-0">
-      <div className="w-1 h-6 bg-studio-pink rounded-full" />
-      <h2 className="font-serif text-xl text-studio-purple font-semibold">{children}</h2>
-    </div>
-  )
-}
 
 function RegistrationPage(): ReactElement {
   const {
@@ -97,7 +89,7 @@ function RegistrationPage(): ReactElement {
           <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-1">
 
             {/* Student info */}
-            <SectionHeading>Student Information</SectionHeading>
+            <SectionHeading size="sm">Student Information</SectionHeading>
             <div className="grid gap-6 mb-6 sm:grid-cols-2">
               <div>
                 <Label htmlFor="first_name" isRequired={true}>First Name</Label>
@@ -141,7 +133,7 @@ function RegistrationPage(): ReactElement {
             </div>
 
             {/* Address */}
-            <SectionHeading>Home Address</SectionHeading>
+            <SectionHeading size="sm">Home Address</SectionHeading>
             <div className="flex flex-col gap-6 mb-6">
               <div>
                 <Label htmlFor="homeAddress" isRequired={true}>Street Address</Label>
@@ -175,7 +167,7 @@ function RegistrationPage(): ReactElement {
             </div>
 
             {/* Contact */}
-            <SectionHeading>Contact Information</SectionHeading>
+            <SectionHeading size="sm">Contact Information</SectionHeading>
             <div className="grid gap-6 mb-6 sm:grid-cols-2">
               <div>
                 <Label htmlFor="homePhone" isRequired={true}>Phone</Label>
@@ -200,7 +192,7 @@ function RegistrationPage(): ReactElement {
             </div>
 
             {/* Classes */}
-            <SectionHeading>Choose Classes</SectionHeading>
+            <SectionHeading size="sm">Choose Classes</SectionHeading>
             <div className="flex flex-wrap gap-3 mb-6">
               {classes.map(({ id, label }) => (
                 <Checkbox key={id} id={id} label={label} isRequired={false} register={register} />
@@ -208,7 +200,7 @@ function RegistrationPage(): ReactElement {
             </div>
 
             {/* Terms */}
-            <SectionHeading>Terms of Service</SectionHeading>
+            <SectionHeading size="sm">Terms of Service</SectionHeading>
             <div className="bg-gray-50 rounded-xl p-5 mb-4 text-sm text-gray-600 leading-relaxed border border-gray-200">
               <p>
                 I, the parent listed in the Parent Information section above, do hereby agree to give
