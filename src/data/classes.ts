@@ -1,4 +1,5 @@
 export type ClassInfo = {
+  id: string;
   title: string;
   ages: string;
   price: string;
@@ -11,6 +12,7 @@ export type ClassInfo = {
 
 export const classes: ClassInfo[] = [
   {
+    id: "creative-movement",
     title: "Creative Movement",
     ages: "Ages 3–4",
     price: "Call for pricing",
@@ -23,6 +25,7 @@ export const classes: ClassInfo[] = [
     featured: false,
   },
   {
+    id: "combo",
     title: "Combo Class",
     ages: "Ages 5–6",
     price: "Call for pricing",
@@ -33,6 +36,7 @@ export const classes: ClassInfo[] = [
     featured: false,
   },
   {
+    id: "tap",
     title: "Tap",
     ages: "All Ages & Levels",
     price: "Call for pricing",
@@ -44,6 +48,7 @@ export const classes: ClassInfo[] = [
     featured: true,
   },
   {
+    id: "jazz",
     title: "Jazz",
     ages: "All Ages & Levels",
     price: "Call for pricing",
@@ -56,6 +61,7 @@ export const classes: ClassInfo[] = [
     featured: true,
   },
   {
+    id: "ballet",
     title: "Ballet",
     ages: "All Ages & Levels",
     price: "Call for pricing",
@@ -68,6 +74,7 @@ export const classes: ClassInfo[] = [
     featured: false,
   },
   {
+    id: "hip-hop",
     title: "Hip Hop",
     ages: "All Ages & Levels",
     price: "$55",
@@ -80,6 +87,7 @@ export const classes: ClassInfo[] = [
     featured: true,
   },
   {
+    id: "lyrical",
     title: "Lyrical",
     ages: "All Ages & Levels",
     price: "Call for pricing",
@@ -91,6 +99,7 @@ export const classes: ClassInfo[] = [
     featured: false,
   },
   {
+    id: "acrobatics",
     title: "Acrobatics",
     ages: "Ages 5–11 (grouped)",
     price: "Call for pricing",

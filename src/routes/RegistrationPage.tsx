@@ -1,5 +1,6 @@
 import type { ReactElement } from 'react'
 import { Helmet } from 'react-helmet-async'
+import { useSearchParams } from 'react-router'
 import { z } from 'zod'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -8,6 +9,7 @@ import { Label } from '@components/Label'
 import { Input } from '@components/Input'
 import { Button } from '@components/Button'
 import { Checkbox } from '@components/Checkbox'
+import { classes as studioClasses } from '@/data/classes'
 
 const RegistrationForm = z.object({
   firstName: z.string(),
@@ -21,6 +23,14 @@ const RegistrationForm = z.object({
   homeZip: z.string(),
   homePhone: z.string(),
   email: z.string().email(),
+  'creative-movement': z.boolean().optional(),
+  combo: z.boolean().optional(),
+  tap: z.boolean().optional(),
+  jazz: z.boolean().optional(),
+  ballet: z.boolean().optional(),
+  'hip-hop': z.boolean().optional(),
+  lyrical: z.boolean().optional(),
+  acrobatics: z.boolean().optional(),
   acceptTerms: z.boolean(),
   parentOrGuardianSignature: z.string(),
   signatureDate: z.date(),
@@ -28,28 +38,24 @@ const RegistrationForm = z.object({
 
 type TRegistrationForm = z.infer<typeof RegistrationForm>
 
-const classes = [
-  { id: 'tap', label: 'Tap' },
-  { id: 'ballet', label: 'Ballet' },
-  { id: 'jazz', label: 'Jazz' },
-  { id: 'hiphop', label: 'Hip Hop' },
-  { id: 'acro', label: 'Acro' },
-  { id: 'lyrical', label: 'Lyrical' },
-  { id: 'jr-combo', label: 'Jr. Combo' },
-  { id: 'creative-movement', label: 'Creative Movement (3–4 yrs)' },
-  { id: 'combo', label: 'Combo (5–6 yrs)' },
-  { id: 'solo-request', label: 'Solo Request' },
-  { id: 'duo-request', label: 'Duo Request' },
-  { id: 'trio-request', label: 'Trio Request' },
-]
+const classCheckboxes = studioClasses.map((c) => ({
+  id: c.id,
+  title: c.title,
+  ages: c.ages,
+}))
 
 function RegistrationPage(): ReactElement {
+  const [searchParams] = useSearchParams()
+  const preselectedClass = searchParams.get('class')
+  const validClassId = studioClasses.some((c) => c.id === preselectedClass) ? preselectedClass : null
+
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<TRegistrationForm>({
     resolver: zodResolver(RegistrationForm),
+    defaultValues: validClassId ? ({ [validClassId]: true } as Partial<TRegistrationForm>) : undefined,
   })
 
   const onSubmit = (data: TRegistrationForm): void => {
@@ -193,9 +199,37 @@ function RegistrationPage(): ReactElement {
 
             {/* Classes */}
             <SectionHeading size="sm">Choose Classes</SectionHeading>
-            <div className="flex flex-wrap gap-3 mb-6">
-              {classes.map(({ id, label }) => (
-                <Checkbox key={id} id={id} label={label} isRequired={false} register={register} />
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 mb-6">
+              {classCheckboxes.map(({ id, title, ages }) => (
+                <label
+                  key={id}
+                  htmlFor={id}
+                  className="group flex flex-col justify-between gap-3 p-4 rounded-xl border-2 border-gray-200 cursor-pointer hover:border-studio-purple/40 transition-colors has-[:checked]:border-studio-pink has-[:checked]:bg-studio-pink-light"
+                >
+                  <input
+                    id={id}
+                    type="checkbox"
+                    className="sr-only"
+                    {...register(id as keyof TRegistrationForm)}
+                  />
+                  <div className="flex items-center justify-between gap-2">
+                    <span className="font-serif text-studio-purple font-semibold text-sm leading-snug">
+                      {title}
+                    </span>
+                    <svg
+                      className="w-4 h-4 flex-shrink-0 text-studio-pink opacity-0 group-has-[:checked]:opacity-100 transition-opacity"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                      strokeWidth={2.5}
+                    >
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+                    </svg>
+                  </div>
+                  <span className="text-xs bg-studio-purple-light text-studio-purple-mid font-semibold px-2 py-0.5 rounded-full self-start">
+                    {ages}
+                  </span>
+                </label>
               ))}
             </div>
 

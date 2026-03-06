@@ -27,7 +27,7 @@ export const Input = <T extends FieldValues = FieldValues>({
         aria-invalid={hasError}
         type={type || 'text'}
         id={id}
-        className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 ${
+        className={`bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-studio-purple focus:border-studio-purple block w-full p-2.5 ${
           hasError && 'border-red-500'
         }`}
         inputMode={inputMode || 'text'}
@@ -36,7 +36,7 @@ export const Input = <T extends FieldValues = FieldValues>({
         {...register(id as Path<T>)}
       />
       {hasError && (
-        <span className="text-red-500 text-sm ml-3">{errors?.[id]?.message || ''}</span>
+        <span className="text-red-500 text-sm ml-3">{String(errors?.[id]?.message ?? '')}</span>
       )}
     </>
   )

@@ -66,7 +66,7 @@ function ClassesPage(): ReactElement {
                 <div className="mt-4 pt-3 border-t border-purple-50 flex items-center justify-between">
                   <span className="text-sm font-semibold text-studio-purple">{cls.price}</span>
                   <Link
-                    to="/registration"
+                    to={`/registration?class=${cls.id}`}
                     className="text-xs text-studio-pink font-semibold hover:underline"
                   >
                     Register →
