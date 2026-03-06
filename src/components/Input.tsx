@@ -1,17 +1,17 @@
 import type { ReactElement } from 'react'
-import type { FieldErrors, UseFormRegister } from 'react-hook-form'
+import type { FieldErrors, FieldValues, Path, UseFormRegister } from 'react-hook-form'
 
-export type TInput = {
+export type TInput<T extends FieldValues = FieldValues> = {
   type?: string
   id: string
   placeholder?: string
   isRequired?: boolean
   inputMode?: 'text' | 'numeric' | 'tel' | 'email' | 'url' | 'search' | 'none' | undefined
-  register: UseFormRegister<any>
-  errors?: FieldErrors<any>
+  register: UseFormRegister<T>
+  errors?: FieldErrors<T>
 }
 
-export const Input = ({
+export const Input = <T extends FieldValues = FieldValues>({
   type,
   id,
   placeholder,
@@ -19,7 +19,7 @@ export const Input = ({
   isRequired = false,
   register,
   errors,
-}: TInput): ReactElement => {
+}: TInput<T>): ReactElement => {
   return (
     <>
       <input
@@ -32,7 +32,7 @@ export const Input = ({
         inputMode={inputMode || 'text'}
         placeholder={placeholder}
         required={isRequired}
-        {...register(`${id}`)}
+        {...register(id as Path<T>)}
       />
       {errors && errors[id] && (
         <span className="text-red-500 text-sm ml-3">{String(errors[id]?.message || '')}</span>
