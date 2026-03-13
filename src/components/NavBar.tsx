@@ -26,7 +26,7 @@ export const NavBar = (): ReactElement => {
           <button
             aria-label="Toggle navigation menu"
             onClick={(): void => setIsOpen(!isOpen)}
-            className="text-white p-1"
+            className="text-white p-3"
           >
             {isOpen ? (
               <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -44,7 +44,7 @@ export const NavBar = (): ReactElement => {
       {/* Mobile menu */}
       {isOpen && (
         <div className="md:hidden border-t border-purple-800">
-          <ul className="flex flex-col py-2 px-4">
+          <ul className="flex flex-col divide-y divide-purple-800/50">
             <NavBarItem path="/" onClick={close}>Home</NavBarItem>
             <NavBarItem path="/classes" onClick={close}>Classes</NavBarItem>
             <NavBarItem path="/staff" onClick={close}>Staff</NavBarItem>

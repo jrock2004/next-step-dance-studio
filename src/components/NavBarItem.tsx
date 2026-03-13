@@ -17,13 +17,14 @@ export const NavBarItem = ({ children, path, onClick }: TNavBarItem): ReactEleme
       <Link
         to={path}
         onClick={onClick}
-        className={`relative px-3 py-1.5 text-sm font-semibold tracking-wide uppercase transition-colors whitespace-nowrap
+        className={`relative block px-4 py-4 md:px-3 md:py-1.5 text-sm font-semibold tracking-wide uppercase transition-colors whitespace-nowrap
+          border-l-2 md:border-l-0
           ${
             isCurrentRoute
-              ? 'text-pink-300'
-              : 'text-purple-200 hover:text-white'
+              ? 'text-pink-300 border-pink-300'
+              : 'text-purple-200 hover:text-white border-transparent'
           }
-          after:absolute after:bottom-0 after:left-3 after:right-3 after:h-0.5 after:rounded-full after:transition-all
+          after:hidden md:after:block after:absolute after:bottom-0 after:left-3 after:right-3 after:h-0.5 after:rounded-full after:transition-all
           ${isCurrentRoute ? 'after:bg-pink-300' : 'after:bg-transparent hover:after:bg-purple-400'}
         `}
       >
