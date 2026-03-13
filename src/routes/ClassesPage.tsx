@@ -31,13 +31,13 @@ function ClassesPage(): ReactElement {
 
       {/* Classes grid */}
       <section className="py-16 px-6 bg-white">
-        <div className="max-w-6xl mx-auto grid sm:grid-cols-2 lg:grid-cols-2 gap-8">
+        <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-8">
           {classes.map((cls) => (
             <div
               key={cls.title}
-              className="flex flex-col sm:flex-row rounded-2xl overflow-hidden border border-purple-100 shadow-sm hover:shadow-md transition-shadow"
+              className="flex flex-col md:flex-row rounded-2xl overflow-hidden border border-purple-100 shadow-sm hover:shadow-md transition-shadow"
             >
-              <div className="sm:w-48 flex-shrink-0 h-48 sm:h-auto overflow-hidden">
+              <div className="md:w-48 flex-shrink-0 h-48 md:h-auto overflow-hidden">
                 {cls.image ? (
                   <img
                     src={cls.image}
