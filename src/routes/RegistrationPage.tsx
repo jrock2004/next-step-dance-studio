@@ -14,8 +14,13 @@ import { classes as studioClasses } from "@/data/classes";
 const RegistrationForm = z.object({
   firstName: z.string().min(1, "First name is required"),
   lastName: z.string().min(1, "Last name is required"),
-  age: z.coerce.number({ invalid_type_error: "Age is required" }).min(2, "Age must be at least 2").max(18, "Age must be 18 or under"),
-  birthday: z.coerce.date({ invalid_type_error: "Birthday is required" }).max(new Date(), "Birthday cannot be in the future"),
+  age: z.coerce
+    .number({ invalid_type_error: "Age is required" })
+    .min(2, "Age must be at least 2")
+    .max(18, "Age must be 18 or under"),
+  birthday: z.coerce
+    .date({ invalid_type_error: "Birthday is required" })
+    .max(new Date(), "Birthday cannot be in the future"),
   parentOrGuardian: z.string().min(1, "Parent or guardian name is required"),
   homeAddress: z.string().min(1, "Street address is required"),
   homeCity: z.string().min(1, "City is required"),
@@ -54,7 +59,11 @@ function RegistrationPage(): ReactElement {
     : null;
   const [formStatus, setFormStatus] = useState<FormStatus>("idle");
 
-  const { register, handleSubmit, formState: { errors } } = useForm<TRegistrationForm>({
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<TRegistrationForm>({
     resolver: zodResolver(RegistrationForm),
     defaultValues: validClassId
       ? ({ [validClassId]: true } as Partial<TRegistrationForm>)
@@ -77,10 +86,6 @@ function RegistrationPage(): ReactElement {
       classes: selectedClasses || "None selected",
     };
 
-    console.log({
-      payload,
-    });
-
     try {
       const response = await fetch("https://formspree.io/f/mnjgqdjj", {
         method: "POST",
@@ -88,12 +93,7 @@ function RegistrationPage(): ReactElement {
         body: JSON.stringify(payload),
       });
       setFormStatus(response.ok ? "success" : "error");
-
-      console.log({
-        response,
-      });
     } catch {
-      console.log("error");
       setFormStatus("error");
     }
   };
@@ -174,7 +174,13 @@ function RegistrationPage(): ReactElement {
                   <Label htmlFor="lastName" isRequired={true}>
                     Last Name
                   </Label>
-                  <Input id="lastName" isRequired={true} placeholder="Doe" register={register} errors={errors} />
+                  <Input
+                    id="lastName"
+                    isRequired={true}
+                    placeholder="Doe"
+                    register={register}
+                    errors={errors}
+                  />
                 </div>
                 <div>
                   <Label htmlFor="age" isRequired={true}>
@@ -250,7 +256,13 @@ function RegistrationPage(): ReactElement {
                     <Label htmlFor="homeState" isRequired={true}>
                       State
                     </Label>
-                    <Input id="homeState" isRequired={true} placeholder="PA" register={register} errors={errors} />
+                    <Input
+                      id="homeState"
+                      isRequired={true}
+                      placeholder="PA"
+                      register={register}
+                      errors={errors}
+                    />
                   </div>
                   <div>
                     <Label htmlFor="homeZip" isRequired={true}>
