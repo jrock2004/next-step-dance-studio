@@ -2,8 +2,11 @@ import type { ReactElement } from 'react'
 import { Link } from 'react-router'
 import { Helmet } from 'react-helmet-async'
 import { SectionHeading } from '@components/SectionHeading'
+import recital from '@data/recital'
 
 function RecitalPage(): ReactElement {
+  const { dateTime, venue, tickets, seniors } = recital
+
   return (
     <>
       <Helmet>
@@ -40,8 +43,7 @@ function RecitalPage(): ReactElement {
                   Date & Time
                 </h3>
                 <p className="text-gray-600 leading-relaxed">
-                  Details for this year's recital will be announced soon. Check back here or follow
-                  us for updates.
+                  {dateTime ?? "Details for this year's recital will be announced soon. Check back here or follow us for updates."}
                 </p>
               </div>
               <div>
@@ -49,8 +51,7 @@ function RecitalPage(): ReactElement {
                   Venue
                 </h3>
                 <p className="text-gray-600 leading-relaxed">
-                  Venue information coming soon. Our recitals are held at a local performing arts
-                  venue in the Berks County area.
+                  {venue ?? 'Venue information coming soon. Our recitals are held at a local performing arts venue in the Berks County area.'}
                 </p>
               </div>
               <div>
@@ -96,9 +97,9 @@ function RecitalPage(): ReactElement {
               </div>
               <div className="p-8 grid sm:grid-cols-3 gap-6">
                 {[
-                  { label: 'General Admission', value: 'TBA' },
-                  { label: 'Reserved Seating', value: 'TBA' },
-                  { label: 'Ticket Sales Open', value: 'TBA' },
+                  { label: 'General Admission', value: tickets.generalAdmission ?? 'TBA' },
+                  { label: 'Reserved Seating', value: tickets.reservedSeating ?? 'TBA' },
+                  { label: 'Ticket Sales Open', value: tickets.salesOpen ?? 'TBA' },
                 ].map(({ label, value }) => (
                   <div key={label} className="text-center p-4 bg-studio-purple-light rounded-xl">
                     <p className="text-xs font-semibold uppercase tracking-widest text-studio-purple-mid mb-1">
@@ -119,14 +120,38 @@ function RecitalPage(): ReactElement {
               <h3 className="font-serif text-2xl text-white font-semibold mb-3">
                 Celebrating Our Graduating Seniors
               </h3>
-              <p className="text-purple-300 max-w-xl mx-auto leading-relaxed mb-6">
-                Each year we dedicate a special moment to honor our graduating seniors — dancers
-                who have grown up in this studio and are taking their next step into the world.
-                Their stories, memories, and achievements will be featured here when available.
-              </p>
-              <p className="text-purple-400 text-sm italic">
-                Senior spotlight information coming soon.
-              </p>
+              {seniors ? (
+                <ul className="mt-6 grid sm:grid-cols-2 gap-6 text-left">
+                  {seniors.map((senior) => (
+                    <li key={senior.name} className="bg-white/10 rounded-xl p-5 flex gap-4 items-start">
+                      {senior.photo && (
+                        <img
+                          src={senior.photo}
+                          alt={senior.name}
+                          className="w-16 h-16 rounded-full object-cover flex-shrink-0"
+                        />
+                      )}
+                      <div>
+                        <p className="font-semibold text-white">{senior.name}</p>
+                        {senior.bio && (
+                          <p className="text-purple-300 text-sm mt-1 leading-relaxed">{senior.bio}</p>
+                        )}
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                <>
+                  <p className="text-purple-300 max-w-xl mx-auto leading-relaxed mb-6">
+                    Each year we dedicate a special moment to honor our graduating seniors — dancers
+                    who have grown up in this studio and are taking their next step into the world.
+                    Their stories, memories, and achievements will be featured here when available.
+                  </p>
+                  <p className="text-purple-400 text-sm italic">
+                    Senior spotlight information coming soon.
+                  </p>
+                </>
+              )}
             </div>
           </section>
 

@@ -1,75 +1,155 @@
-# React + TypeScript + Vite
+# Next Step Dance Studio — Website
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Website for [The Next Step Dance Studio](https://thenextstepdance.com) in Birdsboro, PA. Built with React, TypeScript, and Vite.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Updating Website Content
 
-## React Compiler
+Most content changes don't require touching any page code. The three files below are the only ones you need to edit for routine updates.
 
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
+### Classes — `src/data/classes.ts`
 
-Note: This will impact Vite dev & build performances.
+Each class is an object in the `classes` array. Fields:
 
-## Expanding the ESLint configuration
+| Field | Required | Description |
+|---|---|---|
+| `id` | Yes | Unique slug, no spaces (e.g. `"hip-hop"`) |
+| `title` | Yes | Class name shown on the page |
+| `ages` | Yes | Age range (e.g. `"Ages 5–6"` or `"All Ages & Levels"`) |
+| `price` | Yes | Pricing text (e.g. `"$55"` or `"Call for pricing"`) |
+| `description` | Yes | Full paragraph shown on the Classes page |
+| `summary` | Yes | Short one-liner shown in cards and previews |
+| `image` | No | URL to a photo for this class |
+| `note` | No | Small print shown below the description (e.g. prerequisites) |
+| `featured` | Yes | `true` to show this class on the homepage, `false` to exclude it |
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+**To add a class:** Copy an existing object, paste it at the end of the array (before the closing `]`), and fill in the fields.
 
-```js
-export default defineConfig([
-  globalIgnores(["dist"]),
-  {
-    files: ["**/*.{ts,tsx}"],
-    extends: [
-      // Other configs...
+**To remove a class:** Delete the entire object from the array.
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+---
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ["./tsconfig.node.json", "./tsconfig.app.json"],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-]);
+### Staff — `src/data/staff.ts`
+
+Each instructor is an object in the `instructors` array. Fields:
+
+| Field | Required | Description |
+|---|---|---|
+| `name` | Yes | Full name |
+| `title` | Yes | Job title shown under their name |
+| `specialties` | Yes | List of classes they teach (shown as tags) |
+| `photo` | No | URL to a headshot photo. Leave out if no photo yet. |
+| `bio` | Yes | One paragraph as a string, or multiple paragraphs as a list of strings |
+
+**Single-paragraph bio:**
+```ts
+bio: 'Miss Jane has taught ballet for 20 years...',
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from "eslint-plugin-react-x";
-import reactDom from "eslint-plugin-react-dom";
-
-export default defineConfig([
-  globalIgnores(["dist"]),
-  {
-    files: ["**/*.{ts,tsx}"],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs["recommended-typescript"],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ["./tsconfig.node.json", "./tsconfig.app.json"],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-]);
+**Multi-paragraph bio:**
+```ts
+bio: [
+  'First paragraph here.',
+  'Second paragraph here.',
+],
 ```
+
+**To add an instructor:** Copy an existing object and add it to the array.
+
+**To remove an instructor:** Delete the entire object from the array.
+
+**Instructor order** on the page follows the order they appear in the array.
+
+---
+
+### Recital — `src/data/recital.ts`
+
+Update this file each season. Any field set to `null` will automatically display a "coming soon" placeholder on the website — no other changes needed.
+
+```ts
+const recital: RecitalData = {
+  season: '2025–2026',
+
+  // Replace null with the actual date/time once confirmed:
+  dateTime: null,
+  // Example: dateTime: 'Saturday, June 7, 2025 at 2:00 PM & 6:00 PM',
+
+  // Replace null with the venue name and address:
+  venue: null,
+  // Example: venue: 'Boyertown Area Senior High School, 120 N Monroe St, Boyertown, PA',
+
+  tickets: {
+    generalAdmission: null,   // Example: '$15'
+    reservedSeating: null,    // Example: '$20'
+    salesOpen: null,          // Example: 'May 1, 2025'
+  },
+
+  // Add seniors here once info is collected. null = "coming soon" message shown.
+  seniors: null,
+  // Example with seniors filled in:
+  // seniors: [
+  //   { name: 'Jane Smith', bio: 'Jane has danced at Next Step since age 4...' },
+  //   { name: 'Emily Jones', photo: 'https://...', bio: 'Emily plans to study dance at...' },
+  // ],
+}
+```
+
+---
+
+## Developer Setup
+
+**Requirements:** Node.js 20+, [pnpm](https://pnpm.io)
+
+```bash
+# Install dependencies
+pnpm install
+
+# Start the dev server (hot reload)
+pnpm dev
+
+# Type-check
+pnpm tsc --noEmit
+
+# Build for production
+pnpm build
+
+# Preview the production build locally
+pnpm preview
+```
+
+---
+
+## Tech Stack
+
+- [React 19](https://react.dev) + [TypeScript](https://www.typescriptlang.org)
+- [Vite](https://vitejs.dev) (with [Rolldown](https://rolldown.rs) bundler)
+- [Tailwind CSS v4](https://tailwindcss.com) — theme defined via `@theme` in `index.css`
+- [React Router 7](https://reactrouter.com)
+- [React Hook Form](https://react-hook-form.com) + [Zod](https://zod.dev) — form validation
+- [Framer Motion](https://www.framer.com/motion/) — animations
+- [React Helmet Async](https://github.com/staylor/react-helmet-async) — page `<head>` management
+
+---
+
+## Design Tokens
+
+Colors and fonts are defined as CSS custom properties in `src/index.css` and available as Tailwind classes:
+
+| Token | Value | Tailwind class example |
+|---|---|---|
+| `--color-studio-purple` | `#2d0052` | `bg-studio-purple`, `text-studio-purple` |
+| `--color-studio-purple-mid` | `#6b21a8` | `text-studio-purple-mid` |
+| `--color-studio-purple-light` | `#f3e8ff` | `bg-studio-purple-light` |
+| `--color-studio-pink` | `#db2777` | `bg-studio-pink`, `text-studio-pink` |
+| `--color-studio-pink-light` | `#fce7f3` | `bg-studio-pink-light` |
+
+Fonts: **Playfair Display** (serif, used for `h1`/`h2` via `font-serif`) and **Nunito Sans** (sans-serif, body text).
+
+---
+
+## Known Issues
+
+- `sharp` and `svgo` optional dependencies for `vite-plugin-image-optimizer` may log warnings during install — this is harmless.
+- Staff and class photos still reference the old website's CDN (`nebula.wsimg.com`). These should be replaced with self-hosted images when the client provides new photos.
+- The contact form currently logs submissions to the browser console only. A backend or form service (e.g. Formspree) is needed to receive submissions in production.
