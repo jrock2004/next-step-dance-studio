@@ -22,7 +22,7 @@ export const NavBar = (): ReactElement => {
 
         {/* Mobile: logo placeholder + hamburger */}
         <div className="md:hidden flex items-center justify-between w-full py-2">
-          <span className="font-serif text-white text-lg font-semibold tracking-wide">Next Step</span>
+          <img src="/logo.png" alt="The Next Step Dance Studio" className="h-8 w-auto invert brightness-200" />
           <button
             aria-label="Toggle navigation menu"
             onClick={(): void => setIsOpen(!isOpen)}
