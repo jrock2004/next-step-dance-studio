@@ -1,4 +1,4 @@
-import type { ReactElement } from 'react'
+import { useState, type ReactElement } from 'react'
 import { Helmet } from 'react-helmet-async'
 import { z } from 'zod'
 import { useForm } from 'react-hook-form'
@@ -23,20 +23,36 @@ const ContactForm = z.object({
 })
 
 type TContactForm = z.infer<typeof ContactForm>
+type FormStatus = 'idle' | 'submitting' | 'success' | 'error'
 
 function ContactPage(): ReactElement {
+  const [formStatus, setFormStatus] = useState<FormStatus>('idle')
   const {
     register,
     handleSubmit,
-    formState: { errors, isSubmitSuccessful },
+    formState: { errors },
     reset,
   } = useForm<TContactForm>({
     resolver: zodResolver(ContactForm),
   })
 
-  const onSubmit = (data: TContactForm): void => {
-    console.log(data)
-    reset()
+  const onSubmit = async (data: TContactForm): Promise<void> => {
+    setFormStatus('submitting')
+    try {
+      const response = await fetch('/.netlify/functions/send-contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      })
+      if (response.ok) {
+        setFormStatus('success')
+        reset()
+      } else {
+        setFormStatus('error')
+      }
+    } catch {
+      setFormStatus('error')
+    }
   }
 
   return (
@@ -69,9 +85,14 @@ function ContactPage(): ReactElement {
           <div>
             <SectionHeading>Send Us a Message</SectionHeading>
 
-            {isSubmitSuccessful && (
+            {formStatus === 'success' && (
               <div className="mb-6 bg-green-50 border border-green-200 text-green-700 rounded-xl p-4 text-sm font-semibold">
                 Message sent! We'll get back to you soon.
+              </div>
+            )}
+            {formStatus === 'error' && (
+              <div className="mb-6 bg-red-50 border border-red-200 text-red-700 rounded-xl p-4 text-sm font-semibold">
+                Something went wrong. Please try again or call us at (610) 582-2111.
               </div>
             )}
 
@@ -108,7 +129,11 @@ function ContactPage(): ReactElement {
                 />
               </div>
               <div>
-                <Button type="submit" text="Send Message" />
+                <Button
+                  type="submit"
+                  text={formStatus === 'submitting' ? 'Sending…' : 'Send Message'}
+                  isDisabled={formStatus === 'submitting'}
+                />
               </div>
             </form>
           </div>

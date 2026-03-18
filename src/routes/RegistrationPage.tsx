@@ -87,9 +87,9 @@ function RegistrationPage(): ReactElement {
     };
 
     try {
-      const response = await fetch("https://formspree.io/f/mnjgqdjj", {
+      const response = await fetch("/.netlify/functions/send-registration", {
         method: "POST",
-        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
       });
       setFormStatus(response.ok ? "success" : "error");
