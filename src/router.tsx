@@ -8,6 +8,7 @@ import RegistrationPage from './routes/RegistrationPage'
 import ContactPage from './routes/ContactPage'
 import PhotosPage from './routes/PhotosPage'
 import NotFoundPage from './routes/NotFoundPage'
+import EmailPreviewPage from './routes/EmailPreviewPage'
 
 export const router = createBrowserRouter([
   {
@@ -41,6 +42,10 @@ export const router = createBrowserRouter([
       {
         path: 'gallery',
         element: <PhotosPage />,
+      },
+      {
+        path: 'dev/email-preview',
+        element: <EmailPreviewPage />,
       },
       {
         path: '*',

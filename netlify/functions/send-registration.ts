@@ -1,6 +1,6 @@
 import type { Handler } from '@netlify/functions'
 import { Resend } from 'resend'
-import { escapeHtml, RegistrationSchema } from './_utils'
+import { buildRegistrationEmail, RegistrationSchema } from './_utils'
 
 export const handler: Handler = async (event) => {
   if (event.httpMethod !== 'POST') {
@@ -24,22 +24,7 @@ export const handler: Handler = async (event) => {
     return { statusCode: 400, body: JSON.stringify({ ok: false }) }
   }
 
-  const {
-    firstName,
-    lastName,
-    age,
-    birthday,
-    parentOrGuardian,
-    homeAddress,
-    homeCity,
-    homeState,
-    homeZip,
-    homePhone,
-    email,
-    classes,
-    parentOrGuardianSignature,
-    signatureDate,
-  } = result.data
+  const { firstName, lastName, email } = result.data
 
   try {
     const resend = new Resend(process.env.RESEND_API_KEY)
@@ -48,36 +33,8 @@ export const handler: Handler = async (event) => {
       from: process.env.FROM_EMAIL ?? 'noreply@thenextstepdance.com',
       to: process.env.TO_EMAIL ?? 'missy@thenextstepdance.com',
       replyTo: email,
-      subject: `New registration — ${escapeHtml(firstName)} ${escapeHtml(lastName)}`,
-      html: `
-        <h2>New Student Registration</h2>
-
-        <h3>Student Information</h3>
-        <table cellpadding="8" style="border-collapse:collapse">
-          <tr><td><strong>Name</strong></td><td>${escapeHtml(firstName)} ${escapeHtml(lastName)}</td></tr>
-          <tr><td><strong>Age</strong></td><td>${escapeHtml(age)}</td></tr>
-          <tr><td><strong>Birthday</strong></td><td>${escapeHtml(birthday)}</td></tr>
-          <tr><td><strong>Parent / Guardian</strong></td><td>${escapeHtml(parentOrGuardian)}</td></tr>
-        </table>
-
-        <h3>Address</h3>
-        <p>${escapeHtml(homeAddress)}<br>${escapeHtml(homeCity)}, ${escapeHtml(homeState)} ${escapeHtml(homeZip)}</p>
-
-        <h3>Contact</h3>
-        <table cellpadding="8" style="border-collapse:collapse">
-          <tr><td><strong>Phone</strong></td><td>${escapeHtml(homePhone)}</td></tr>
-          <tr><td><strong>Email</strong></td><td>${escapeHtml(email)}</td></tr>
-        </table>
-
-        <h3>Classes Selected</h3>
-        <p>${escapeHtml(classes)}</p>
-
-        <h3>Signature</h3>
-        <table cellpadding="8" style="border-collapse:collapse">
-          <tr><td><strong>Signature</strong></td><td>${escapeHtml(parentOrGuardianSignature)}</td></tr>
-          <tr><td><strong>Date</strong></td><td>${escapeHtml(signatureDate)}</td></tr>
-        </table>
-      `,
+      subject: `New registration — ${firstName} ${lastName}`,
+      html: buildRegistrationEmail(result.data),
     })
 
     return { statusCode: 200, body: JSON.stringify({ ok: true }) }
