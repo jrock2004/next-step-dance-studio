@@ -1,6 +1,6 @@
 import type { ReactElement } from 'react'
 import { Helmet } from 'react-helmet-async'
-import allStaff from '/allStaff.jpeg'
+import allStaff from '../assets/allStaff.jpeg'
 import instructors from '@data/staff'
 
 function StaffPage(): ReactElement {

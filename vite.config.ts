@@ -24,6 +24,7 @@ export default defineConfig({
       "@components": "/src/components",
       "@routes": "/src/routes",
       "@data": "/src/data",
+      "@assets": "/src/assets",
     },
   },
 });
