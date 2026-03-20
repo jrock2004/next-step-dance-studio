@@ -4,3 +4,4 @@ coverage
 .turbo
 .next
 pnpm-lock.yaml
+src/data/gallery-manifest.gen.ts

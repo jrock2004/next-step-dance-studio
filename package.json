@@ -4,9 +4,11 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "netlify dev",
+    "dev": "node scripts/optimize-gallery.mjs && netlify dev",
     "dev:vite": "vite",
-    "build": "tsc -b && vite build",
+    "predev:vite": "node scripts/optimize-gallery.mjs",
+    "optimize:gallery": "node scripts/optimize-gallery.mjs",
+    "build": "node scripts/optimize-gallery.mjs && tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
     "format": "prettier . --write",

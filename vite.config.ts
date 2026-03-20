@@ -15,6 +15,8 @@ export default defineConfig({
     babel({ presets: [reactCompilerPreset()] }),
     tailwindcss(),
     ViteImageOptimizer({
+      // Pre-built responsive assets from scripts/optimize-gallery.mjs
+      exclude: /\/gallery\//,
       png: { quality: 80 },
       jpeg: { quality: 80 },
       svg: {

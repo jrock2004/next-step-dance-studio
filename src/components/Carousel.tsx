@@ -1,77 +1,136 @@
-import type { KeyboardEvent, ReactElement } from 'react'
-import { useState } from 'react'
-import { ChevronLeftIcon, ChevronRightIcon, XMarkIcon } from '@heroicons/react/24/outline'
-import { AnimatePresence, motion } from 'framer-motion'
-import useMeasure from 'react-use-measure'
+import type { KeyboardEvent, ReactElement } from "react";
+import { useState } from "react";
+import { ChevronLeftIcon, ChevronRightIcon, XMarkIcon } from "@heroicons/react/24/outline";
+import { AnimatePresence, motion } from "framer-motion";
+import useMeasure from "react-use-measure";
 
 export type TCarouselImage = {
-  id: number
-  alt: string
-  src: string
-}
+  id: number;
+  alt: string;
+  sizes: string;
+  carousel: {
+    webpSrcSet: string;
+    fallbackSrc: string;
+  };
+  lightbox: {
+    webpSrc: string;
+    fallbackSrc: string;
+  };
+};
 
 export type TCarousel = {
-  images: TCarouselImage[]
-}
+  images: TCarouselImage[];
+};
 
 type TVariants = {
-  direction: string
-  width: number
-}
+  direction: string;
+  width: number;
+};
 
 const variants = {
   enter: ({ direction, width }: TVariants) => ({
-    x: direction === 'increasing' ? width : `-${width}`,
+    x: direction === "increasing" ? width : `-${width}`,
   }),
   center: { x: 0 },
   exit: ({ direction, width }: TVariants) => ({
-    x: direction === 'increasing' ? `-${width}` : width,
+    x: direction === "increasing" ? `-${width}` : width,
   }),
+};
+
+function CarouselSlidePicture({
+  image,
+  onClick,
+  onKeyDown,
+}: {
+  image: TCarouselImage;
+  onClick: () => void;
+  onKeyDown: (e: KeyboardEvent<HTMLDivElement>) => void;
+}): ReactElement {
+  return (
+    <div
+      className="relative h-full w-full"
+      tabIndex={0}
+      onKeyDown={(e): void => {
+        onKeyDown(e);
+      }}
+    >
+      <picture className="contents">
+        <source type="image/webp" srcSet={image.carousel.webpSrcSet} sizes={image.sizes} />
+        <img
+          className="absolute inset-0 h-full w-full cursor-zoom-in object-contain"
+          src={image.carousel.fallbackSrc}
+          alt={image.alt}
+          sizes={image.sizes}
+          decoding="async"
+          fetchPriority="high"
+          onClick={onClick}
+        />
+      </picture>
+    </div>
+  );
+}
+
+function LightboxPicture({ image, onClose }: { image: TCarouselImage; onClose: () => void }): ReactElement {
+  return (
+    <picture className="contents">
+      <source type="image/webp" src={image.lightbox.webpSrc} />
+      <img
+        className="absolute inset-0 h-full w-full cursor-pointer object-contain"
+        src={image.lightbox.fallbackSrc}
+        alt={image.alt}
+        decoding="async"
+        fetchPriority="high"
+        onClick={onClose}
+      />
+    </picture>
+  );
 }
 
 export const Carousel = ({ images }: TCarousel): ReactElement => {
-  const [ref, { width }] = useMeasure()
-  const [count, setCount] = useState(1)
-  const [direction, setDirection] = useState<'increasing' | 'decreasing'>('increasing')
-  const [fullImage, setFullImage] = useState<TCarouselImage | null>(null)
+  const [ref, { width }] = useMeasure();
+  const [count, setCount] = useState(1);
+  const [direction, setDirection] = useState<"increasing" | "decreasing">("increasing");
+  const [fullImage, setFullImage] = useState<TCarouselImage | null>(null);
 
   const handlePrevClick = (): void => {
-    const imageLength = images.length
+    const imageLength = images.length;
 
     if (count === 1) {
-      setDirection('increasing')
-      setCount(imageLength)
+      setDirection("increasing");
+      setCount(imageLength);
     } else {
-      setDirection('decreasing')
-      setCount(count - 1)
+      setDirection("decreasing");
+      setCount(count - 1);
     }
-  }
+  };
 
   const handleNextClick = (): void => {
-    const imageLength = images.length
+    const imageLength = images.length;
 
     if (count === imageLength) {
-      setDirection('decreasing')
-      setCount(1)
+      setDirection("decreasing");
+      setCount(1);
     } else {
-      setDirection('increasing')
-      setCount(count + 1)
+      setDirection("increasing");
+      setCount(count + 1);
     }
-  }
+  };
 
   const handleImageClick = (image: TCarouselImage): void => {
-    setFullImage(image)
-  }
+    setFullImage(image);
+  };
 
   const handleRegionKeyDown = (e: KeyboardEvent<HTMLDivElement>): void => {
-    if (e.key === 'ArrowLeft') handlePrevClick()
-    else if (e.key === 'ArrowRight') handleNextClick()
-    else if (e.key === 'Escape') setFullImage(null)
-  }
+    if (e.key === "ArrowLeft") handlePrevClick();
+    else if (e.key === "ArrowRight") handleNextClick();
+    else if (e.key === "Escape") setFullImage(null);
+  };
 
   const handleImageKeyDown = (e: KeyboardEvent<HTMLDivElement>, image: TCarouselImage): void => {
-    if (e.key === 'Enter') handleImageClick(image)
-  }
+    if (e.key === "Enter") handleImageClick(image);
+  };
+
+  const current = images[count - 1];
 
   return (
     <>
@@ -82,19 +141,14 @@ export const Carousel = ({ images }: TCarousel): ReactElement => {
         onKeyDown={handleRegionKeyDown}
         className="outline-none"
       >
-        {/* Screen reader live region */}
-        <span
-          aria-live="polite"
-          aria-atomic="true"
-          className="sr-only"
-        >
-          {images[count - 1].alt}
+        <span aria-live="polite" aria-atomic="true" className="sr-only">
+          {current.alt}
         </span>
 
         <div className="mt-4 flex justify-center">
           <div
             ref={ref}
-            className="w-full h-96 md:h-[600px] bg-black flex items-center justify-center overflow-hidden relative rounded-lg"
+            className="relative flex h-96 w-full items-center justify-center overflow-hidden rounded-lg bg-black md:h-[600px]"
           >
             <AnimatePresence custom={{ direction, width }}>
               <motion.div
@@ -105,42 +159,37 @@ export const Carousel = ({ images }: TCarousel): ReactElement => {
                 exit="exit"
                 custom={{ direction, width }}
                 transition={{ duration: 0.5 }}
-                className="absolute w-full h-full flex items-center justify-center"
+                className="absolute flex h-full w-full items-center justify-center"
               >
-                <div
-                  className="relative w-full h-full"
-                  tabIndex={0}
-                  onKeyDown={(e): void => handleImageKeyDown(e, images[count - 1])}
-                >
-                  <img
-                    className="absolute inset-0 w-full h-full object-contain hover:cursor-zoom-in"
-                    src={images[count - 1].src}
-                    alt={images[count - 1].alt}
-                    onClick={(): void => handleImageClick(images[count - 1])}
-                  />
-                </div>
+                <CarouselSlidePicture
+                  image={current}
+                  onClick={(): void => {
+                    handleImageClick(current);
+                  }}
+                  onKeyDown={(e): void => handleImageKeyDown(e, current)}
+                />
               </motion.div>
             </AnimatePresence>
 
-            {/* Overlaid prev/next buttons */}
             <button
+              type="button"
               aria-label="Go to the previous image"
-              className="absolute left-3 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/75 text-white p-2 rounded-full transition-colors z-10"
+              className="absolute left-3 top-1/2 z-10 -translate-y-1/2 rounded-full bg-black/50 p-2 text-white transition-colors hover:bg-black/75"
               onClick={handlePrevClick}
             >
-              <ChevronLeftIcon className="w-7 h-7" />
+              <ChevronLeftIcon className="h-7 w-7" />
             </button>
             <button
+              type="button"
               aria-label="Go to the next image"
-              className="absolute right-3 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/75 text-white p-2 rounded-full transition-colors z-10"
+              className="absolute right-3 top-1/2 z-10 -translate-y-1/2 rounded-full bg-black/50 p-2 text-white transition-colors hover:bg-black/75"
               onClick={handleNextClick}
             >
-              <ChevronRightIcon className="w-7 h-7" />
+              <ChevronRightIcon className="h-7 w-7" />
             </button>
 
-            {/* Counter overlay */}
             <span
-              className="absolute bottom-3 right-4 text-white/70 text-sm tabular-nums z-10"
+              className="absolute bottom-3 right-4 z-10 text-sm tabular-nums text-white/70"
               aria-hidden="true"
             >
               {count} / {images.length}
@@ -156,7 +205,7 @@ export const Carousel = ({ images }: TCarousel): ReactElement => {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.2 }}
-              className="fixed top-0 left-0 right-0 bottom-0 z-50 flex items-center justify-center bg-black/90"
+              className="fixed inset-0 z-50 flex items-center justify-center bg-black/90"
               role="dialog"
               aria-modal="true"
               aria-label="Full screen image"
@@ -166,23 +215,23 @@ export const Carousel = ({ images }: TCarousel): ReactElement => {
                 animate={{ scale: 1, opacity: 1 }}
                 exit={{ scale: 0.92, opacity: 0 }}
                 transition={{ duration: 0.2 }}
-                className="relative w-full h-full"
+                className="relative h-full w-full"
               >
-                <img
-                  className="absolute inset-0 w-full h-full object-contain hover:cursor-pointer"
-                  src={fullImage.src}
-                  alt={fullImage.alt}
-                  onClick={(): void => {
-                    setFullImage(null)
+                <LightboxPicture
+                  image={fullImage}
+                  onClose={(): void => {
+                    setFullImage(null);
                   }}
                 />
                 <button
+                  type="button"
                   aria-label="Close full screen image"
+                  className="absolute right-6 top-4"
                   onClick={(): void => {
-                    setFullImage(null)
+                    setFullImage(null);
                   }}
                 >
-                  <XMarkIcon className="absolute top-4 right-6 w-9 h-9 bg-white" />
+                  <XMarkIcon className="h-9 w-9 bg-white" />
                 </button>
               </motion.div>
             </motion.div>
@@ -190,5 +239,5 @@ export const Carousel = ({ images }: TCarousel): ReactElement => {
         </AnimatePresence>
       </div>
     </>
-  )
-}
+  );
+};

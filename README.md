@@ -178,4 +178,9 @@ With `pnpm dev` / Vite dev, visit `/dev/email-preview` to render the same HTML a
 
 Routes besides the home page are **lazy-loaded** in `src/router.tsx`, so Framer Motion, the gallery carousel, and other page-specific code stay in separate chunks until navigation.
 
-The gallery still ships large JPEG assets; resizing, `srcset`, or modern formats will improve load time more than further JS splitting.
+### Gallery pipeline
+
+Full-size JPEGs live in `src/assets/gallery/` (not shipped as giant imports). On **`pnpm build`** and **`pnpm dev:vite`** (via `predev:vite`), `scripts/optimize-gallery.mjs` runs **sharp** to write responsive WebP widths + JPEG fallbacks under `public/gallery/`, and refreshes `src/data/gallery-manifest.gen.ts`.
+
+- Add or remove photos in `src/assets/gallery/`, then run **`pnpm optimize:gallery`** (or just run dev/build).
+- Generated binaries are in **`public/gallery/`** (gitignored); the manifest is committed so TypeScript knows each image `stem` and `alt` text.
