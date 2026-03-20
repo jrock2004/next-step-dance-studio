@@ -1,6 +1,7 @@
-import type { Handler } from '@netlify/functions'
-import { Resend } from 'resend'
-import { buildContactEmail, ContactSchema } from './_utils'
+import type { Handler } from "@netlify/functions";
+import { Resend } from "resend";
+import { ContactSchema } from "../../shared/contact.schema";
+import { buildContactEmail } from "../../shared/email-html";
 
 export const handler: Handler = async (event) => {
   if (event.httpMethod !== 'POST') {

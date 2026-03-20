@@ -1,4 +1,5 @@
 import type { ReactElement } from 'react'
+import { Suspense } from 'react'
 import { Outlet, ScrollRestoration } from 'react-router'
 import { Header } from '@components/Header'
 import { NavBar } from '@components/NavBar'
@@ -10,7 +11,9 @@ const Root = (): ReactElement => {
       <Header />
       <NavBar />
       <main className="flex-grow">
-        <Outlet />
+        <Suspense fallback={null}>
+          <Outlet />
+        </Suspense>
       </main>
       <Footer />
       <ScrollRestoration />

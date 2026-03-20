@@ -32,21 +32,17 @@ const variants = {
 export const Carousel = ({ images }: TCarousel): ReactElement => {
   const [ref, { width }] = useMeasure()
   const [count, setCount] = useState(1)
-  const [tuple, setTuple] = useState([0, count])
+  const [direction, setDirection] = useState<'increasing' | 'decreasing'>('increasing')
   const [fullImage, setFullImage] = useState<TCarouselImage | null>(null)
-
-  if (tuple[1] !== count) {
-    setTuple([tuple[1], count])
-  }
-
-  const direction = count > tuple[0] ? 'increasing' : 'decreasing'
 
   const handlePrevClick = (): void => {
     const imageLength = images.length
 
     if (count === 1) {
+      setDirection('increasing')
       setCount(imageLength)
     } else {
+      setDirection('decreasing')
       setCount(count - 1)
     }
   }
@@ -55,8 +51,10 @@ export const Carousel = ({ images }: TCarousel): ReactElement => {
     const imageLength = images.length
 
     if (count === imageLength) {
+      setDirection('decreasing')
       setCount(1)
     } else {
+      setDirection('increasing')
       setCount(count + 1)
     }
   }

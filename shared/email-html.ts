@@ -1,51 +1,29 @@
-import { z } from 'zod'
+import type { z } from "zod";
+import { ContactSchema } from "./contact.schema";
+import { RegistrationApiSchema } from "./registration.schema";
 
 export function escapeHtml(str: unknown): string {
-  if (str == null) return ''
+  if (str == null) return "";
   return String(str)
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&#39;')
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
 }
 
-export const ContactSchema = z.object({
-  name: z.string().min(1).max(200),
-  email: z.string().email().max(254),
-  phone: z.string().min(1).max(30),
-  message: z.string().min(1).max(5000),
-  newsletter: z.boolean().optional(),
-})
+type ContactPayload = z.infer<typeof ContactSchema>;
+type RegistrationPayload = z.infer<typeof RegistrationApiSchema>;
 
-export const RegistrationSchema = z.object({
-  firstName: z.string().min(1).max(100),
-  lastName: z.string().min(1).max(100),
-  age: z.coerce.number().min(2).max(18),
-  birthday: z.string().min(1),
-  parentOrGuardian: z.string().min(1).max(200),
-  homeAddress: z.string().min(1).max(300),
-  homeCity: z.string().min(1).max(100),
-  homeState: z.string().min(1).max(50),
-  homeZip: z.string().regex(/^\d{5}(-\d{4})?$/),
-  homePhone: z.string().min(1).max(30),
-  email: z.string().email().max(254),
-  classes: z.string().max(500),
-  parentOrGuardianSignature: z.string().min(1).max(200),
-  signatureDate: z.string().min(1),
-})
-
-// ---------------------------------------------------------------------------
-// Email templates — fully inlined styles for broad email client compatibility
-// ---------------------------------------------------------------------------
-
-// Reusable style strings to avoid repetition in the templates
-const LBL  = 'padding:9px 10px;color:#71717a;font-size:12px;font-weight:600;width:140px;vertical-align:top;font-family:Arial,sans-serif;'
-const VAL  = 'padding:9px 10px;color:#111827;font-size:14px;vertical-align:top;font-family:Arial,sans-serif;'
-const LBLA = LBL + 'background:#faf9ff;'
-const VALA = VAL + 'background:#faf9ff;'
+// Reusable style strings for email client compatibility
+const LBL =
+  "padding:9px 10px;color:#71717a;font-size:12px;font-weight:600;width:140px;vertical-align:top;font-family:Arial,sans-serif;";
+const VAL =
+  "padding:9px 10px;color:#111827;font-size:14px;vertical-align:top;font-family:Arial,sans-serif;";
+const LBLA = LBL + "background:#faf9ff;";
+const VALA = VAL + "background:#faf9ff;";
 const H = (first = false) =>
-  `font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1.2px;color:#6b21a8;border-bottom:1px solid #ede9fe;padding-bottom:6px;margin:${first ? '0' : '24px'} 0 12px;font-family:Arial,sans-serif;`
+  `font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1.2px;color:#6b21a8;border-bottom:1px solid #ede9fe;padding-bottom:6px;margin:${first ? "0" : "24px"} 0 12px;font-family:Arial,sans-serif;`;
 
 function emailShell(subtitle: string, body: string): string {
   return `<!DOCTYPE html>
@@ -90,11 +68,11 @@ function emailShell(subtitle: string, body: string): string {
     </tr>
   </table>
 </body>
-</html>`
+</html>`;
 }
 
-export function buildRegistrationEmail(d: z.infer<typeof RegistrationSchema>): string {
-  const e = (v: unknown) => escapeHtml(v)
+export function buildRegistrationEmail(d: RegistrationPayload): string {
+  const e = (v: unknown) => escapeHtml(v);
   const body = `
     <p style="${H(true)}">Student Information</p>
     <table width="100%" cellpadding="0" cellspacing="0" border="0">
@@ -126,23 +104,23 @@ export function buildRegistrationEmail(d: z.infer<typeof RegistrationSchema>): s
       <tr><td style="${LBL}">Signature</td><td style="${VAL}">${e(d.parentOrGuardianSignature)}</td></tr>
       <tr><td style="${LBLA}">Date</td><td style="${VALA}">${e(d.signatureDate)}</td></tr>
     </table>
-  `
-  return emailShell('New Student Registration', body)
+  `;
+  return emailShell("New Student Registration", body);
 }
 
-export function buildContactEmail(d: z.infer<typeof ContactSchema>): string {
-  const e = (v: unknown) => escapeHtml(v)
+export function buildContactEmail(d: ContactPayload): string {
+  const e = (v: unknown) => escapeHtml(v);
   const body = `
     <p style="${H(true)}">Sender</p>
     <table width="100%" cellpadding="0" cellspacing="0" border="0">
       <tr><td style="${LBL}">Name</td><td style="${VAL}">${e(d.name)}</td></tr>
       <tr><td style="${LBLA}">Email</td><td style="${VALA}">${e(d.email)}</td></tr>
       <tr><td style="${LBL}">Phone</td><td style="${VAL}">${e(d.phone)}</td></tr>
-      <tr><td style="${LBLA}">Newsletter</td><td style="${VALA}">${d.newsletter ? 'Yes' : 'No'}</td></tr>
+      <tr><td style="${LBLA}">Newsletter</td><td style="${VALA}">${d.newsletter ? "Yes" : "No"}</td></tr>
     </table>
 
     <p style="${H()}">Message</p>
     <p style="background:#faf9ff;border-left:3px solid #a855f7;padding:14px 16px;font-family:Arial,sans-serif;font-size:14px;line-height:1.65;color:#374151;white-space:pre-wrap;margin:0;">${e(d.message)}</p>
-  `
-  return emailShell('New Contact Form Submission', body)
+  `;
+  return emailShell("New Contact Form Submission", body);
 }

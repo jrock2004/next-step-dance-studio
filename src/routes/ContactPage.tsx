@@ -3,26 +3,14 @@ import { Helmet } from 'react-helmet-async'
 import { z } from 'zod'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { ContactSchema } from '@shared/contact.schema'
 import { SectionHeading } from '@components/SectionHeading'
 import { Label } from '@components/Label'
 import { Input } from '@components/Input'
 import { Button } from '@components/Button'
 import { Checkbox } from '@components/Checkbox'
 
-const ContactForm = z.object({
-  name: z.string().min(1, "Name can't be empty"),
-  email: z.string().email(),
-  phone: z
-    .string()
-    .regex(
-      /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/,
-      'Invalid phone number'
-    ),
-  message: z.string().min(1, "Message can't be empty"),
-  newsletter: z.boolean().optional(),
-})
-
-type TContactForm = z.infer<typeof ContactForm>
+type TContactForm = z.infer<typeof ContactSchema>
 type FormStatus = 'idle' | 'submitting' | 'success' | 'error'
 
 function ContactPage(): ReactElement {
@@ -33,7 +21,7 @@ function ContactPage(): ReactElement {
     formState: { errors },
     reset,
   } = useForm<TContactForm>({
-    resolver: zodResolver(ContactForm),
+    resolver: zodResolver(ContactSchema),
   })
 
   const onSubmit = async (data: TContactForm): Promise<void> => {

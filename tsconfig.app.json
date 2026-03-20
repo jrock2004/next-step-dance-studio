@@ -23,7 +23,8 @@
       "@components/*": ["./src/components/*"],
       "@routes/*": ["./src/routes/*"],
       "@data/*": ["./src/data/*"],
-      "@assets/*": ["./src/assets/*"]
+      "@assets/*": ["./src/assets/*"],
+      "@shared/*": ["./shared/*"]
     },
 
     /* Linting */
@@ -34,5 +35,5 @@
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true
   },
-  "include": ["src"]
+  "include": ["src", "shared"]
 }

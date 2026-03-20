@@ -9,39 +9,14 @@ import { Label } from "@components/Label";
 import { Input } from "@components/Input";
 import { Button } from "@components/Button";
 import { Checkbox } from "@components/Checkbox";
+import { buildRegistrationFormSchema } from "@shared/registration.schema";
 import { classes as studioClasses } from "@/data/classes";
 
-const RegistrationForm = z.object({
-  firstName: z.string().min(1, "First name is required"),
-  lastName: z.string().min(1, "Last name is required"),
-  age: z.coerce
-    .number({ invalid_type_error: "Age is required" })
-    .min(2, "Age must be at least 2")
-    .max(18, "Age must be 18 or under"),
-  birthday: z.coerce
-    .date({ invalid_type_error: "Birthday is required" })
-    .max(new Date(), "Birthday cannot be in the future"),
-  parentOrGuardian: z.string().min(1, "Parent or guardian name is required"),
-  homeAddress: z.string().min(1, "Street address is required"),
-  homeCity: z.string().min(1, "City is required"),
-  homeState: z.string().min(1, "State is required"),
-  homeZip: z.string().regex(/^\d{5}(-\d{4})?$/, "Enter a valid zip code"),
-  homePhone: z.string().min(1, "Phone is required"),
-  email: z.string().email("Enter a valid email address"),
-  "creative-movement": z.boolean().optional(),
-  combo: z.boolean().optional(),
-  tap: z.boolean().optional(),
-  jazz: z.boolean().optional(),
-  ballet: z.boolean().optional(),
-  "hip-hop": z.boolean().optional(),
-  lyrical: z.boolean().optional(),
-  acrobatics: z.boolean().optional(),
-  acceptTerms: z.literal(true, { errorMap: () => ({ message: "You must accept the terms" }) }),
-  parentOrGuardianSignature: z.string().min(1, "Signature is required"),
-  signatureDate: z.coerce.date({ invalid_type_error: "Date is required" }),
-});
+const registrationFormSchema = buildRegistrationFormSchema(
+  studioClasses.map((c) => c.id),
+);
 
-type TRegistrationForm = z.infer<typeof RegistrationForm>;
+type TRegistrationForm = z.infer<typeof registrationFormSchema>;
 
 const classCheckboxes = studioClasses.map((c) => ({
   id: c.id,
@@ -64,7 +39,7 @@ function RegistrationPage(): ReactElement {
     handleSubmit,
     formState: { errors },
   } = useForm<TRegistrationForm>({
-    resolver: zodResolver(RegistrationForm),
+    resolver: zodResolver(registrationFormSchema),
     defaultValues: validClassId
       ? ({ [validClassId]: true } as Partial<TRegistrationForm>)
       : undefined,

@@ -1,6 +1,7 @@
-import type { Handler } from '@netlify/functions'
-import { Resend } from 'resend'
-import { buildRegistrationEmail, RegistrationSchema } from './_utils'
+import type { Handler } from "@netlify/functions";
+import { Resend } from "resend";
+import { RegistrationApiSchema } from "../../shared/registration.schema";
+import { buildRegistrationEmail } from "../../shared/email-html";
 
 export const handler: Handler = async (event) => {
   if (event.httpMethod !== 'POST') {
@@ -19,7 +20,7 @@ export const handler: Handler = async (event) => {
     return { statusCode: 400, body: JSON.stringify({ ok: false }) }
   }
 
-  const result = RegistrationSchema.safeParse(body)
+  const result = RegistrationApiSchema.safeParse(body);
   if (!result.success) {
     return { statusCode: 400, body: JSON.stringify({ ok: false }) }
   }

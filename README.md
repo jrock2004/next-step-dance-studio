@@ -116,7 +116,20 @@ pnpm build
 
 # Preview the production build locally
 pnpm preview
+
+# Unit tests (shared Zod schemas)
+pnpm test
 ```
+
+### Environment variables (Netlify / production)
+
+Contact and registration forms POST to Netlify Functions. Set these in the Netlify UI (or `.env` for local `netlify dev`):
+
+| Variable | Required | Description |
+|----------|----------|-------------|
+| `RESEND_API_KEY` | Yes | [Resend](https://resend.com) API key for sending email |
+| `TO_EMAIL` | No | Recipient inbox (defaults to `missy@thenextstepdance.com`) |
+| `FROM_EMAIL` | No | Verified sender domain address (defaults to `noreply@thenextstepdance.com`) |
 
 ---
 
@@ -152,4 +165,17 @@ Fonts: **Playfair Display** (serif, used for `h1`/`h2` via `font-serif`) and **N
 
 - `sharp` and `svgo` optional dependencies for `vite-plugin-image-optimizer` may log warnings during install — this is harmless.
 - Staff and class photos still reference the old website's CDN (`nebula.wsimg.com`). These should be replaced with self-hosted images when the client provides new photos.
-- The contact form currently logs submissions to the browser console only. A backend or form service (e.g. Formspree) is needed to receive submissions in production.
+
+### Forms & email
+
+Submissions go to `/.netlify/functions/send-contact` and `send-registration`, which email via Resend when `RESEND_API_KEY` is set. Shared validation lives in `shared/` so the browser and functions stay aligned.
+
+### Local email preview
+
+With `pnpm dev` / Vite dev, visit `/dev/email-preview` to render the same HTML as production (not included in production builds).
+
+### Bundle size & images
+
+Routes besides the home page are **lazy-loaded** in `src/router.tsx`, so Framer Motion, the gallery carousel, and other page-specific code stay in separate chunks until navigation.
+
+The gallery still ships large JPEG assets; resizing, `srcset`, or modern formats will improve load time more than further JS splitting.
