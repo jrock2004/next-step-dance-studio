@@ -8,6 +8,10 @@ description: >-
 
 # Marketing & page copy (in components)
 
+## Before you change anything
+
+If the request is vague (“make the hero better”, “update the copy”) and the user did not supply **replacement text or clear intent**, **ask** what message they want (or offer 2–3 short options) instead of shipping large rewrites they did not approve.
+
 ## When to use this vs data files
 
 - **Classes, staff, recital:** use **`src/data/classes.ts`**, **`staff.ts`**, **`recital.ts`** — see other studio-* skills and [README.md](../../../README.md).

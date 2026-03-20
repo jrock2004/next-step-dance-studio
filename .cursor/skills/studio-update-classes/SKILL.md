@@ -8,6 +8,10 @@ description: >-
 
 # Update dance classes
 
+## Before you change anything
+
+If the user asks to **add** or **substantially rewrite** a class but does not give **title, ages, price, summary, description** (and `featured` if it matters), **ask for that copy** instead of inventing studio-specific pricing or curricula. Guessing IDs from vague names is OK only when the user confirmed the title slug they want.
+
 ## Source of truth
 
 1. Read field definitions in [README.md](../../../README.md) → section **Classes — `src/data/classes.ts`**.

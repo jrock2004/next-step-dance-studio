@@ -20,9 +20,11 @@ Open **Cursor Chat** (or Agent), paste a prompt below, and fill in the brackets.
 
 ## Staff
 
+The project **Agent Skill** for staff (`studio-update-staff`) tells the assistant to **ask for name, title, specialties, bio, and photo** when you have not already provided them — it should not invent instructor details from filenames or folder paths.
+
 **Add an instructor**
 
-> Add a staff member: name **[name]**, title **[role]**, specialties **[list]**, bio: **[paragraph or multiple paragraphs]**. Photo: **[https URL, or local path like `/images/staff/file.jpg` after you save the file under `public/images/staff/`, or omit]**.
+> Add a staff member: name **[name]**, title **[role]**, specialties **[list]**, bio: **[paragraph or multiple paragraphs]**. Photo: **[https URL, or local path like `/images/staff/file.webp` after you save the file under `public/images/staff/`, or omit]**.
 
 **Edit order or bio**
 

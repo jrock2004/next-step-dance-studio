@@ -7,6 +7,10 @@ description: >-
 
 # Update recital content
 
+## Before you change anything
+
+Do not invent **venue, dates, ticket prices, or senior names/bios**. If the user has not pasted finalized details, **ask** what to set or leave fields as **`null`** (coming soon) per README.
+
 ## Source of truth
 
 1. Read [README.md](../../../README.md) → section **Recital — `src/data/recital.ts`**.
