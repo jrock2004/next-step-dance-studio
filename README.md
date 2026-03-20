@@ -8,6 +8,8 @@ Website for [The Next Step Dance Studio](https://thenextstepdance.com) in Birdsb
 
 Most content changes don't require touching any page code. The three files below are the only ones you need to edit for routine updates.
 
+**Using Cursor:** copy-paste prompts for common tasks are in [`.cursor/prompts.md`](.cursor/prompts.md). Project **Agent Skills** in [`.cursor/skills/`](.cursor/skills/) steer the assistant toward the right files and conventions.
+
 ### Classes — `src/data/classes.ts`
 
 Each class is an object in the `classes` array. Fields:
@@ -20,7 +22,7 @@ Each class is an object in the `classes` array. Fields:
 | `price` | Yes | Pricing text (e.g. `"$55"` or `"Call for pricing"`) |
 | `description` | Yes | Full paragraph shown on the Classes page |
 | `summary` | Yes | Short one-liner shown in cards and previews |
-| `image` | No | URL to a photo for this class |
+| `image` | No | Photo URL (`https://…`) **or** a path to a file in **`public/`**, e.g. `/images/classes/tap.jpg` → file at `public/images/classes/tap.jpg` |
 | `note` | No | Small print shown below the description (e.g. prerequisites) |
 | `featured` | Yes | `true` to show this class on the homepage, `false` to exclude it |
 
@@ -39,7 +41,7 @@ Each instructor is an object in the `instructors` array. Fields:
 | `name` | Yes | Full name |
 | `title` | Yes | Job title shown under their name |
 | `specialties` | Yes | List of classes they teach (shown as tags) |
-| `photo` | No | URL to a headshot photo. Leave out if no photo yet. |
+| `photo` | No | Headshot URL (`https://…`) **or** `/images/staff/name.jpg` under **`public/images/staff/`**. Omit if no photo yet. |
 | `bio` | Yes | One paragraph as a string, or multiple paragraphs as a list of strings |
 
 **Single-paragraph bio:**
@@ -60,6 +62,8 @@ bio: [
 **To remove an instructor:** Delete the entire object from the array.
 
 **Instructor order** on the page follows the order they appear in the array.
+
+**Local files:** Save images into **`public/`** (e.g. `public/images/classes/`, `public/images/staff/`), then reference them with a path that starts with **`/`** and skips the `public` segment. Pasting a picture into Cursor chat does not add it to the project — drag the file into the repo folder, or use the prompts in [`.cursor/prompts.md`](.cursor/prompts.md) → *Local photos*.
 
 ---
 
