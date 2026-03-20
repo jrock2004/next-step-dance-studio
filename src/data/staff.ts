@@ -12,7 +12,6 @@ const instructors: Instructor[] = [
   {
     name: 'Melissa Shutt',
     title: 'Owner & Artistic Director',
-    // TODO: replace with a better headshot from the client
     specialties: [
       'Hip Hop',
       'Jazz',
@@ -33,16 +32,14 @@ const instructors: Instructor[] = [
   {
     name: 'Lacey Vaccaro',
     title: 'Dance Instructor',
-    photo:
-      'https://nebula.wsimg.com/2ad246f668e6dcb9f8af02653f55f1a1?AccessKeyId=B77414135F6586AF8FC2&disposition=0&alloworigin=1',
+    photo: '/images/staff/lacey-vaccaro.webp',
     specialties: ['Tap', 'Ballet'],
     bio: 'Miss Lacey teaches our Tap and Ballet classes. She has 30+ years of experience in dancing and teaching. She has studied Tap, Jazz, Ballet, Pointe, Musical Theater and Partnering. Lacey has done outstanding choreography for Genesius Theater and was the Assistant Choreographer of 42nd Street for a local performing arts company. Lacey is an award winning teacher and choreographer. Lacey was given the prestigious award of "Truly Talented Tap" two years in a row at a National level. Lacey continues to study dance by taking classes and attending conventions. Lacey is an extremely talented tap dancer, to say the least, and that is shown through her students.',
   },
   {
     name: 'Shennan Lorenzo',
     title: 'Dance Instructor',
-    photo:
-      'https://nebula.wsimg.com/a1fc5ff36c8057913a3ec53eb4b12c59?AccessKeyId=B77414135F6586AF8FC2&disposition=0&alloworigin=1',
+    photo: '/images/staff/shennan-lorenzo.webp',
     specialties: ['Creative Movement', 'Combo', 'Beginner Levels'],
     bio: [
       'Shennan Lorenzo is our Creative Movement, Combo, and beginner levels dance instructor. With an infectious energy and a passion for nurturing young talent, Shennan has become a beloved figure among budding dancers embarking on their first steps into the world of movement. As an expert in teaching younger students, Shennan understands the importance of creating a supportive and inclusive environment where everyone feels empowered to unleash their inner dancer. Her classes are about building confidence, fostering teamwork, and instilling a lifelong love of dance.',
@@ -52,8 +49,7 @@ const instructors: Instructor[] = [
   {
     name: 'Erin Shertzer',
     title: 'Dance Instructor',
-    photo:
-      'https://nebula.wsimg.com/2cb8d9b354c9d63792705a1249aeba87?AccessKeyId=B77414135F6586AF8FC2&disposition=0&alloworigin=1',
+    photo: '/images/staff/erin-shertzer.webp',
     specialties: ['Creative Movement', 'Combo', 'Tap'],
     bio: "Miss Erin teaches Creative Movement, Combo and Tap. She started as a student at the Next Step when it's doors opened in 2005. Through out the years Miss Erin has studied Tap, Ballet, Jazz, Lyrical and Hip hop. As a dancer, Miss Erin has competed and won many times at dance competitions throughout Pennsylvania. Among her many awards, she was given the \"fantastic feet\" for her solo tap performance in which she also received the highest scoring solo award. Miss Erin has furthered her training by attending both the Monsters of Hip Hop and JUMP dance conventions. She is a graduate of Millersville University where she earned her degree in Elementary and Special Education. While at Millersville, Miss Erin was a dance team member and competed at NDA nationals in Daytona Florida. She is currently a 2nd grade teacher for the Twin Valley School District. We are excited to welcome Miss Erin back to The Next Step and proud to have her as part of our teaching staff.",
   },

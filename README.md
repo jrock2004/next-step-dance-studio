@@ -168,7 +168,7 @@ Fonts: **Playfair Display** (serif, used for `h1`/`h2` via `font-serif`) and **N
 ## Known Issues
 
 - `sharp` and `svgo` optional dependencies for `vite-plugin-image-optimizer` may log warnings during install — this is harmless.
-- Staff and class photos still reference the old website's CDN (`nebula.wsimg.com`). These should be replaced with self-hosted images when the client provides new photos.
+- Some class and marketing images still reference the old website's CDN (`nebula.wsimg.com`). Replace with self-hosted assets when convenient. Staff headshots live under `public/images/staff/` (see `src/data/staff.ts`).
 
 ### Forms & email
 
