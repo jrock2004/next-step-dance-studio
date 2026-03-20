@@ -37,37 +37,35 @@ function ClassesPage(): ReactElement {
               key={cls.title}
               className="flex flex-col md:flex-row rounded-2xl overflow-hidden border border-purple-100 shadow-sm hover:shadow-md transition-shadow"
             >
-              <div className="md:w-48 flex-shrink-0 h-48 md:h-auto overflow-hidden">
+              <div className="md:w-48 shrink-0 h-48 md:h-auto md:self-stretch overflow-hidden">
                 {cls.image ? (
                   <img
                     src={cls.image}
                     alt={cls.title}
-                    className="w-full h-full object-cover"
+                    className="w-full h-full min-h-48 md:min-h-full object-cover"
                   />
                 ) : (
                   <DancerPlaceholder />
                 )}
               </div>
-              <div className="p-6 flex flex-col justify-between flex-grow">
-                <div>
-                  <div className="flex items-start justify-between gap-2 mb-2">
-                    <h2 className="font-serif text-xl text-studio-purple font-semibold">
-                      {cls.title}
-                    </h2>
-                    <span className="flex-shrink-0 text-xs bg-studio-purple-light text-studio-purple-mid font-semibold px-2.5 py-1 rounded-full">
-                      {cls.ages}
-                    </span>
-                  </div>
-                  <p className="text-gray-600 text-sm leading-relaxed mb-3">{cls.summary}</p>
-                  {cls.note && (
-                    <p className="text-xs text-studio-pink font-semibold italic">{cls.note}</p>
-                  )}
+              <div className="p-6 flex flex-col flex-1 min-w-0">
+                <div className="flex flex-wrap items-center gap-x-3 gap-y-2 mb-2">
+                  <h2 className="font-serif text-xl text-studio-purple font-semibold min-w-0 leading-snug">
+                    {cls.title}
+                  </h2>
+                  <span className="inline-flex shrink-0 items-center text-xs leading-none bg-studio-purple-light text-studio-purple-mid font-semibold px-2.5 py-1.5 rounded-full max-w-full text-left">
+                    {cls.ages}
+                  </span>
                 </div>
-                <div className="mt-4 pt-3 border-t border-purple-50 flex items-center justify-between">
+                <p className="text-gray-600 text-sm leading-relaxed mb-3">{cls.summary}</p>
+                {cls.note && (
+                  <p className="text-xs text-studio-pink font-semibold italic mb-3">{cls.note}</p>
+                )}
+                <div className="mt-auto pt-3 border-t border-purple-50 flex flex-wrap items-center justify-between gap-x-4 gap-y-2">
                   <span className="text-sm font-semibold text-studio-purple">{cls.price}</span>
                   <Link
                     to={`/registration?class=${cls.id}`}
-                    className="text-xs text-studio-pink font-semibold hover:underline"
+                    className="text-xs text-studio-pink font-semibold hover:underline whitespace-nowrap"
                   >
                     Register →
                   </Link>
