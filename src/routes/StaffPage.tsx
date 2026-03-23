@@ -45,7 +45,7 @@ function StaffPage(): ReactElement {
           {instructors.map((instructor) => (
             <div
               key={instructor.name}
-              className="bg-white rounded-2xl shadow-sm border border-purple-100 overflow-hidden"
+              className="bg-studio-lavender rounded-2xl shadow-sm border border-purple-100 overflow-hidden"
             >
               {/* Photo + header row */}
               <div className="flex flex-col sm:flex-row">
@@ -58,7 +58,7 @@ function StaffPage(): ReactElement {
                     />
                   ) : (
                     <div
-                      className="w-full h-56 sm:h-full bg-white flex items-center justify-center"
+                      className="w-full h-56 sm:h-full bg-studio-lavender flex items-center justify-center"
                       aria-hidden="true"
                     >
                       <svg className="w-20 h-20 text-studio-purple opacity-20" fill="currentColor" viewBox="0 0 24 24">

@@ -14,7 +14,7 @@ export const ServiceOffering = ({
   price,
 }: TServiceOffering): ReactElement => {
   return (
-    <div className="min-w-full bg-white rounded-lg border border-gray-200 shadow-md md:min-w-24">
+    <div className="min-w-full bg-studio-lavender rounded-lg border border-gray-200 shadow-md md:min-w-24">
       {image && (
         <div className="relative h-64 overflow-hidden">
           <img

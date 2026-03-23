@@ -31,7 +31,7 @@ function RecitalPage(): ReactElement {
         </p>
       </section>
 
-      <div className="py-16 px-6 bg-white">
+      <div className="py-16 px-6 bg-studio-lavender">
         <div className="max-w-5xl mx-auto flex flex-col gap-14">
 
           {/* Program Info */}

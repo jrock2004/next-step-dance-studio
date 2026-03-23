@@ -30,7 +30,7 @@ function ClassesPage(): ReactElement {
       </section>
 
       {/* Classes grid */}
-      <section className="py-16 px-6 bg-white">
+      <section className="py-16 px-6 bg-studio-lavender">
         <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-8">
           {classes.map((cls) => (
             <div

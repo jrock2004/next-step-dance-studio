@@ -113,7 +113,7 @@ function HomePage(): ReactElement {
       </section>
 
       {/* Class preview */}
-      <section className="py-16 px-6 bg-white">
+      <section className="py-16 px-6 bg-studio-lavender">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-10">
             <p className="text-studio-pink text-sm font-semibold uppercase tracking-widest mb-2">

@@ -3,7 +3,7 @@ import { Link } from 'react-router'
 
 export const Header = (): ReactElement => {
   return (
-    <header className="hidden sm:flex bg-white border-b border-purple-100 px-6 py-4 items-center justify-end md:justify-between">
+    <header className="hidden sm:flex bg-studio-lavender border-b border-purple-100 px-6 py-4 items-center justify-end md:justify-between">
       <Link to="/" className="hidden md:block">
         <img src="/logo.png" alt="The Next Step Dance Studio" className="h-14 w-auto border-0" />
       </Link>

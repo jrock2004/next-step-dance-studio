@@ -66,7 +66,7 @@ function ContactPage(): ReactElement {
         </p>
       </section>
 
-      <div className="py-16 px-6 bg-white">
+      <div className="py-16 px-6 bg-studio-lavender">
         <div className="max-w-6xl mx-auto grid lg:grid-cols-2 gap-12">
 
           {/* Contact form */}

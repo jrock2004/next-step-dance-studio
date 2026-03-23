@@ -101,7 +101,7 @@ function RegistrationPage(): ReactElement {
         </p>
       </section>
 
-      <div className="bg-white px-6 py-16">
+      <div className="bg-studio-lavender px-6 py-16">
         <div className="mx-auto max-w-3xl">
           {formStatus === "success" ? (
             <div className="py-12 text-center">
