@@ -85,7 +85,7 @@ function RegistrationPage(): ReactElement {
 
       {/* Page hero */}
       <section className="bg-studio-purple px-6 py-16 text-center">
-        <p className="text-studio-pink mb-3 text-sm font-semibold tracking-widest uppercase">
+        <p className="text-pink-300 mb-3 text-sm font-semibold tracking-widest uppercase">
           Join the Family
         </p>
         <h1 className="mb-4 font-serif text-4xl font-semibold text-white sm:text-5xl">
@@ -94,7 +94,7 @@ function RegistrationPage(): ReactElement {
         <p className="mx-auto max-w-xl leading-relaxed text-purple-300">
           Complete the form below to enroll your child. Have questions before registering? Feel free
           to{" "}
-          <a href="/contact" className="text-studio-pink font-semibold hover:underline">
+          <a href="/contact" className="text-pink-300 font-semibold hover:underline">
             contact us
           </a>{" "}
           first.

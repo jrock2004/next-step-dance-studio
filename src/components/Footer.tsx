@@ -19,9 +19,9 @@ export const Footer = (): ReactElement => {
 
         {/* Quick Links */}
         <div>
-          <h4 className="text-white font-semibold text-sm uppercase tracking-widest mb-3">
+          <h2 className="text-white font-semibold text-sm uppercase tracking-widest mb-3">
             Quick Links
-          </h4>
+          </h2>
           <ul className="flex flex-col gap-1.5 text-sm">
             {[
               { to: '/classes', label: 'Classes' },
@@ -44,9 +44,9 @@ export const Footer = (): ReactElement => {
 
         {/* Contact */}
         <div>
-          <h4 className="text-white font-semibold text-sm uppercase tracking-widest mb-3">
+          <h2 className="text-white font-semibold text-sm uppercase tracking-widest mb-3">
             Contact Us
-          </h4>
+          </h2>
           <div className="flex flex-col gap-2 text-sm">
             <p className="text-purple-300">Birdsboro, PA</p>
             <a href="tel:6105822111" className="text-purple-300 hover:text-studio-pink transition-colors">
