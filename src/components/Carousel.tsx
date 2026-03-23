@@ -148,7 +148,7 @@ export const Carousel = ({ images }: TCarousel): ReactElement => {
         <div className="mt-4 flex justify-center">
           <div
             ref={ref}
-            className="relative flex h-96 w-full items-center justify-center overflow-hidden rounded-lg bg-black md:h-[600px]"
+            className="relative flex h-96 w-full items-center justify-center overflow-hidden rounded-lg bg-studio-dark md:h-[600px]"
           >
             <AnimatePresence custom={{ direction, width }}>
               <motion.div
@@ -174,7 +174,7 @@ export const Carousel = ({ images }: TCarousel): ReactElement => {
             <button
               type="button"
               aria-label="Go to the previous image"
-              className="absolute left-3 top-1/2 z-10 -translate-y-1/2 rounded-full bg-black/50 p-2 text-white transition-colors hover:bg-black/75"
+              className="absolute left-3 top-1/2 z-10 -translate-y-1/2 rounded-full bg-studio-dark/50 p-2 text-white transition-colors hover:bg-studio-dark/75"
               onClick={handlePrevClick}
             >
               <ChevronLeftIcon className="h-7 w-7" />
@@ -182,7 +182,7 @@ export const Carousel = ({ images }: TCarousel): ReactElement => {
             <button
               type="button"
               aria-label="Go to the next image"
-              className="absolute right-3 top-1/2 z-10 -translate-y-1/2 rounded-full bg-black/50 p-2 text-white transition-colors hover:bg-black/75"
+              className="absolute right-3 top-1/2 z-10 -translate-y-1/2 rounded-full bg-studio-dark/50 p-2 text-white transition-colors hover:bg-studio-dark/75"
               onClick={handleNextClick}
             >
               <ChevronRightIcon className="h-7 w-7" />
@@ -205,7 +205,7 @@ export const Carousel = ({ images }: TCarousel): ReactElement => {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.2 }}
-              className="fixed inset-0 z-50 flex items-center justify-center bg-black/90"
+              className="fixed inset-0 z-50 flex items-center justify-center bg-studio-dark/90"
               role="dialog"
               aria-modal="true"
               aria-label="Full screen image"

@@ -22,7 +22,7 @@ export const Checkbox = <T extends FieldValues = FieldValues>({ id, label, isReq
           required={isRequired}
           {...register(id as Path<T>)}
         />
-        <label htmlFor={id} className="ml-2 text-sm text-gray-900">
+        <label htmlFor={id} className="ml-2 text-sm text-studio-dark">
           {label}
         </label>
       </div>

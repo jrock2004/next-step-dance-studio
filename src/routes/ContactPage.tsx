@@ -100,7 +100,7 @@ function ContactPage(): ReactElement {
               <div>
                 <Label htmlFor="message" isRequired={true}>Message</Label>
                 <textarea
-                  className="block p-3 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-studio-purple focus:border-studio-purple outline-none transition-colors"
+                  className="block p-3 w-full text-sm text-studio-dark bg-gray-50 rounded-lg border border-gray-300 focus:ring-studio-purple focus:border-studio-purple outline-none transition-colors"
                   id="message"
                   rows={5}
                   {...register('message')}

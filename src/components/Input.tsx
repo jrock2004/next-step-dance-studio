@@ -27,7 +27,7 @@ export const Input = <T extends FieldValues = FieldValues>({
         aria-invalid={hasError}
         type={type || 'text'}
         id={id}
-        className={`bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-studio-purple focus:border-studio-purple block w-full p-2.5 ${
+        className={`bg-white border border-gray-300 text-studio-dark text-sm rounded-lg focus:ring-studio-purple focus:border-studio-purple block w-full p-2.5 ${
           hasError && 'border-red-500'
         }`}
         inputMode={inputMode || 'text'}
