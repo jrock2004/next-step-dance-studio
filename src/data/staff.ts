@@ -1,4 +1,4 @@
-export type Instructor = {
+type Instructor = {
   name: string
   title: string
   specialties: string[]

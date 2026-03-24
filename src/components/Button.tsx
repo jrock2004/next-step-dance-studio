@@ -1,6 +1,6 @@
 import type { ReactElement } from 'react'
 
-export type TButton = {
+type TButton = {
   type?: 'submit' | 'reset' | 'button' | undefined
   text: string
   isDisabled?: boolean

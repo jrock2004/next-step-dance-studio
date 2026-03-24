@@ -2,7 +2,7 @@ import type { z } from "zod";
 import { ContactSchema } from "./contact.schema";
 import { RegistrationApiSchema } from "./registration.schema";
 
-export function escapeHtml(str: unknown): string {
+function escapeHtml(str: unknown): string {
   if (str == null) return "";
   return String(str)
     .replace(/&/g, "&amp;")

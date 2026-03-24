@@ -1,6 +1,6 @@
 import type { ReactElement, ReactNode } from 'react'
 
-export type TPageTitle = {
+type TPageTitle = {
   children: ReactNode
 }
 

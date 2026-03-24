@@ -1,6 +1,6 @@
 import type { ReactElement, ReactNode } from 'react'
 
-export type TLabel = {
+type TLabel = {
   children: ReactNode
   htmlFor: string
   isRequired?: boolean

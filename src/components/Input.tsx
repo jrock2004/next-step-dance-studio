@@ -1,7 +1,7 @@
 import type { ReactElement } from 'react'
 import type { FieldErrors, FieldValues, Path, UseFormRegister } from 'react-hook-form'
 
-export type TInput<T extends FieldValues = FieldValues> = {
+type TInput<T extends FieldValues = FieldValues> = {
   type?: string
   id: string
   placeholder?: string

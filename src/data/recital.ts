@@ -7,7 +7,7 @@
 //   • To add a senior, copy one of the example objects into the `seniors` array.
 // ─────────────────────────────────────────────────────────────────────────────
 
-export type Senior = {
+type Senior = {
   name: string
   /** Optional URL to a photo */
   photo?: string
@@ -15,7 +15,7 @@ export type Senior = {
   bio?: string
 }
 
-export type RecitalData = {
+type RecitalData = {
   /** Season label shown to users, e.g. "2025–2026" */
   season: string
   /** Date and time text, e.g. "Saturday, June 7, 2025 at 2:00 PM". null = coming soon */

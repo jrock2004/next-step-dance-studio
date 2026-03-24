@@ -1,4 +1,4 @@
-export type ClassInfo = {
+type ClassInfo = {
   id: string;
   title: string;
   ages: string;

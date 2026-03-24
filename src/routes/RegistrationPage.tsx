@@ -67,7 +67,11 @@ function RegistrationPage(): ReactElement {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
       });
-      setFormStatus(response.ok ? "success" : "error");
+      if (response.ok) {
+        setFormStatus("success");
+      } else {
+        setFormStatus("error");
+      }
     } catch {
       setFormStatus("error");
     }

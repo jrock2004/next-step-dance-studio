@@ -1,7 +1,7 @@
 import type { ReactElement } from 'react'
 import type { FieldErrors, FieldValues, Path, UseFormRegister } from 'react-hook-form'
 
-export type TCheckbox<T extends FieldValues = FieldValues> = {
+type TCheckbox<T extends FieldValues = FieldValues> = {
   id: string
   label: string
   isRequired?: boolean

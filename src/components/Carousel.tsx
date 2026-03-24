@@ -1,7 +1,7 @@
 import type { KeyboardEvent, ReactElement } from "react";
 import { useState } from "react";
 import { ChevronLeftIcon, ChevronRightIcon, XMarkIcon } from "@heroicons/react/24/outline";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, LazyMotion, domAnimation, m, useReducedMotion } from "framer-motion";
 import useMeasure from "react-use-measure";
 
 export type TCarouselImage = {
@@ -18,7 +18,7 @@ export type TCarouselImage = {
   };
 };
 
-export type TCarousel = {
+type TCarousel = {
   images: TCarouselImage[];
 };
 
@@ -48,8 +48,10 @@ function CarouselSlidePicture({
 }): ReactElement {
   return (
     <div
-      className="relative h-full w-full"
+      role="button"
+      className="relative h-full w-full cursor-zoom-in"
       tabIndex={0}
+      onClick={onClick}
       onKeyDown={(e): void => {
         onKeyDown(e);
       }}
@@ -57,13 +59,12 @@ function CarouselSlidePicture({
       <picture className="contents">
         <source type="image/webp" srcSet={image.carousel.webpSrcSet} sizes={image.sizes} />
         <img
-          className="absolute inset-0 h-full w-full cursor-zoom-in object-contain"
+          className="absolute inset-0 h-full w-full object-contain"
           src={image.carousel.fallbackSrc}
           alt={image.alt}
           sizes={image.sizes}
           decoding="async"
           fetchPriority="high"
-          onClick={onClick}
         />
       </picture>
     </div>
@@ -75,12 +76,17 @@ function LightboxPicture({ image, onClose }: { image: TCarouselImage; onClose: (
     <picture className="contents">
       <source type="image/webp" src={image.lightbox.webpSrc} />
       <img
+        role="button"
+        tabIndex={0}
         className="absolute inset-0 h-full w-full cursor-pointer object-contain"
         src={image.lightbox.fallbackSrc}
         alt={image.alt}
         decoding="async"
         fetchPriority="high"
         onClick={onClose}
+        onKeyDown={(e): void => {
+          if (e.key === "Enter") onClose();
+        }}
       />
     </picture>
   );
@@ -91,6 +97,7 @@ export const Carousel = ({ images }: TCarousel): ReactElement => {
   const [count, setCount] = useState(1);
   const [direction, setDirection] = useState<"increasing" | "decreasing">("increasing");
   const [fullImage, setFullImage] = useState<TCarouselImage | null>(null);
+  const shouldReduceMotion = useReducedMotion();
 
   const handlePrevClick = (): void => {
     const imageLength = images.length;
@@ -100,7 +107,7 @@ export const Carousel = ({ images }: TCarousel): ReactElement => {
       setCount(imageLength);
     } else {
       setDirection("decreasing");
-      setCount(count - 1);
+      setCount((prev) => prev - 1);
     }
   };
 
@@ -112,7 +119,7 @@ export const Carousel = ({ images }: TCarousel): ReactElement => {
       setCount(1);
     } else {
       setDirection("increasing");
-      setCount(count + 1);
+      setCount((prev) => prev + 1);
     }
   };
 
@@ -133,7 +140,7 @@ export const Carousel = ({ images }: TCarousel): ReactElement => {
   const current = images[count - 1];
 
   return (
-    <>
+    <LazyMotion features={domAnimation}>
       <div
         role="region"
         aria-label="Image slideshow"
@@ -151,14 +158,14 @@ export const Carousel = ({ images }: TCarousel): ReactElement => {
             className="relative flex h-96 w-full items-center justify-center overflow-hidden rounded-lg bg-studio-dark md:h-[600px]"
           >
             <AnimatePresence custom={{ direction, width }}>
-              <motion.div
+              <m.div
                 key={count}
                 variants={variants}
                 initial="enter"
                 animate="center"
                 exit="exit"
                 custom={{ direction, width }}
-                transition={{ duration: 0.5 }}
+                transition={{ duration: shouldReduceMotion ? 0 : 0.5 }}
                 className="absolute flex h-full w-full items-center justify-center"
               >
                 <CarouselSlidePicture
@@ -168,7 +175,7 @@ export const Carousel = ({ images }: TCarousel): ReactElement => {
                   }}
                   onKeyDown={(e): void => handleImageKeyDown(e, current)}
                 />
-              </motion.div>
+              </m.div>
             </AnimatePresence>
 
             <button
@@ -199,22 +206,22 @@ export const Carousel = ({ images }: TCarousel): ReactElement => {
 
         <AnimatePresence>
           {fullImage && (
-            <motion.div
+            <m.div
               key="lightbox"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              transition={{ duration: 0.2 }}
+              transition={{ duration: shouldReduceMotion ? 0 : 0.2 }}
               className="fixed inset-0 z-50 flex items-center justify-center bg-studio-dark/90"
               role="dialog"
               aria-modal="true"
               aria-label="Full screen image"
             >
-              <motion.div
-                initial={{ scale: 0.92, opacity: 0 }}
+              <m.div
+                initial={{ scale: shouldReduceMotion ? 1 : 0.92, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
-                exit={{ scale: 0.92, opacity: 0 }}
-                transition={{ duration: 0.2 }}
+                exit={{ scale: shouldReduceMotion ? 1 : 0.92, opacity: 0 }}
+                transition={{ duration: shouldReduceMotion ? 0 : 0.2 }}
                 className="relative h-full w-full"
               >
                 <LightboxPicture
@@ -233,11 +240,11 @@ export const Carousel = ({ images }: TCarousel): ReactElement => {
                 >
                   <XMarkIcon className="h-9 w-9 bg-white" />
                 </button>
-              </motion.div>
-            </motion.div>
+              </m.div>
+            </m.div>
           )}
         </AnimatePresence>
       </div>
-    </>
+    </LazyMotion>
   );
 };

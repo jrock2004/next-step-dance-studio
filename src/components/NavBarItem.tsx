@@ -1,7 +1,7 @@
 import type { ReactElement, ReactNode } from 'react'
 import { Link, useLocation } from 'react-router'
 
-export type TNavBarItem = {
+type TNavBarItem = {
   children: ReactNode
   path: string
   onClick: () => void
