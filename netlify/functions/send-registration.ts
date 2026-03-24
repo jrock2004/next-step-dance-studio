@@ -36,6 +36,7 @@ export const handler: Handler = async (event) => {
       replyTo: email,
       subject: `New registration — ${firstName} ${lastName}`,
       html: buildRegistrationEmail(result.data),
+      tags: [{ name: "form", value: "registration" }],
     })
 
     return { statusCode: 200, body: JSON.stringify({ ok: true }) }
