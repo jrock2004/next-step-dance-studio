@@ -95,7 +95,7 @@ function ContactPage(): ReactElement {
               </div>
               <div>
                 <Label htmlFor="phone" isRequired={true}>Phone</Label>
-                <Input id="phone" type="text" inputMode="tel" register={register} errors={errors} />
+                <Input id="phone" type="text" phone register={register} errors={errors} />
               </div>
               <div>
                 <Label htmlFor="message" isRequired={true}>Message</Label>

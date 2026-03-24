@@ -270,7 +270,7 @@ function RegistrationPage(): ReactElement {
                     id="homePhone"
                     isRequired={true}
                     placeholder="(610) 555-1212"
-                    inputMode="tel"
+                    phone
                     register={register}
                     errors={errors}
                   />
