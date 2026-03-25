@@ -97,6 +97,92 @@ collections:
                 widget: text
                 hint: "Separate paragraphs with a blank line"
 
+  - name: recital-program
+    label: Recital Program
+    files:
+      - name: recital-program
+        label: Recital Program
+        file: src/content/recitalProgram.json
+        fields:
+          - { label: Title, name: title, widget: string, hint: 'e.g. "Spring Recital 2026"' }
+          - { label: Season, name: season, widget: string, hint: 'e.g. "2025–2026"' }
+          - label: Shows
+            name: shows
+            widget: list
+            required: false
+            hint: "Leave empty to show "Program coming soon" on the program page."
+            summary: "{{fields.label}}"
+            fields:
+              - {
+                  label: Show ID,
+                  name: id,
+                  widget: string,
+                  hint: "Unique identifier, e.g. show-1. Do not change after saving.",
+                }
+              - {
+                  label: Tab Label,
+                  name: label,
+                  widget: string,
+                  hint: 'e.g. "Show 1 — 10:00 AM"',
+                }
+              - label: Program Entries
+                name: entries
+                widget: list
+                types:
+                  - label: Performance
+                    name: performance
+                    widget: object
+                    summary: "{{fields.number}}. {{fields.title}} — {{fields.group}}"
+                    fields:
+                      - { label: "Number", name: number, widget: number, value_type: int, hint: "Order number shown in the program" }
+                      - { label: Song Title, name: title, widget: string }
+                      - label: Dance Style
+                        name: styleId
+                        widget: select
+                        options:
+                          - { label: Tap, value: tap }
+                          - { label: Jazz, value: jazz }
+                          - { label: Ballet, value: ballet }
+                          - { label: Hip Hop, value: hip-hop }
+                          - { label: Lyrical, value: lyrical }
+                          - { label: Acrobatics, value: acrobatics }
+                          - { label: Combo, value: combo }
+                          - { label: Creative Movement, value: creative-movement }
+                      - {
+                          label: Group,
+                          name: group,
+                          widget: string,
+                          hint: 'e.g. "Junior Jazz" or "Teen Tap Company"',
+                        }
+                      - label: Dancers
+                        name: dancers
+                        widget: list
+                        required: false
+                        hint: "One name per line"
+                        field: { label: Name, name: name, widget: string }
+                      - {
+                          label: Description,
+                          name: description,
+                          widget: string,
+                          required: false,
+                          hint: "Optional note shown below the dancer names",
+                        }
+                  - label: Section Header
+                    name: section
+                    widget: object
+                    summary: "— {{fields.label}} —"
+                    fields:
+                      - {
+                          label: Label,
+                          name: label,
+                          widget: string,
+                          hint: 'e.g. "Second Half"',
+                        }
+                  - label: Intermission
+                    name: intermission
+                    widget: object
+                    fields: []
+
   - name: recital
     label: Recital
     files:

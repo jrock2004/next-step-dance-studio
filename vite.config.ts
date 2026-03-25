@@ -15,8 +15,13 @@ export default defineConfig({
       // Serve public/admin/index.html before the SPA fallback catches it
       name: 'serve-admin',
       configureServer(server) {
-        server.middlewares.use((req, _res, next) => {
-          if (req.url === '/admin' || req.url === '/admin/') {
+        server.middlewares.use((req, res, next) => {
+          if (req.url === '/admin') {
+            res.writeHead(301, { Location: '/admin/' })
+            res.end()
+            return
+          }
+          if (req.url === '/admin/') {
             req.url = '/admin/index.html'
           }
           next()

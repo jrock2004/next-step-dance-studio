@@ -5,9 +5,8 @@
 
 [[redirects]]
   from = "/admin/*"
-  to = "/admin/:splat"
+  to = "/admin/index.html"
   status = 200
-  force = true
 
 [[redirects]]
   from = "/*"

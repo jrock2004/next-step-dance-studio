@@ -1,6 +1,4 @@
 (function () {
-  const h = React.createElement
-
   const PURPLE = '#2d0052'
   const PINK = '#db2777'
   const PURPLE_MID = '#6b21a8'
@@ -12,8 +10,14 @@
 
   // ─── Staff ────────────────────────────────────────────────────────────────
 
+  function toJS(val, fallback) {
+    if (val == null) return fallback
+    if (typeof val.toJS === 'function') return val.toJS()
+    return val
+  }
+
   function StaffPreview({ entry }) {
-    const instructors = entry.getIn(['data', 'instructors'])?.toJS() ?? []
+    const instructors = toJS(entry.getIn(['data', 'instructors']) ?? entry.data?.instructors, [])
 
     return h(
       'div',
@@ -108,7 +112,7 @@
   // ─── Classes ──────────────────────────────────────────────────────────────
 
   function ClassesPreview({ entry }) {
-    const classes = entry.getIn(['data', 'classes'])?.toJS() ?? []
+    const classes = toJS(entry.getIn(['data', 'classes']) ?? entry.data?.classes, [])
 
     return h(
       'div',
@@ -231,7 +235,7 @@
   // ─── Recital ──────────────────────────────────────────────────────────────
 
   function RecitalPreview({ entry }) {
-    const data = entry.getIn(['data'])?.toJS() ?? {}
+    const data = toJS(entry.getIn(['data']) ?? entry.data, {})
     const { season, dateTime, venue, tickets, seniors } = data
 
     return h(
