@@ -54,18 +54,33 @@ function RegistrationPage(): ReactElement {
       .join(", ");
 
     const classIds = new Set(classCheckboxes.map(({ id }) => id));
-    const baseData = Object.fromEntries(Object.entries(data).filter(([key]) => !classIds.has(key)));
-
-    const payload = {
-      ...baseData,
-      classes: selectedClasses || "None selected",
-    };
+    const baseData = Object.fromEntries(
+      Object.entries(data).filter(([key]) => !classIds.has(key)),
+    ) as Record<string, unknown>;
 
     try {
-      const response = await fetch("/.netlify/functions/send-registration", {
+      const body = new URLSearchParams({
+        "form-name": "registration",
+        firstName: String(baseData.firstName ?? ""),
+        lastName: String(baseData.lastName ?? ""),
+        age: String(baseData.age ?? ""),
+        birthday: String(baseData.birthday ?? ""),
+        parentOrGuardian: String(baseData.parentOrGuardian ?? ""),
+        homeAddress: String(baseData.homeAddress ?? ""),
+        homeCity: String(baseData.homeCity ?? ""),
+        homeState: String(baseData.homeState ?? ""),
+        homeZip: String(baseData.homeZip ?? ""),
+        homePhone: String(baseData.homePhone ?? ""),
+        email: String(baseData.email ?? ""),
+        classes: selectedClasses || "None selected",
+        acceptTerms: baseData.acceptTerms ? "yes" : "no",
+        parentOrGuardianSignature: String(baseData.parentOrGuardianSignature ?? ""),
+        signatureDate: String(baseData.signatureDate ?? ""),
+      });
+      const response = await fetch("/", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: body.toString(),
       });
       if (response.ok) {
         setFormStatus("success");

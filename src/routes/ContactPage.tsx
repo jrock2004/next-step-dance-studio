@@ -27,10 +27,18 @@ function ContactPage(): ReactElement {
   const onSubmit = async (data: TContactForm): Promise<void> => {
     setFormStatus('submitting')
     try {
-      const response = await fetch('/.netlify/functions/send-contact', {
+      const body = new URLSearchParams({
+        'form-name': 'contact',
+        name: data.name,
+        email: data.email,
+        phone: data.phone,
+        message: data.message,
+        newsletter: data.newsletter ? 'yes' : 'no',
+      })
+      const response = await fetch('/', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data),
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: body.toString(),
       })
       if (response.ok) {
         setFormStatus('success')

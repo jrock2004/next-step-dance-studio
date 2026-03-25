@@ -12,6 +12,9 @@
     <meta property="og:title" content="Next Step Dance Studio" />
     <meta property="og:description" content="Quality dance instruction for children of all ages in Birdsboro, PA" />
 
+    <!-- Netlify Identity (required for Decap CMS admin login) -->
+    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -39,5 +42,47 @@
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
+
+    <!-- Redirect to /admin/ after Netlify Identity login -->
+    <script>
+      if (window.netlifyIdentity) {
+        window.netlifyIdentity.on('init', function (user) {
+          if (!user) {
+            window.netlifyIdentity.on('login', function () {
+              document.location.href = '/admin/';
+            });
+          }
+        });
+      }
+    </script>
+
+    <!-- Hidden forms for Netlify Forms bot detection -->
+    <form name="contact" netlify netlify-honeypot="bot-field" hidden>
+      <input name="bot-field" />
+      <input name="name" />
+      <input name="email" />
+      <input name="phone" />
+      <input name="message" />
+      <input name="newsletter" />
+    </form>
+
+    <form name="registration" netlify netlify-honeypot="bot-field" hidden>
+      <input name="bot-field" />
+      <input name="firstName" />
+      <input name="lastName" />
+      <input name="age" />
+      <input name="birthday" />
+      <input name="parentOrGuardian" />
+      <input name="homeAddress" />
+      <input name="homeCity" />
+      <input name="homeState" />
+      <input name="homeZip" />
+      <input name="homePhone" />
+      <input name="email" />
+      <input name="classes" />
+      <input name="acceptTerms" />
+      <input name="parentOrGuardianSignature" />
+      <input name="signatureDate" />
+    </form>
   </body>
 </html>

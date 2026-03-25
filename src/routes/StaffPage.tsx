@@ -97,15 +97,11 @@ function StaffPage(): ReactElement {
 
                   {/* Bio */}
                   <div className="px-6 py-5 flex flex-col gap-3">
-                    {Array.isArray(instructor.bio) ? (
-                      instructor.bio.map((para) => (
-                        <p key={para} className="text-gray-600 text-sm leading-relaxed">
-                          {para}
-                        </p>
-                      ))
-                    ) : (
-                      <p className="text-gray-600 text-sm leading-relaxed">{instructor.bio}</p>
-                    )}
+                    {instructor.bio.split('\n\n').map((para) => (
+                      <p key={para} className="text-gray-600 text-sm leading-relaxed">
+                        {para}
+                      </p>
+                    ))}
                   </div>
                 </div>
               </div>

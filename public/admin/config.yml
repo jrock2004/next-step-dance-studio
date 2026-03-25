@@ -1,0 +1,165 @@
+backend:
+  name: git-gateway
+  branch: main
+
+# Uncomment the line below and run `npx decap-server` to use the CMS locally
+# local_backend: true
+
+media_folder: public/images/uploads
+public_folder: /images/uploads
+
+collections:
+  - name: classes
+    label: Classes
+    files:
+      - name: classes
+        label: Class List
+        file: src/content/classes.json
+        fields:
+          - label: Classes
+            name: classes
+            widget: list
+            summary: "{{fields.title}} — {{fields.ages}}"
+            fields:
+              - {
+                  label: ID,
+                  name: id,
+                  widget: string,
+                  hint: "Lowercase, hyphenated. Used in registration form — changing this will break existing links.",
+                }
+              - { label: Title, name: title, widget: string }
+              - {
+                  label: Ages,
+                  name: ages,
+                  widget: string,
+                  hint: "e.g. Ages 3–4 or All Ages & Levels",
+                }
+              - {
+                  label: Price,
+                  name: price,
+                  widget: string,
+                  hint: 'e.g. $55 or "Call for pricing"',
+                }
+              - {
+                  label: Featured,
+                  name: featured,
+                  widget: boolean,
+                  default: false,
+                  hint: "Show this class in the featured section on the Classes page",
+                }
+              - {
+                  label: Summary,
+                  name: summary,
+                  widget: text,
+                  hint: "One sentence shown in class cards",
+                }
+              - {
+                  label: Description,
+                  name: description,
+                  widget: text,
+                  hint: "Full description shown on the class detail page",
+                }
+              - {
+                  label: Note,
+                  name: note,
+                  widget: string,
+                  required: false,
+                  hint: "Optional note shown below description (e.g. prerequisite requirements)",
+                }
+              - { label: Image, name: image, widget: image, required: false, hint: "Class photo" }
+
+  - name: staff
+    label: Staff
+    files:
+      - name: staff
+        label: Staff Members
+        file: src/content/staff.json
+        fields:
+          - label: Instructors
+            name: instructors
+            widget: list
+            summary: "{{fields.name}} — {{fields.title}}"
+            fields:
+              - { label: Name, name: name, widget: string }
+              - {
+                  label: Title,
+                  name: title,
+                  widget: string,
+                  hint: 'e.g. "Dance Instructor" or "Owner & Artistic Director"',
+                }
+              - { label: Photo, name: photo, widget: image, required: false }
+              - label: Specialties
+                name: specialties
+                widget: list
+                field: { label: Specialty, name: specialty, widget: string }
+              - label: Bio
+                name: bio
+                widget: text
+                hint: "Separate paragraphs with a blank line"
+
+  - name: recital
+    label: Recital
+    files:
+      - name: recital
+        label: Recital Details
+        file: src/content/recital.json
+        fields:
+          - { label: Season, name: season, widget: string, hint: 'e.g. "2025–2026"' }
+          - {
+              label: Date & Time,
+              name: dateTime,
+              widget: string,
+              required: false,
+              hint: 'e.g. "Saturday, June 7, 2025 at 2:00 PM". Leave blank to show "Coming Soon".',
+            }
+          - {
+              label: Venue,
+              name: venue,
+              widget: string,
+              required: false,
+              hint: 'Leave blank to show "Coming Soon".',
+            }
+          - label: Tickets
+            name: tickets
+            widget: object
+            fields:
+              - {
+                  label: General Admission Price,
+                  name: generalAdmission,
+                  widget: string,
+                  required: false,
+                  hint: 'e.g. "$15". Leave blank for TBA.',
+                }
+              - {
+                  label: Reserved Seating Price,
+                  name: reservedSeating,
+                  widget: string,
+                  required: false,
+                  hint: 'e.g. "$20". Leave blank for TBA.',
+                }
+              - {
+                  label: Ticket Sales Open,
+                  name: salesOpen,
+                  widget: string,
+                  required: false,
+                  hint: 'e.g. "May 1, 2025". Leave blank for TBA.',
+                }
+          - label: Senior Spotlight
+            name: seniors
+            widget: list
+            required: false
+            hint: 'Leave empty to show "Coming Soon" on the Senior Spotlight section.'
+            summary: "{{fields.name}}"
+            fields:
+              - { label: Name, name: name, widget: string }
+              - { label: Photo, name: photo, widget: image, required: false }
+              - { label: Graduation Year, name: classOf, widget: number, required: false }
+              - { label: Years at Studio, name: yearsAtStudio, widget: number, required: false }
+              - { label: Quote, name: quote, widget: text, required: false }
+              - { label: Bio, name: bio, widget: text, required: false }
+              - label: Dance Styles
+                name: styles
+                widget: list
+                required: false
+                hint: "Class IDs from the Classes list, e.g. tap, jazz, ballet"
+                field: { label: Style, name: style, widget: string }

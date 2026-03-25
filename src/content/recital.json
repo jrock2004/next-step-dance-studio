@@ -1,0 +1,57 @@
+{
+  "season": "2025–2026",
+  "dateTime": "Saturday, June 13, 2026 — Shows at 10:00 AM, 2:00 PM, and 6:00 PM",
+  "venue": "Daniel Boone Performing Arts Center, Birdsboro, PA",
+  "tickets": {
+    "generalAdmission": "$18",
+    "reservedSeating": "$24",
+    "salesOpen": "May 5, 2026"
+  },
+  "seniors": [
+    {
+      "name": "Emma Thompson",
+      "photo": null,
+      "classOf": 2026,
+      "yearsAtStudio": 12,
+      "quote": "Next Step gave me more than dance — it gave me a second family and the confidence to keep going.",
+      "bio": null,
+      "styles": ["ballet", "lyrical"]
+    },
+    {
+      "name": "Sophia Martinez",
+      "photo": null,
+      "classOf": 2026,
+      "yearsAtStudio": 8,
+      "quote": "Every class, every rehearsal, every performance has shaped who I am. I will carry this with me always.",
+      "bio": null,
+      "styles": ["jazz", "tap"]
+    },
+    {
+      "name": "Avery Johnson",
+      "photo": null,
+      "classOf": 2026,
+      "yearsAtStudio": 10,
+      "quote": "Dancing here taught me that hard work and heart can take you anywhere.",
+      "bio": null,
+      "styles": ["hip-hop", "jazz"]
+    },
+    {
+      "name": "Grace Chen",
+      "photo": null,
+      "classOf": 2026,
+      "yearsAtStudio": 11,
+      "quote": "Miss Missy always believed in me even when I didn't believe in myself. I am so grateful for every year.",
+      "bio": null,
+      "styles": ["ballet", "acrobatics"]
+    },
+    {
+      "name": "Lily Parker",
+      "photo": null,
+      "classOf": 2026,
+      "yearsAtStudio": 9,
+      "quote": "The stage feels like home. I will miss this place more than words can say.",
+      "bio": null,
+      "styles": ["tap", "lyrical"]
+    }
+  ]
+}
