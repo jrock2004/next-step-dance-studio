@@ -11,6 +11,18 @@ const rootDir = fileURLToPath(new URL(".", import.meta.url));
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [
+    {
+      // Serve public/admin/index.html before the SPA fallback catches it
+      name: 'serve-admin',
+      configureServer(server) {
+        server.middlewares.use((req, _res, next) => {
+          if (req.url === '/admin' || req.url === '/admin/') {
+            req.url = '/admin/index.html'
+          }
+          next()
+        })
+      },
+    },
     react(),
     babel({ presets: [reactCompilerPreset()] }),
     tailwindcss(),

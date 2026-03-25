@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "node scripts/optimize-gallery.mjs && netlify dev",
+    "dev:cms": "node scripts/optimize-gallery.mjs && concurrently \"decap-server\" \"netlify dev\"",
     "dev:vite": "vite",
     "predev:vite": "node scripts/optimize-gallery.mjs",
     "optimize:gallery": "node scripts/optimize-gallery.mjs",
@@ -53,6 +54,8 @@
     "eslint-plugin-react-hooks": "^7.0.1",
     "eslint-plugin-react-refresh": "^0.5.2",
     "globals": "^17.4.0",
+    "concurrently": "^9.1.2",
+    "decap-server": "^3.0.0",
     "netlify-cli": "^24.3.0",
     "prettier": "^3.8.1",
     "prettier-plugin-tailwindcss": "^0.7.2",
