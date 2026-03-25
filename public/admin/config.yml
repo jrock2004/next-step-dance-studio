@@ -110,7 +110,7 @@ collections:
             name: shows
             widget: list
             required: false
-            hint: "Leave empty to show "Program coming soon" on the program page."
+            hint: 'Leave empty to show "Program coming soon" on the program page.'
             summary: "{{fields.label}}"
             fields:
               - {
@@ -119,12 +119,7 @@ collections:
                   widget: string,
                   hint: "Unique identifier, e.g. show-1. Do not change after saving.",
                 }
-              - {
-                  label: Tab Label,
-                  name: label,
-                  widget: string,
-                  hint: 'e.g. "Show 1 — 10:00 AM"',
-                }
+              - { label: Tab Label, name: label, widget: string, hint: 'e.g. "Show 1 — 10:00 AM"' }
               - label: Program Entries
                 name: entries
                 widget: list
@@ -134,7 +129,13 @@ collections:
                     widget: object
                     summary: "{{fields.number}}. {{fields.title}} — {{fields.group}}"
                     fields:
-                      - { label: "Number", name: number, widget: number, value_type: int, hint: "Order number shown in the program" }
+                      - {
+                          label: "Number",
+                          name: number,
+                          widget: number,
+                          value_type: int,
+                          hint: "Order number shown in the program",
+                        }
                       - { label: Song Title, name: title, widget: string }
                       - label: Dance Style
                         name: styleId
@@ -172,16 +173,12 @@ collections:
                     widget: object
                     summary: "— {{fields.label}} —"
                     fields:
-                      - {
-                          label: Label,
-                          name: label,
-                          widget: string,
-                          hint: 'e.g. "Second Half"',
-                        }
+                      - { label: Label, name: label, widget: string, hint: 'e.g. "Second Half"' }
                   - label: Intermission
                     name: intermission
                     widget: object
-                    fields: []
+                    fields:
+                      - { name: _marker, widget: hidden, default: true }
 
   - name: recital
     label: Recital

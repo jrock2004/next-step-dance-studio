@@ -387,7 +387,100 @@
     )
   }
 
+  // ─── Recital Program ──────────────────────────────────────────────────────
+
+  const STYLE_LABELS = {
+    tap: 'Tap', jazz: 'Jazz', ballet: 'Ballet', 'hip-hop': 'Hip Hop',
+    lyrical: 'Lyrical', acrobatics: 'Acrobatics', combo: 'Combo',
+    'creative-movement': 'Creative Movement',
+  }
+
+  function RecitalProgramPreview({ entry }) {
+    const data = toJS(entry.getIn(['data']) ?? entry.data, {})
+    const { title, shows } = data
+
+    return h(
+      'div',
+      { style: { fontFamily: 'Nunito Sans, sans-serif', padding: '24px', background: '#f9f5ff', minHeight: '100vh' } },
+
+      h('h1', {
+        style: { color: PURPLE, fontFamily: 'Playfair Display, serif', fontSize: '26px', marginBottom: '4px' },
+      }, title || 'Recital Program'),
+
+      !shows?.length && h('p', {
+        style: { color: '#9ca3af', fontStyle: 'italic', marginTop: '24px' },
+      }, 'Program coming soon — add shows to display the lineup.'),
+
+      shows?.length > 0 && shows.map((show, si) =>
+        h('div', { key: si, style: { marginTop: '28px' } },
+          h('div', {
+            style: {
+              background: PURPLE, color: '#fff', borderRadius: '12px 12px 0 0',
+              padding: '12px 20px', fontWeight: '700', fontSize: '15px',
+            },
+          }, show.label || `Show ${si + 1}`),
+
+          h('div', {
+            style: { background: '#fff', border: '1px solid #e9d5ff', borderTop: 'none', borderRadius: '0 0 12px 12px', overflow: 'hidden' },
+          },
+            (show.entries || []).map((entry, ei) => {
+              if (entry.type === 'intermission') {
+                return h('div', {
+                  key: ei,
+                  style: {
+                    display: 'flex', alignItems: 'center', gap: '12px',
+                    padding: '10px 20px', borderTop: ei > 0 ? '1px solid #f3e8ff' : 'none',
+                  },
+                },
+                  h('div', { style: { flex: 1, height: '1px', background: '#e9d5ff' } }),
+                  h('span', { style: { color: PURPLE_MID, fontWeight: '700', fontSize: '11px', letterSpacing: '0.1em', textTransform: 'uppercase' } }, '✦ Intermission ✦'),
+                  h('div', { style: { flex: 1, height: '1px', background: '#e9d5ff' } }),
+                )
+              }
+              if (entry.type === 'section') {
+                return h('div', {
+                  key: ei,
+                  style: {
+                    display: 'flex', alignItems: 'center', gap: '12px',
+                    padding: '12px 20px', borderTop: ei > 0 ? '1px solid #f3e8ff' : 'none',
+                  },
+                },
+                  h('div', { style: { flex: 1, height: '1px', background: '#e9d5ff' } }),
+                  h('span', { style: { color: PURPLE, fontFamily: 'Playfair Display, serif', fontWeight: '600', fontSize: '16px' } }, entry.label),
+                  h('div', { style: { flex: 1, height: '1px', background: '#e9d5ff' } }),
+                )
+              }
+              return h('div', {
+                key: ei,
+                style: {
+                  display: 'flex', gap: '14px', alignItems: 'flex-start',
+                  padding: '12px 20px', borderTop: ei > 0 ? '1px solid #f3e8ff' : 'none',
+                },
+              },
+                h('span', {
+                  style: { fontFamily: 'Playfair Display, serif', fontSize: '20px', fontWeight: '700', color: PURPLE_MID, minWidth: '32px', textAlign: 'right', lineHeight: 1.3 },
+                }, String(entry.number ?? '').padStart(2, '0')),
+                h('div', { style: { flex: 1 } },
+                  h('div', { style: { display: 'flex', alignItems: 'baseline', gap: '8px', flexWrap: 'wrap' } },
+                    h('span', { style: { fontWeight: '600', color: PURPLE, fontSize: '14px' } }, entry.title),
+                    entry.styleId && h('span', {
+                      style: { background: PURPLE_LIGHT, color: PURPLE_MID, fontSize: '11px', fontWeight: '600', padding: '1px 8px', borderRadius: '999px' },
+                    }, STYLE_LABELS[entry.styleId] || entry.styleId),
+                  ),
+                  h('p', { style: { color: '#6b7280', fontSize: '13px', margin: '2px 0 0' } }, entry.group),
+                  entry.dancers?.length > 0 && h('p', { style: { color: '#9ca3af', fontSize: '12px', margin: '2px 0 0' } }, entry.dancers.join(', ')),
+                  entry.description && h('p', { style: { color: '#9ca3af', fontSize: '12px', fontStyle: 'italic', margin: '4px 0 0' } }, entry.description),
+                ),
+              )
+            })
+          ),
+        )
+      ),
+    )
+  }
+
   CMS.registerPreviewTemplate('classes', ClassesPreview)
   CMS.registerPreviewTemplate('staff', StaffPreview)
   CMS.registerPreviewTemplate('recital', RecitalPreview)
+  CMS.registerPreviewTemplate('recital-program', RecitalProgramPreview)
 })()
