@@ -44,14 +44,50 @@ type RecitalData = {
 
 const recital: RecitalData = {
   season: '2025–2026',
-  dateTime: null,
-  venue: null,
+  dateTime: 'Saturday, June 13, 2026 — Shows at 10:00 AM, 2:00 PM, and 6:00 PM',
+  venue: 'Daniel Boone Performing Arts Center, Birdsboro, PA',
   tickets: {
-    generalAdmission: null,
-    reservedSeating: null,
-    salesOpen: null,
+    generalAdmission: '$18',
+    reservedSeating: '$24',
+    salesOpen: 'May 5, 2026',
   },
-  seniors: null,
+  seniors: [
+    {
+      name: 'Emma Thompson',
+      classOf: 2026,
+      yearsAtStudio: 12,
+      quote: 'Next Step gave me more than dance — it gave me a second family and the confidence to keep going.',
+      styles: ['ballet', 'lyrical'],
+    },
+    {
+      name: 'Sophia Martinez',
+      classOf: 2026,
+      yearsAtStudio: 8,
+      quote: 'Every class, every rehearsal, every performance has shaped who I am. I will carry this with me always.',
+      styles: ['jazz', 'tap'],
+    },
+    {
+      name: 'Avery Johnson',
+      classOf: 2026,
+      yearsAtStudio: 10,
+      quote: 'Dancing here taught me that hard work and heart can take you anywhere.',
+      styles: ['hip-hop', 'jazz'],
+    },
+    {
+      name: 'Grace Chen',
+      classOf: 2026,
+      yearsAtStudio: 11,
+      quote: 'Miss Missy always believed in me even when I didn\'t believe in myself. I am so grateful for every year.',
+      styles: ['ballet', 'acrobatics'],
+    },
+    {
+      name: 'Lily Parker',
+      classOf: 2026,
+      yearsAtStudio: 9,
+      quote: 'The stage feels like home. I will miss this place more than words can say.',
+      styles: ['tap', 'lyrical'],
+    },
+  ],
 }
 
 export default recital

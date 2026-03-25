@@ -5,7 +5,7 @@ import { Helmet } from 'react-helmet-async'
 import { SeniorSpotlight } from '@components/SeniorSpotlight'
 import recital from '@data/recital'
 import recitalProgram from '@data/recitalProgram'
-import type { PerformanceEntry, SectionEntry } from '@data/recitalProgram'
+import type { PerformanceEntry, ProgramEntry, SectionEntry } from '@data/recitalProgram'
 import { classes } from '@data/classes'
 
 export default function RecitalProgramPage(): ReactElement {
@@ -30,21 +30,30 @@ export default function RecitalProgramPage(): ReactElement {
 
   const isFiltering = search.trim().length > 0 || activeStyle !== 'all'
 
-  const filteredPerformances = useMemo<PerformanceEntry[]>(() => {
-    if (!activeShow || !isFiltering) return []
+  // Single filtered list — structural entries always pass, performances are filtered
+  const visibleEntries = useMemo<ProgramEntry[]>(() => {
+    if (!activeShow) return []
+    if (!isFiltering) return activeShow.entries
+
     const q = search.trim().toLowerCase()
-    return activeShow.entries.filter((entry): entry is PerformanceEntry => {
-      if (entry.type !== 'performance') return false
-      if (activeStyle !== 'all' && entry.styleId !== activeStyle) return false
-      if (q) {
-        const inTitle = entry.title.toLowerCase().includes(q)
-        const inGroup = entry.group.toLowerCase().includes(q)
-        const inDancers = entry.dancers?.some((d) => d.toLowerCase().includes(q)) ?? false
-        if (!inTitle && !inGroup && !inDancers) return false
-      }
-      return true
+
+    return activeShow.entries.filter((entry) => {
+      if (entry.type === 'intermission' || entry.type === 'section') return true
+
+      const styleMatch = activeStyle === 'all' || entry.styleId === activeStyle
+      if (!styleMatch) return false
+
+      if (!q) return true
+
+      return (
+        entry.title.toLowerCase().includes(q) ||
+        entry.group.toLowerCase().includes(q) ||
+        (entry.dancers?.some((d) => d.toLowerCase().includes(q)) ?? false)
+      )
     })
-  }, [activeShow, search, activeStyle, isFiltering])
+  }, [activeShow, isFiltering, search, activeStyle])
+
+  const hasResults = visibleEntries.some((e) => e.type === 'performance')
 
   function handleShowChange(index: number) {
     setActiveShowIndex(index)
@@ -168,26 +177,18 @@ export default function RecitalProgramPage(): ReactElement {
 
               {/* Program list */}
               <section>
-                {isFiltering ? (
-                  filteredPerformances.length > 0 ? (
-                    <div className="flex flex-col gap-2">
-                      {filteredPerformances.map((entry) => (
-                        <PerformanceRow key={entry.number} entry={entry} />
-                      ))}
-                    </div>
-                  ) : (
-                    <div className="text-center py-14 text-gray-400">
-                      <p className="text-sm">No performances matched your search.</p>
-                    </div>
-                  )
+                {isFiltering && !hasResults ? (
+                  <div className="text-center py-14 text-gray-400">
+                    <p className="text-sm">No performances matched your search.</p>
+                  </div>
                 ) : (
                   <div className="flex flex-col gap-2">
-                    {activeShow.entries.map((entry, i) => {
+                    {visibleEntries.map((entry, i) => {
                       if (entry.type === 'section') {
-                        return <SectionDivider key={i} entry={entry} />
+                        return <SectionDivider key={`section-${entry.label}`} entry={entry} />
                       }
                       if (entry.type === 'intermission') {
-                        return <IntermissionRow key={i} />
+                        return <IntermissionRow key={`intermission-${i}`} />
                       }
                       return <PerformanceRow key={entry.number} entry={entry} />
                     })}
