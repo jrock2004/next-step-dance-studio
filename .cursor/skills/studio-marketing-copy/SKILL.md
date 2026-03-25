@@ -14,7 +14,7 @@ If the request is vague (“make the hero better”, “update the copy”) and 
 
 ## When to use this vs data files
 
-- **Classes, staff, recital:** use **`src/data/classes.ts`**, **`staff.ts`**, **`recital.ts`** — see other studio-* skills and [README.md](../../../README.md).
+- **Classes, staff, recital:** edit via CMS at `/admin` or directly in **`src/content/classes.json`**, **`staff.json`**, **`recital.json`** — see other studio-* skills and [README.md](../../../README.md).
 - **This skill:** copy lives directly in **`src/routes/*.tsx`** (e.g. hero sections, bullet features, footer blurbs) or in **`<Helmet>`** `<title>` / `<meta name="description">`.
 
 ## Rules
