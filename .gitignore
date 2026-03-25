@@ -31,3 +31,6 @@ public/gallery
 # Local Netlify folder
 .netlify
 deno.lock
+
+# Playwright screenshots
+.playwright-mcp

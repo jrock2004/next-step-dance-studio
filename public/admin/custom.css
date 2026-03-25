@@ -1,0 +1,234 @@
+/* Next Step Dance Studio — Decap CMS custom theme */
+
+:root {
+  --studio-purple: #2d0052;
+  --studio-purple-mid: #6b21a8;
+  --studio-purple-light: #f3e8ff;
+  --studio-pink: #db2777;
+  --studio-pink-light: #fce7f3;
+}
+
+/* ── Top app header ── */
+header {
+  background-color: var(--studio-purple) !important;
+  border-bottom-color: var(--studio-purple-mid) !important;
+}
+
+header a,
+header button {
+  color: var(--studio-purple-light) !important;
+}
+
+header svg {
+  color: var(--studio-purple-light) !important;
+  fill: var(--studio-purple-light) !important;
+}
+
+/* Active tab — icon stays white (no white background anymore) */
+header [aria-selected="true"] svg,
+header [aria-current="page"] svg,
+header a[class*="active"] svg,
+header button[class*="active"] svg {
+  color: #fff !important;
+  fill: #fff !important;
+}
+
+header a:hover,
+header button:hover {
+  color: #fff !important;
+  opacity: 0.9;
+}
+
+/* Avatar wrapper — kill the grey background */
+header [class*="Avatar"],
+header [class*="avatar"] {
+  background-color: transparent !important;
+  background: none !important;
+}
+
+/* Avatar SVG / icon — ring on the icon itself */
+header [class*="Avatar"] svg,
+header [class*="avatar"] svg {
+  color: #fff !important;
+  fill: #fff !important;
+  border: 2px solid var(--studio-pink) !important;
+  border-radius: 50% !important;
+  padding: 4px !important;
+  width: 32px !important;
+  height: 32px !important;
+  box-sizing: border-box !important;
+  background-color: transparent !important;
+}
+
+/* ── Sidebar / collections nav ── */
+
+/* Active header nav tab — bottom accent, no background override */
+header [class*="NavLink"][aria-current="page"],
+header [class*="NavLink"].active,
+header a[class*="active"],
+header button[class*="active"],
+header a[aria-current="page"],
+header button[aria-current="page"],
+header [aria-selected="true"] {
+  color: #fff !important;
+  border-bottom: 3px solid var(--studio-pink) !important;
+  background-color: rgba(255, 255, 255, 0.12) !important;
+  border-radius: 0 !important;
+}
+
+/* Active collection item — left accent border + tinted bg */
+[class*="SidebarNavLink"][aria-current],
+[class*="SidebarNavLink"].active,
+[class*="NavLink"][aria-current="page"],
+[class*="NavLink"].active {
+  background-color: var(--studio-purple-light) !important;
+  border-left-color: var(--studio-pink) !important;
+  color: var(--studio-purple) !important;
+  font-weight: 700 !important;
+}
+
+/* Sidebar icons tint */
+[class*="Sidebar"] svg,
+[class*="Collection"] svg {
+  color: var(--studio-purple-mid) !important;
+  fill: var(--studio-purple-mid) !important;
+}
+
+/* ── Buttons ── */
+
+/* Primary / filled buttons */
+button[class*="Primary"],
+[class*="Button"][class*="primary"],
+a[class*="Button"][class*="primary"] {
+  background-color: var(--studio-pink) !important;
+  border-color: var(--studio-pink) !important;
+  color: #fff !important;
+}
+
+button[class*="Primary"]:hover,
+[class*="Button"][class*="primary"]:hover {
+  background-color: #be185d !important;
+  border-color: #be185d !important;
+}
+
+/* Outlined / secondary buttons */
+button[class*="Secondary"],
+[class*="Button"][class*="secondary"] {
+  border-color: var(--studio-purple-mid) !important;
+  color: var(--studio-purple-mid) !important;
+}
+
+button[class*="Secondary"]:hover,
+[class*="Button"][class*="secondary"]:hover {
+  background-color: var(--studio-purple-light) !important;
+}
+
+/* ── Links & accents ── */
+a {
+  color: var(--studio-purple-mid);
+}
+
+a:hover {
+  color: var(--studio-pink);
+}
+
+/* ── Focus ring ── */
+*:focus-visible {
+  outline-color: var(--studio-pink) !important;
+}
+
+/* ── List widget items — modern cards ── */
+
+/* Outer sortable item wrapper — the card itself */
+[class*="SortableListItem"] {
+  background: #fff !important;
+  border: 1px solid #e5e7eb !important;
+  border-left: 4px solid var(--studio-purple-mid) !important;
+  border-radius: 10px !important;
+  box-shadow: 0 2px 6px rgba(45, 0, 82, 0.07) !important;
+  margin-bottom: 8px !important;
+  overflow: hidden !important;
+  transition: box-shadow 0.15s ease, border-color 0.15s ease !important;
+}
+
+[class*="SortableListItem"]:hover {
+  box-shadow: 0 4px 14px rgba(45, 0, 82, 0.14) !important;
+  border-color: var(--studio-purple-mid) !important;
+}
+
+/* Top bar inside each list item (row with expand / drag / delete) */
+[class*="StyledListItemTopBar"],
+[class*="ListItemTopBar"] {
+  background: #fff !important;
+  border-bottom: 1px solid #f3f4f6 !important;
+}
+
+/* Summary label row (shows the item title when collapsed) */
+[class*="NestedObjectLabel"] {
+  background: #fff !important;
+  padding-left: 4px !important;
+}
+
+/* Widget section headers (e.g. "Classes 8 classes" top bar) */
+[class*="TopBarContainer"] {
+  background: var(--studio-purple-light) !important;
+  border-radius: 8px 8px 0 0 !important;
+  border-bottom: 1px solid #d8b4fe !important;
+}
+
+/* ── Field labels — remove grey chip look ── */
+label,
+[class*="FieldLabel"],
+[class*="fieldLabel"] {
+  background: transparent !important;
+  color: var(--studio-purple) !important;
+  font-weight: 600 !important;
+  font-size: 0.75rem !important;
+  letter-spacing: 0.04em !important;
+  text-transform: uppercase !important;
+}
+
+/* ── Input fields — clean modern look ── */
+input[type="text"],
+input[type="email"],
+input[type="url"],
+input[type="number"],
+input[type="search"],
+textarea,
+select {
+  background: #fff !important;
+  border: 1px solid #e5e7eb !important;
+  border-radius: 8px !important;
+  color: #111827 !important;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease !important;
+}
+
+input[type="text"]:hover,
+input[type="email"]:hover,
+input[type="url"]:hover,
+input[type="number"]:hover,
+textarea:hover,
+select:hover {
+  border-color: #d8b4fe !important;
+}
+
+/* ── Search / input focus ── */
+input:focus,
+input:focus-within,
+textarea:focus,
+select:focus,
+[class*="Input"]:focus-within {
+  border-color: var(--studio-purple-mid) !important;
+  box-shadow: 0 0 0 3px var(--studio-purple-light) !important;
+  outline: none !important;
+}
+
+/* ── Scrollbar (webkit) ── */
+::-webkit-scrollbar-thumb {
+  background-color: var(--studio-purple-mid);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: var(--studio-purple);
+}
