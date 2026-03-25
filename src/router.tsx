@@ -29,6 +29,10 @@ const contentRoutes: RouteObject[] = [
     lazy: async () => ({ Component: (await import("./routes/RecitalPage")).default }),
   },
   {
+    path: "recital/program",
+    lazy: async () => ({ Component: (await import("./routes/RecitalProgramPage")).default }),
+  },
+  {
     path: "registration",
     lazy: async () => ({
       Component: (await import("./routes/RegistrationPage")).default,

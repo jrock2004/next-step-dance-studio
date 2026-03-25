@@ -7,12 +7,20 @@
 //   • To add a senior, copy one of the example objects into the `seniors` array.
 // ─────────────────────────────────────────────────────────────────────────────
 
-type Senior = {
+export type Senior = {
   name: string
   /** Optional URL to a photo */
   photo?: string
-  /** A short note or quote from the senior (optional) */
+  /** A short bio about the senior (optional) */
   bio?: string
+  /** A personal quote from the senior (optional — shown instead of bio if present) */
+  quote?: string
+  /** Graduation year, e.g. 2026 */
+  classOf?: number
+  /** Number of years they've been at the studio */
+  yearsAtStudio?: number
+  /** Class IDs from src/data/classes.ts, e.g. ['tap', 'jazz'] */
+  styles?: string[]
 }
 
 type RecitalData = {

@@ -2,10 +2,13 @@ import type { ReactElement } from 'react'
 import { Link } from 'react-router'
 import { Helmet } from 'react-helmet-async'
 import { SectionHeading } from '@components/SectionHeading'
+import { SeniorSpotlight } from '@components/SeniorSpotlight'
 import recital from '@data/recital'
+import recitalProgram from '@data/recitalProgram'
 
 function RecitalPage(): ReactElement {
-  const { dateTime, venue, tickets, seniors } = recital
+  const { dateTime, venue, tickets } = recital
+  const { title: programTitle, shows } = recitalProgram
 
   return (
     <>
@@ -83,6 +86,26 @@ function RecitalPage(): ReactElement {
                 </p>
               </div>
             </div>
+
+            {/* Program link */}
+            <div className="mt-5 rounded-2xl border border-purple-200 bg-white px-7 py-5 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 shadow-sm">
+              <div>
+                <p className="font-semibold text-studio-purple">{programTitle}</p>
+                {shows ? (
+                  <p className="text-sm text-gray-500 mt-0.5">
+                    {shows.length} {shows.length === 1 ? 'show' : 'shows'} · Full lineup now available
+                  </p>
+                ) : (
+                  <p className="text-sm text-gray-400 mt-0.5 italic">Program coming soon</p>
+                )}
+              </div>
+              <Link
+                to="/recital/program"
+                className="inline-block bg-studio-purple text-white px-6 py-2.5 rounded-full font-semibold text-sm hover:bg-studio-purple-mid transition-colors whitespace-nowrap"
+              >
+                View Full Program →
+              </Link>
+            </div>
           </section>
 
           {/* Ticket Info */}
@@ -113,47 +136,7 @@ function RecitalPage(): ReactElement {
           </section>
 
           {/* Senior Spotlight */}
-          <section>
-            <SectionHeading>Senior Spotlight</SectionHeading>
-            <div className="bg-gradient-to-br from-studio-purple to-studio-purple-mid rounded-2xl p-10 text-center">
-              <div className="text-studio-pink text-5xl mb-5">✦</div>
-              <h3 className="font-serif text-2xl text-white font-semibold mb-3">
-                Celebrating Our Graduating Seniors
-              </h3>
-              {seniors ? (
-                <ul className="mt-6 grid sm:grid-cols-2 gap-6 text-left">
-                  {seniors.map((senior) => (
-                    <li key={senior.name} className="bg-white/10 rounded-xl p-5 flex gap-4 items-start">
-                      {senior.photo && (
-                        <img
-                          src={senior.photo}
-                          alt={senior.name}
-                          className="w-16 h-16 rounded-full object-cover flex-shrink-0"
-                        />
-                      )}
-                      <div>
-                        <p className="font-semibold text-white">{senior.name}</p>
-                        {senior.bio && (
-                          <p className="text-purple-300 text-sm mt-1 leading-relaxed">{senior.bio}</p>
-                        )}
-                      </div>
-                    </li>
-                  ))}
-                </ul>
-              ) : (
-                <>
-                  <p className="text-purple-300 max-w-xl mx-auto leading-relaxed mb-6">
-                    Each year we dedicate a special moment to honor our graduating seniors — dancers
-                    who have grown up in this studio and are taking their next step into the world.
-                    Their stories, memories, and achievements will be featured here when available.
-                  </p>
-                  <p className="text-purple-400 text-sm italic">
-                    Senior spotlight information coming soon.
-                  </p>
-                </>
-              )}
-            </div>
-          </section>
+          <SeniorSpotlight seniors={recital.seniors} />
 
         </div>
       </div>
