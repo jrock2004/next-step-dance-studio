@@ -244,10 +244,12 @@ function SectionDivider({ entry }: { entry: SectionEntry }): ReactElement {
 
 function IntermissionRow(): ReactElement {
   return (
-    <div className="bg-studio-purple rounded-xl px-6 py-4 text-center my-1">
-      <span className="text-white font-semibold tracking-widest text-sm uppercase">
-        Intermission
+    <div className="flex items-center gap-4 my-4">
+      <div className="h-px flex-1 bg-studio-purple/20" />
+      <span className="text-studio-purple-mid font-semibold tracking-widest text-xs uppercase shrink-0">
+        ✦ Intermission ✦
       </span>
+      <div className="h-px flex-1 bg-studio-purple/20" />
     </div>
   )
 }
