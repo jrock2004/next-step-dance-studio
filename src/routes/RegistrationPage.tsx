@@ -36,6 +36,7 @@ function RegistrationPage(): ReactElement {
 
   const {
     register,
+    watch,
     handleSubmit,
     formState: { errors },
   } = useForm<TRegistrationForm>({
@@ -44,6 +45,18 @@ function RegistrationPage(): ReactElement {
       ? ({ [validClassId]: true } as Partial<TRegistrationForm>)
       : undefined,
   });
+
+  const birthdayValue = watch("birthday");
+  const computedAge = (() => {
+    if (!birthdayValue) return null;
+    const bday = new Date(birthdayValue as unknown as string);
+    if (isNaN(bday.getTime())) return null;
+    const today = new Date();
+    let age = today.getFullYear() - bday.getFullYear();
+    const m = today.getMonth() - bday.getMonth();
+    if (m < 0 || (m === 0 && today.getDate() < bday.getDate())) age--;
+    return age >= 0 ? age : null;
+  })();
 
   const onSubmit = async (data: TRegistrationForm): Promise<void> => {
     setFormStatus("submitting");
@@ -58,12 +71,20 @@ function RegistrationPage(): ReactElement {
       Object.entries(data).filter(([key]) => !classIds.has(key)),
     ) as Record<string, unknown>;
 
+    const birthday = baseData.birthday instanceof Date ? baseData.birthday : new Date(String(baseData.birthday));
+    const today = new Date();
+    let age = today.getFullYear() - birthday.getFullYear();
+    const monthDiff = today.getMonth() - birthday.getMonth();
+    if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthday.getDate())) {
+      age--;
+    }
+
     try {
       const body = new URLSearchParams({
         "form-name": "registration",
         firstName: String(baseData.firstName ?? ""),
         lastName: String(baseData.lastName ?? ""),
-        age: String(baseData.age ?? ""),
+        age: String(age),
         birthday: String(baseData.birthday ?? ""),
         parentOrGuardian: String(baseData.parentOrGuardian ?? ""),
         homeAddress: String(baseData.homeAddress ?? ""),
@@ -177,20 +198,6 @@ function RegistrationPage(): ReactElement {
                   />
                 </div>
                 <div>
-                  <Label htmlFor="age" isRequired={true}>
-                    Age
-                  </Label>
-                  <Input
-                    id="age"
-                    isRequired={true}
-                    placeholder="8"
-                    type="text"
-                    inputMode="numeric"
-                    register={register}
-                    errors={errors}
-                  />
-                </div>
-                <div>
                   <Label htmlFor="birthday" isRequired={true}>
                     Birthday
                   </Label>
@@ -201,6 +208,17 @@ function RegistrationPage(): ReactElement {
                     type="date"
                     register={register}
                     errors={errors}
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="age">Age</Label>
+                  <input
+                    id="age"
+                    type="text"
+                    readOnly
+                    value={computedAge !== null ? String(computedAge) : ""}
+                    placeholder="Auto-calculated"
+                    className="bg-gray-50 border border-gray-300 text-gray-500 text-sm rounded-lg block w-full p-2.5 cursor-default"
                   />
                 </div>
                 <div className="sm:col-span-2">

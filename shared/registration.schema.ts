@@ -21,10 +21,6 @@ export const RegistrationApiSchema = z.object({
 const registrationFormBaseFields = {
   firstName: z.string().min(1, "First name is required"),
   lastName: z.string().min(1, "Last name is required"),
-  age: z.coerce
-    .number({ invalid_type_error: "Age is required" })
-    .min(2, "Age must be at least 2")
-    .max(18, "Age must be 18 or under"),
   birthday: z.coerce
     .date({ invalid_type_error: "Birthday is required" })
     .max(new Date(), "Birthday cannot be in the future"),
