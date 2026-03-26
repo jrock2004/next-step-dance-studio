@@ -23,7 +23,12 @@ const registrationFormBaseFields = {
   lastName: z.string().min(1, "Last name is required"),
   birthday: z.coerce
     .date({ invalid_type_error: "Birthday is required" })
-    .max(new Date(), "Birthday cannot be in the future"),
+    .max(new Date(), "Birthday cannot be in the future")
+    .refine((date) => {
+      const minAge = new Date();
+      minAge.setMonth(minAge.getMonth() - 30); // 2.5 years = 30 months
+      return date <= minAge;
+    }, "Student must be at least 2½ years old"),
   parentOrGuardian: z.string().min(1, "Parent or guardian name is required"),
   homeAddress: z.string().min(1, "Street address is required"),
   homeCity: z.string().min(1, "City is required"),
@@ -37,6 +42,17 @@ const registrationFormBaseFields = {
   parentOrGuardianSignature: z.string().min(1, "Signature is required"),
   signatureDate: z.coerce.date({ invalid_type_error: "Date is required" }),
 };
+
+/** Calculate age from a birthday string or Date, returning null if invalid. */
+export function calculateAge(birthday: string | Date): number | null {
+  const bday = birthday instanceof Date ? birthday : new Date(String(birthday));
+  if (isNaN(bday.getTime())) return null;
+  const today = new Date();
+  let age = today.getFullYear() - bday.getFullYear();
+  const m = today.getMonth() - bday.getMonth();
+  if (m < 0 || (m === 0 && today.getDate() < bday.getDate())) age--;
+  return age >= 0 ? age : null;
+}
 
 /** Client form schema: one optional boolean field per class id from `classes.ts`. */
 export function buildRegistrationFormSchema(classIds: readonly string[]) {

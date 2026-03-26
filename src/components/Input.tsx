@@ -8,6 +8,8 @@ type TInput<T extends FieldValues = FieldValues> = {
   isRequired?: boolean
   phone?: boolean
   inputMode?: 'text' | 'numeric' | 'tel' | 'email' | 'url' | 'search' | 'none' | undefined
+  min?: string
+  max?: string
   register: UseFormRegister<T>
   errors?: FieldErrors<T>
 }
@@ -26,6 +28,8 @@ export const Input = <T extends FieldValues = FieldValues>({
   inputMode,
   isRequired = false,
   phone = false,
+  min,
+  max,
   register,
   errors,
 }: TInput<T>): ReactElement => {
@@ -51,6 +55,8 @@ export const Input = <T extends FieldValues = FieldValues>({
         inputMode={phone ? 'tel' : inputMode || 'text'}
         placeholder={placeholder}
         required={isRequired}
+        min={min}
+        max={max}
         onChange={handleChange}
         {...registration}
       />

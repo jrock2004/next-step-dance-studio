@@ -9,7 +9,7 @@ import { Label } from "@components/Label";
 import { Input } from "@components/Input";
 import { Button } from "@components/Button";
 import { Checkbox } from "@components/Checkbox";
-import { buildRegistrationFormSchema } from "@shared/registration.schema";
+import { buildRegistrationFormSchema, calculateAge } from "@shared/registration.schema";
 import { classes as studioClasses } from "@/data/classes";
 
 const registrationFormSchema = buildRegistrationFormSchema(
@@ -28,9 +28,11 @@ type FormStatus = "idle" | "submitting" | "success" | "error";
 
 function RegistrationPage(): ReactElement {
   const [searchParams] = useSearchParams();
-  const preselectedClass = searchParams.get("class");
-  const validClassId = studioClasses.some((c) => c.id === preselectedClass)
-    ? preselectedClass
+  const { class: requestedClass } = z
+    .object({ class: z.string().optional() })
+    .parse(Object.fromEntries(searchParams));
+  const validClassId = studioClasses.some((c) => c.id === requestedClass)
+    ? requestedClass
     : null;
   const [formStatus, setFormStatus] = useState<FormStatus>("idle");
 
@@ -46,17 +48,16 @@ function RegistrationPage(): ReactElement {
       : undefined,
   });
 
+  const today = new Date();
+  const maxBirthdayDate = new Date(today);
+  maxBirthdayDate.setMonth(maxBirthdayDate.getMonth() - 30); // must be at least 2.5 years old
+  const maxBirthday = maxBirthdayDate.toISOString().split("T")[0];
+  const minBirthdayDate = new Date(today);
+  minBirthdayDate.setFullYear(minBirthdayDate.getFullYear() - 19);
+  const minBirthday = minBirthdayDate.toISOString().split("T")[0];
+
   const birthdayValue = watch("birthday");
-  const computedAge = (() => {
-    if (!birthdayValue) return null;
-    const bday = new Date(birthdayValue as unknown as string);
-    if (isNaN(bday.getTime())) return null;
-    const today = new Date();
-    let age = today.getFullYear() - bday.getFullYear();
-    const m = today.getMonth() - bday.getMonth();
-    if (m < 0 || (m === 0 && today.getDate() < bday.getDate())) age--;
-    return age >= 0 ? age : null;
-  })();
+  const computedAge = birthdayValue ? calculateAge(birthdayValue as unknown as string) : null;
 
   const onSubmit = async (data: TRegistrationForm): Promise<void> => {
     setFormStatus("submitting");
@@ -71,13 +72,7 @@ function RegistrationPage(): ReactElement {
       Object.entries(data).filter(([key]) => !classIds.has(key)),
     ) as Record<string, unknown>;
 
-    const birthday = baseData.birthday instanceof Date ? baseData.birthday : new Date(String(baseData.birthday));
-    const today = new Date();
-    let age = today.getFullYear() - birthday.getFullYear();
-    const monthDiff = today.getMonth() - birthday.getMonth();
-    if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthday.getDate())) {
-      age--;
-    }
+    const age = calculateAge(baseData.birthday as string | Date);
 
     try {
       const body = new URLSearchParams({
@@ -207,6 +202,8 @@ function RegistrationPage(): ReactElement {
                       isRequired={true}
                       placeholder="MM/DD/YYYY"
                       type="date"
+                      min={minBirthday}
+                      max={maxBirthday}
                       register={register}
                       errors={errors}
                     />
