@@ -2,6 +2,7 @@ import type { ReactElement } from 'react'
 import { Link } from 'react-router'
 import { Helmet } from 'react-helmet-async'
 import { classes } from '@/data/classes'
+import { summerSession } from '@/data/summerSession'
 import { DancerPlaceholder } from '@components/DancerPlaceholder'
 
 const featuredClasses = classes.filter((c) => c.featured)
@@ -98,6 +99,26 @@ function HomePage(): ReactElement {
           </div>
         </div>
       </section>
+
+      {/* Summer session announcement banner */}
+      {summerSession.enabled && (
+        <section className="bg-studio-pink px-6 py-4">
+          <div className="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left">
+            <div>
+              <span className="text-white font-semibold">{summerSession.headline}</span>
+              <span className="text-pink-100 ml-2 text-sm">
+                {summerSession.sessionStart} – {summerSession.sessionEnd}
+              </span>
+            </div>
+            <Link
+              to="/registration"
+              className="bg-white text-studio-pink px-5 py-2 rounded-full font-semibold text-sm hover:bg-pink-50 transition-colors whitespace-nowrap flex-shrink-0"
+            >
+              Register Now →
+            </Link>
+          </div>
+        </section>
+      )}
 
       {/* Features strip */}
       <section className="bg-studio-purple-light py-14 px-6">
