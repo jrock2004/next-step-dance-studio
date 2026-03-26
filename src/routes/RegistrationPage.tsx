@@ -444,8 +444,8 @@ function RegistrationPage(): ReactElement {
                 </div>
               )}
 
-              {/* Classes — hidden entirely during summer session */}
-              {!summerSession.enabled && (
+              {/* Classes — hidden only if user has selected a summer session program */}
+              {(!summerSession.enabled || !selectedProgramTier) && (
                 <div className="rounded-2xl bg-white p-6 shadow-sm sm:p-8">
                   <SectionHeading size="sm">Choose Classes</SectionHeading>
                   <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
