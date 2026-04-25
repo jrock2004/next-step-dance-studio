@@ -2,6 +2,7 @@ import { createBrowserRouter, type RouteObject } from "react-router";
 import Root from "./routes/Root";
 import HomePage from "./routes/HomePage";
 import NotFoundPage from "./routes/NotFoundPage";
+import ErrorPage from "./routes/ErrorPage";
 
 const devRoutes: RouteObject[] = import.meta.env.DEV
   ? [
@@ -10,6 +11,10 @@ const devRoutes: RouteObject[] = import.meta.env.DEV
         lazy: async () => ({
           Component: (await import("./routes/EmailPreviewPage")).default,
         }),
+      },
+      {
+        path: "dev/error-preview",
+        Component: () => { throw new Error("Error boundary preview"); },
       },
     ]
   : [];
@@ -54,14 +59,13 @@ export const router = createBrowserRouter([
     element: <Root />,
     children: [
       {
-        index: true,
-        element: <HomePage />,
-      },
-      ...contentRoutes,
-      ...devRoutes,
-      {
-        path: "*",
-        element: <NotFoundPage />,
+        errorElement: <ErrorPage />,
+        children: [
+          { index: true, element: <HomePage /> },
+          ...contentRoutes,
+          ...devRoutes,
+          { path: "*", element: <NotFoundPage /> },
+        ],
       },
     ],
   },

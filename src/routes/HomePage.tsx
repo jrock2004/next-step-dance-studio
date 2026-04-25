@@ -1,16 +1,17 @@
-import type { ReactElement } from 'react'
-import { Link } from 'react-router'
-import { Helmet } from 'react-helmet-async'
-import { classes } from '@/data/classes'
-import { summerSession } from '@/data/summerSession'
-import { DancerPlaceholder } from '@components/DancerPlaceholder'
+import type { ReactElement } from "react";
+import { Link } from "react-router";
+import { Helmet } from "react-helmet-async";
+import { classes } from "@/data/classes";
+import { summerSession } from "@/data/summerSession";
+import { homepage } from "@/data/homepage";
+import { DancerPlaceholder } from "@components/DancerPlaceholder";
 
-const featuredClasses = classes.filter((c) => c.featured)
+const featuredClasses = classes.filter((c) => c.featured);
 
 const features = [
   {
     icon: (
-      <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <svg className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path
           strokeLinecap="round"
           strokeLinejoin="round"
@@ -19,12 +20,12 @@ const features = [
         />
       </svg>
     ),
-    title: 'Expert Instructors',
-    body: 'Our professional staff brings decades of performance and teaching experience across all dance styles.',
+    title: "Expert Instructors",
+    body: "Our professional staff brings decades of performance and teaching experience across all dance styles.",
   },
   {
     icon: (
-      <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <svg className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path
           strokeLinecap="round"
           strokeLinejoin="round"
@@ -33,12 +34,12 @@ const features = [
         />
       </svg>
     ),
-    title: 'Confidence & Community',
-    body: 'Dance builds self-confidence, friendships, and a sense of belonging that extends beyond the studio.',
+    title: "Confidence & Community",
+    body: "Dance builds self-confidence, friendships, and a sense of belonging that extends beyond the studio.",
   },
   {
     icon: (
-      <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <svg className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path
           strokeLinecap="round"
           strokeLinejoin="round"
@@ -47,10 +48,10 @@ const features = [
         />
       </svg>
     ),
-    title: '17+ Seasons of Excellence',
-    body: 'Award-winning choreography and a proven track record of developing talented, well-rounded dancers.',
+    title: "20+ Seasons of Excellence",
+    body: "Award-winning choreography and a proven track record of developing talented, well-rounded dancers.",
   },
-]
+];
 
 function HomePage(): ReactElement {
   return (
@@ -64,35 +65,36 @@ function HomePage(): ReactElement {
       </Helmet>
 
       {/* Hero */}
-      <section className="relative h-[520px] md:h-[620px] overflow-hidden">
+      <section className="relative h-[520px] overflow-hidden md:h-[620px]">
         <img
-          className="absolute inset-0 w-full h-full object-cover object-top"
-          src="https://nebula.wsimg.com/94dd88ad6b74d735b23b8e19faeb666b?AccessKeyId=B77414135F6586AF8FC2&disposition=0&alloworigin=1"
+          className="absolute inset-0 h-full w-full object-cover object-top"
+          src={homepage.heroImage}
           alt="Next Step Dance Studio dancers"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-studio-purple/90 via-studio-purple/70 to-studio-purple/30" />
-        <div className="relative h-full flex flex-col justify-center px-8 sm:px-16 max-w-3xl">
-          <p className="text-pink-300 text-sm font-semibold uppercase tracking-widest mb-3">
-            Birdsboro, PA · Celebrating 17+ Seasons
+        <div className="from-studio-purple/90 via-studio-purple/70 to-studio-purple/30 absolute inset-0 bg-gradient-to-r" />
+        <div className="relative flex h-full max-w-3xl flex-col justify-center px-8 sm:px-16">
+          <p className="mb-3 text-sm font-semibold tracking-widest text-pink-300 uppercase">
+            Birdsboro, PA · Celebrating 20+ Seasons
           </p>
-          <h1 className="font-serif text-4xl sm:text-5xl md:text-6xl text-white leading-tight mb-5">
-            Dare to Dance.<br />
-            <em className="not-italic text-pink-300">Dare to Take</em> the Next Step.
+          <h1 className="mb-5 font-serif text-4xl leading-tight text-white sm:text-5xl md:text-6xl">
+            Dare to Dance.
+            <br />
+            <em className="text-pink-300 not-italic">Dare to Take</em> the Next Step.
           </h1>
-          <p className="text-purple-200 text-lg mb-8 max-w-xl leading-relaxed">
+          <p className="mb-8 max-w-xl text-lg leading-relaxed text-purple-200">
             Quality dance instruction for children of all ages in a supportive, nurturing studio
             environment.
           </p>
           <div className="flex flex-wrap gap-4">
             <Link
               to="/classes"
-              className="bg-studio-pink text-white px-7 py-3 rounded-full font-semibold hover:bg-pink-700 transition-colors shadow-lg"
+              className="bg-studio-pink rounded-full px-7 py-3 font-semibold text-white shadow-lg transition-colors hover:bg-pink-700"
             >
               Explore Classes
             </Link>
             <Link
               to="/registration"
-              className="bg-white/10 border border-white/40 backdrop-blur text-white px-7 py-3 rounded-full font-semibold hover:bg-white/20 transition-colors"
+              className="rounded-full border border-white/40 bg-white/10 px-7 py-3 font-semibold text-white backdrop-blur transition-colors hover:bg-white/20"
             >
               Register Now
             </Link>
@@ -103,16 +105,16 @@ function HomePage(): ReactElement {
       {/* Summer session announcement banner */}
       {summerSession.enabled && (
         <section className="bg-studio-pink px-6 py-4">
-          <div className="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left">
+          <div className="mx-auto flex max-w-5xl flex-col items-center justify-between gap-3 text-center sm:flex-row sm:text-left">
             <div>
-              <span className="text-white font-semibold">{summerSession.headline}</span>
-              <span className="text-pink-100 ml-2 text-sm">
+              <span className="font-semibold text-white">{summerSession.headline}</span>
+              <span className="ml-2 text-sm text-pink-100">
                 {summerSession.sessionStart} – {summerSession.sessionEnd}
               </span>
             </div>
             <Link
               to="/registration"
-              className="bg-white text-studio-pink px-5 py-2 rounded-full font-semibold text-sm hover:bg-pink-50 transition-colors whitespace-nowrap flex-shrink-0"
+              className="text-studio-pink flex-shrink-0 rounded-full bg-white px-5 py-2 text-sm font-semibold whitespace-nowrap transition-colors hover:bg-pink-50"
             >
               Register Now →
             </Link>
@@ -121,68 +123,73 @@ function HomePage(): ReactElement {
       )}
 
       {/* Features strip */}
-      <section className="bg-studio-purple-light py-14 px-6">
-        <div className="max-w-5xl mx-auto grid sm:grid-cols-3 gap-10">
+      <section className="bg-studio-purple-light px-6 py-14">
+        <div className="mx-auto grid max-w-5xl gap-10 sm:grid-cols-3">
           {features.map((f) => (
-            <div key={f.title} className="flex flex-col items-center text-center gap-3">
+            <div key={f.title} className="flex flex-col items-center gap-3 text-center">
               <div className="text-studio-pink">{f.icon}</div>
-              <h3 className="font-serif text-xl text-studio-purple font-semibold">{f.title}</h3>
-              <p className="text-gray-600 text-sm leading-relaxed">{f.body}</p>
+              <h3 className="text-studio-purple font-serif text-xl font-semibold">{f.title}</h3>
+              <p className="text-sm leading-relaxed text-gray-600">{f.body}</p>
             </div>
           ))}
         </div>
       </section>
 
       {/* Class preview */}
-      <section className="py-16 px-6 bg-studio-lavender">
-        <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-10">
-            <p className="text-studio-pink text-sm font-semibold uppercase tracking-widest mb-2">
+      <section className="bg-studio-lavender px-6 py-16">
+        <div className="mx-auto max-w-6xl">
+          <div className="mb-10 text-center">
+            <p className="text-studio-pink mb-2 text-sm font-semibold tracking-widest uppercase">
               What We Offer
             </p>
-            <h2 className="font-serif text-3xl sm:text-4xl text-studio-purple font-semibold">
+            <h2 className="text-studio-purple font-serif text-3xl font-semibold sm:text-4xl">
               Our Dance Styles
             </h2>
           </div>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {featuredClasses.map((cls) => (
               <div
                 key={cls.title}
-                className="group rounded-2xl overflow-hidden border border-purple-100 shadow-sm hover:shadow-md transition-shadow"
+                className="group overflow-hidden rounded-2xl border border-purple-100 shadow-sm transition-shadow hover:shadow-md"
               >
                 <div className="h-48 overflow-hidden">
                   {cls.image ? (
                     <img
                       src={cls.image}
                       alt={cls.title}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
                     />
                   ) : (
                     <DancerPlaceholder />
                   )}
                 </div>
                 <div className="p-5">
-                  <div className="flex items-center justify-between mb-2">
-                    <h3 className="font-serif text-lg text-studio-purple font-semibold">
+                  <div className="mb-2 flex items-center justify-between">
+                    <h3 className="text-studio-purple font-serif text-lg font-semibold">
                       {cls.title}
                     </h3>
-                    <span className="text-xs bg-studio-pink-light text-studio-purple font-semibold px-2.5 py-1 rounded-full">
+                    <span className="bg-studio-pink-light text-studio-purple rounded-full px-2.5 py-1 text-xs font-semibold">
                       {cls.ages}
                     </span>
                   </div>
-                  <p className="text-gray-600 text-sm leading-relaxed">{cls.summary}</p>
+                  <p className="text-sm leading-relaxed text-gray-600">{cls.summary}</p>
                 </div>
               </div>
             ))}
           </div>
-          <div className="text-center mt-10">
+          <div className="mt-10 text-center">
             <Link
               to="/classes"
-              className="inline-flex items-center gap-2 text-studio-pink font-semibold hover:gap-3 transition-all"
+              className="text-studio-pink inline-flex items-center gap-2 font-semibold transition-all hover:gap-3"
             >
               View all classes
-              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+              <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M17 8l4 4m0 0l-4 4m4-4H3"
+                />
               </svg>
             </Link>
           </div>
@@ -190,16 +197,16 @@ function HomePage(): ReactElement {
       </section>
 
       {/* About / Mission */}
-      <section className="py-16 px-6 bg-stone-50">
-        <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-12 items-center">
+      <section className="bg-stone-50 px-6 py-16">
+        <div className="mx-auto grid max-w-5xl items-center gap-12 md:grid-cols-2">
           <div>
-            <p className="text-pink-700 text-sm font-semibold uppercase tracking-widest mb-2">
+            <p className="mb-2 text-sm font-semibold tracking-widest text-pink-700 uppercase">
               Our Mission
             </p>
-            <h2 className="font-serif text-3xl sm:text-4xl text-studio-purple font-semibold mb-5 leading-snug">
+            <h2 className="text-studio-purple mb-5 font-serif text-3xl leading-snug font-semibold sm:text-4xl">
               Building Dancers for Life
             </h2>
-            <div className="flex flex-col gap-4 text-gray-600 leading-relaxed">
+            <div className="flex flex-col gap-4 leading-relaxed text-gray-600">
               <p>
                 Help your child develop confidence, creativity, and a love for the arts — while
                 making friends and having fun in the process.
@@ -212,7 +219,7 @@ function HomePage(): ReactElement {
             </div>
             <Link
               to="/staff"
-              className="inline-block mt-6 text-pink-700 font-semibold hover:underline"
+              className="mt-6 inline-block font-semibold text-pink-700 hover:underline"
             >
               Meet our instructors →
             </Link>
@@ -221,45 +228,45 @@ function HomePage(): ReactElement {
             <img
               src="https://nebula.wsimg.com/c956d2eb3c6f4223730168289b83265a?AccessKeyId=B77414135F6586AF8FC2&disposition=0&alloworigin=1"
               alt="Next Step Dance Studio 17th season celebration"
-              className="rounded-2xl shadow-xl w-full object-cover"
+              className="w-full rounded-2xl object-cover shadow-xl"
             />
-            <div className="absolute -bottom-4 -left-4 bg-studio-pink text-white rounded-xl px-5 py-3 shadow-lg">
-              <p className="font-serif text-2xl font-semibold">17+</p>
-              <p className="text-xs font-semibold uppercase tracking-wide">Seasons of Dance</p>
+            <div className="bg-studio-pink absolute -bottom-4 -left-4 rounded-xl px-5 py-3 text-white shadow-lg">
+              <p className="font-serif text-2xl font-semibold">20+</p>
+              <p className="text-xs font-semibold tracking-wide uppercase">Seasons of Dance</p>
             </div>
           </div>
         </div>
       </section>
 
       {/* Registration CTA */}
-      <section className="bg-studio-purple py-16 px-6 text-center">
-        <p className="text-pink-300 text-sm font-semibold uppercase tracking-widest mb-3">
+      <section className="bg-studio-purple px-6 py-16 text-center">
+        <p className="mb-3 text-sm font-semibold tracking-widest text-pink-300 uppercase">
           Enrollment Open
         </p>
-        <h2 className="font-serif text-3xl sm:text-4xl text-white font-semibold mb-4">
+        <h2 className="mb-4 font-serif text-3xl font-semibold text-white sm:text-4xl">
           Ready to Take the Next Step?
         </h2>
-        <p className="text-purple-300 mb-8 max-w-xl mx-auto leading-relaxed">
+        <p className="mx-auto mb-8 max-w-xl leading-relaxed text-purple-300">
           Join our dance family today. Registration is simple and we'd love to find the perfect
           class for your child.
         </p>
         <div className="flex flex-wrap justify-center gap-4">
           <Link
             to="/registration"
-            className="bg-studio-pink text-white px-8 py-3 rounded-full font-semibold hover:bg-pink-700 transition-colors shadow-lg"
+            className="bg-studio-pink rounded-full px-8 py-3 font-semibold text-white shadow-lg transition-colors hover:bg-pink-700"
           >
             Enroll Now
           </Link>
           <Link
             to="/contact"
-            className="border border-purple-400 text-purple-200 px-8 py-3 rounded-full font-semibold hover:border-white hover:text-white transition-colors"
+            className="rounded-full border border-purple-400 px-8 py-3 font-semibold text-purple-200 transition-colors hover:border-white hover:text-white"
           >
             Ask a Question
           </Link>
         </div>
       </section>
     </>
-  )
+  );
 }
 
-export default HomePage
+export default HomePage;

@@ -9,6 +9,20 @@ media_folder: public/images/uploads
 public_folder: /images/uploads
 
 collections:
+  - name: homepage
+    label: Homepage
+    files:
+      - name: homepage
+        label: Homepage Settings
+        file: src/content/homepage.json
+        fields:
+          - {
+              label: "Hero Image",
+              name: heroImage,
+              widget: image,
+              hint: "The large background photo shown at the top of the home page.",
+            }
+
   - name: summer-session
     label: Summer Session
     files:
@@ -154,6 +168,7 @@ collections:
               - label: Specialties
                 name: specialties
                 widget: list
+                required: false
                 field: { label: Specialty, name: specialty, widget: string }
               - label: Bio
                 name: bio
