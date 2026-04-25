@@ -282,11 +282,21 @@ collections:
         fields:
           - { label: Season, name: season, widget: string, hint: 'e.g. "2025–2026"' }
           - {
-              label: Date & Time,
-              name: dateTime,
+              label: Event Date,
+              name: eventDate,
+              widget: datetime,
+              required: false,
+              date_format: "YYYY-MM-DD",
+              time_format: false,
+              format: "YYYY-MM-DD",
+              hint: "The date of the recital. Used to automatically hide the ticket link on the day of the event.",
+            }
+          - {
+              label: Show Times,
+              name: showTimes,
               widget: string,
               required: false,
-              hint: 'e.g. "Saturday, June 7, 2025 at 2:00 PM". Leave blank to show "Coming Soon".',
+              hint: 'e.g. "Shows at 11:00 AM, and 3:00 PM". The date is pulled from Event Date above. Leave blank to show just the date.',
             }
           - {
               label: Venue,
@@ -294,6 +304,13 @@ collections:
               widget: string,
               required: false,
               hint: 'Leave blank to show "Coming Soon".',
+            }
+          - {
+              label: Venue Map Link,
+              name: venueMapLink,
+              widget: string,
+              required: false,
+              hint: "Paste a Google Maps link to the venue. Leave blank to show the venue name only.",
             }
           - label: Tickets
             name: tickets
@@ -304,7 +321,7 @@ collections:
                   name: generalAdmission,
                   widget: string,
                   required: false,
-                  hint: 'e.g. "$15". Leave blank for TBA.',
+                  hint: 'e.g. "$15". Leave blank for "Not Available".',
                 }
               - {
                   label: Reserved Seating Price,
@@ -315,10 +332,20 @@ collections:
                 }
               - {
                   label: Ticket Sales Open,
-                  name: salesOpen,
+                  name: salesOpenDateTime,
+                  widget: datetime,
+                  required: false,
+                  date_format: "YYYY-MM-DD",
+                  time_format: "HH:mm",
+                  format: "YYYY-MM-DDTHH:mm:ss",
+                  hint: "Date and time when the Buy Tickets link should appear on the site.",
+                }
+              - {
+                  label: Ticket Link,
+                  name: ticketLink,
                   widget: string,
                   required: false,
-                  hint: 'e.g. "May 1, 2025". Leave blank for TBA.',
+                  hint: "URL where tickets can be purchased. Leave blank if general admission only (no online sales).",
                 }
           - label: Senior Spotlight
             name: seniors

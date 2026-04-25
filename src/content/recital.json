@@ -1,57 +1,14 @@
 {
-  "season": "2025–2026",
-  "dateTime": "Saturday, June 13, 2026 — Shows at 10:00 AM, 2:00 PM, and 6:00 PM",
-  "venue": "Daniel Boone Performing Arts Center, Birdsboro, PA",
+  "season": "Ignite the Stage",
+  "showTimes": "Shows at 11:00 AM, and 3:00 PM",
+  "eventDate": "2026-05-30",
+  "venue": "Twin Valley HS, Elverson, PA",
+  "venueMapLink": "https://www.google.com/maps/place/Twin+Valley+High+School/@40.1622393,-75.8591476,17z/data=!3m1!4b1!4m6!3m5!1s0x89c6672df6f435a9:0x59705944705167e8!8m2!3d40.1622352!4d-75.8565673!16s%2Fm%2F04z_h3s?entry=ttu&g_ep=EgoyMDI2MDQyMi4wIKXMDSoASAFQAw%3D%3D",
   "tickets": {
-    "generalAdmission": "$18",
-    "reservedSeating": "$24",
-    "salesOpen": "May 5, 2026"
+    "generalAdmission": "",
+    "reservedSeating": "$23",
+    "salesOpenDateTime": "2026-05-15T11:00:00",
+    "ticketLink": "https://www.etix.com/ticket/p/97765917/ignite-the-stage"
   },
-  "seniors": [
-    {
-      "name": "Emma Thompson",
-      "photo": null,
-      "classOf": 2026,
-      "yearsAtStudio": 12,
-      "quote": "Next Step gave me more than dance — it gave me a second family and the confidence to keep going.",
-      "bio": null,
-      "styles": ["ballet", "lyrical"]
-    },
-    {
-      "name": "Sophia Martinez",
-      "photo": null,
-      "classOf": 2026,
-      "yearsAtStudio": 8,
-      "quote": "Every class, every rehearsal, every performance has shaped who I am. I will carry this with me always.",
-      "bio": null,
-      "styles": ["jazz", "tap"]
-    },
-    {
-      "name": "Avery Johnson",
-      "photo": null,
-      "classOf": 2026,
-      "yearsAtStudio": 10,
-      "quote": "Dancing here taught me that hard work and heart can take you anywhere.",
-      "bio": null,
-      "styles": ["hip-hop", "jazz"]
-    },
-    {
-      "name": "Grace Chen",
-      "photo": null,
-      "classOf": 2026,
-      "yearsAtStudio": 11,
-      "quote": "Miss Missy always believed in me even when I didn't believe in myself. I am so grateful for every year.",
-      "bio": null,
-      "styles": ["ballet", "acrobatics"]
-    },
-    {
-      "name": "Lily Parker",
-      "photo": null,
-      "classOf": 2026,
-      "yearsAtStudio": 9,
-      "quote": "The stage feels like home. I will miss this place more than words can say.",
-      "bio": null,
-      "styles": ["tap", "lyrical"]
-    }
-  ]
+  "seniors": []
 }

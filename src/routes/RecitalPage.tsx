@@ -6,9 +6,22 @@ import { SeniorSpotlight } from '@components/SeniorSpotlight'
 import recital from '@data/recital'
 import recitalProgram from '@data/recitalProgram'
 
+function ticketSalesOpen(salesOpenDateTime: string | null, eventDate: string | null): boolean {
+  if (!salesOpenDateTime || !eventDate) return false
+  const now = new Date()
+  const todayStr = now.toISOString().slice(0, 10)
+  return now >= new Date(salesOpenDateTime) && todayStr < eventDate
+}
+
 function RecitalPage(): ReactElement {
-  const { dateTime, venue, tickets } = recital
+  const { showTimes, eventDate, venue, venueMapLink, tickets } = recital
   const { title: programTitle, shows } = recitalProgram
+
+  const showTicketLink = !!tickets.ticketLink && ticketSalesOpen(tickets.salesOpenDateTime, eventDate)
+
+  const salesOpenDisplay = tickets.salesOpenDateTime
+    ? new Date(tickets.salesOpenDateTime).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })
+    : null
 
   return (
     <>
@@ -46,7 +59,9 @@ function RecitalPage(): ReactElement {
                   Date & Time
                 </h3>
                 <p className="text-gray-600 leading-relaxed">
-                  {dateTime ?? "Details for this year's recital will be announced soon. Check back here or follow us for updates."}
+                  {eventDate
+                    ? `${new Date(eventDate + 'T12:00:00').toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' })}${showTimes ? ` — ${showTimes}` : ''}`
+                    : "Details for this year's recital will be announced soon. Check back here or follow us for updates."}
                 </p>
               </div>
               <div>
@@ -56,6 +71,16 @@ function RecitalPage(): ReactElement {
                 <p className="text-gray-600 leading-relaxed">
                   {venue ?? 'Venue information coming soon. Our recitals are held at a local performing arts venue in the Berks County area.'}
                 </p>
+                {venue && venueMapLink && (
+                  <a
+                    href={venueMapLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-block mt-2 text-sm font-semibold text-studio-pink hover:underline"
+                  >
+                    Get Directions →
+                  </a>
+                )}
               </div>
               <div>
                 <h3 className="font-semibold text-studio-purple mb-2 text-sm uppercase tracking-widest">
@@ -120,9 +145,9 @@ function RecitalPage(): ReactElement {
               </div>
               <div className="p-8 grid sm:grid-cols-3 gap-6">
                 {[
-                  { label: 'General Admission', value: tickets.generalAdmission ?? 'TBA' },
+                  { label: 'General Admission', value: tickets.generalAdmission ?? 'Not Available' },
                   { label: 'Reserved Seating', value: tickets.reservedSeating ?? 'TBA' },
-                  { label: 'Ticket Sales Open', value: tickets.salesOpen ?? 'TBA' },
+                  { label: 'Ticket Sales Open', value: salesOpenDisplay ?? 'TBA' },
                 ].map(({ label, value }) => (
                   <div key={label} className="text-center p-4 bg-studio-purple-light rounded-xl">
                     <p className="text-xs font-semibold uppercase tracking-widest text-studio-purple-mid mb-1">
@@ -132,6 +157,18 @@ function RecitalPage(): ReactElement {
                   </div>
                 ))}
               </div>
+              {showTicketLink && (
+                <div className="px-8 pb-8">
+                  <a
+                    href={tickets.ticketLink!}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center justify-center w-full bg-studio-pink text-white px-7 py-3 rounded-full font-semibold hover:bg-pink-700 transition-colors"
+                  >
+                    Buy Tickets →
+                  </a>
+                </div>
+              )}
             </div>
           </section>
 

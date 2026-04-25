@@ -12,12 +12,15 @@ export type Senior = {
 
 type RecitalData = {
   season: string
-  dateTime: string | null
+  showTimes: string | null
+  eventDate: string | null
   venue: string | null
+  venueMapLink: string | null
   tickets: {
     generalAdmission: string | null
     reservedSeating: string | null
-    salesOpen: string | null
+    salesOpenDateTime: string | null
+    ticketLink: string | null
   }
   seniors: Senior[] | null
 }
@@ -32,12 +35,15 @@ const raw = recitalContent as RecitalData
 
 const recital: RecitalData = {
   ...raw,
-  dateTime: nullIfEmpty(raw.dateTime),
+  showTimes: nullIfEmpty(raw.showTimes),
+  eventDate: nullIfEmpty(raw.eventDate),
   venue: nullIfEmpty(raw.venue),
+  venueMapLink: nullIfEmpty(raw.venueMapLink),
   tickets: {
     generalAdmission: nullIfEmpty(raw.tickets.generalAdmission),
     reservedSeating: nullIfEmpty(raw.tickets.reservedSeating),
-    salesOpen: nullIfEmpty(raw.tickets.salesOpen),
+    salesOpenDateTime: nullIfEmpty(raw.tickets.salesOpenDateTime),
+    ticketLink: nullIfEmpty(raw.tickets.ticketLink),
   },
 }
 
