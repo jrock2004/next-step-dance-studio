@@ -11,8 +11,6 @@ import { Button } from "@components/Button";
 import { Checkbox } from "@components/Checkbox";
 import { buildRegistrationFormSchema, calculateAge } from "@shared/registration.schema";
 import { classes as studioClasses } from "@/data/classes";
-import { summerSession } from "@/data/summerSession";
-import { SummerSessionPanel } from "@components/SummerSessionPanel";
 
 const registrationFormSchema = buildRegistrationFormSchema(
   studioClasses.map((c) => c.id),
@@ -41,7 +39,6 @@ function RegistrationPage(): ReactElement {
   const {
     register,
     watch,
-    setValue,
     handleSubmit,
     formState: { errors },
   } = useForm<TRegistrationForm>({
@@ -61,8 +58,6 @@ function RegistrationPage(): ReactElement {
 
   const birthdayValue = watch("birthday");
   const computedAge = birthdayValue ? calculateAge(birthdayValue as unknown as string) : null;
-  const selectedProgramTier = watch("programTier");
-  const selectedLessonAddOn = watch("lessonAddOn");
 
   const onSubmit = async (data: TRegistrationForm): Promise<void> => {
     setFormStatus("submitting");
@@ -94,8 +89,6 @@ function RegistrationPage(): ReactElement {
         homePhone: String(baseData.homePhone ?? ""),
         email: String(baseData.email ?? ""),
         classes: selectedClasses || "None selected",
-        programTier: String(baseData.programTier ?? ""),
-        lessonAddOn: String(baseData.lessonAddOn ?? ""),
         acceptTerms: baseData.acceptTerms ? "yes" : "no",
         parentOrGuardianSignature: String(baseData.parentOrGuardianSignature ?? ""),
         signatureDate: String(baseData.signatureDate ?? ""),
@@ -145,12 +138,6 @@ function RegistrationPage(): ReactElement {
 
       <div className="bg-studio-lavender px-6 py-16">
         <div className="mx-auto max-w-3xl">
-          {summerSession.enabled && (
-            <div className="mb-6">
-              <SummerSessionPanel session={summerSession} />
-            </div>
-          )}
-
           {formStatus === "success" ? (
             <div className="py-12 text-center">
               <div className="bg-studio-pink-light mx-auto mb-5 flex h-16 w-16 items-center justify-center rounded-full">
@@ -339,114 +326,8 @@ function RegistrationPage(): ReactElement {
                 </div>
               </div>
 
-              {/* Summer session: program + add-on in one card */}
-              {summerSession.enabled && (
-                <div className="rounded-2xl bg-white p-6 shadow-sm sm:p-8 flex flex-col gap-6">
-                  {summerSession.classPricing.length > 0 && (
-                    <div>
-                      <SectionHeading size="sm">Choose Your Program</SectionHeading>
-                      <p className="text-sm text-gray-500 mb-4">
-                        Select how many classes per week for the 6-week session.
-                      </p>
-                      <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">
-                        {summerSession.classPricing.map((tier) => {
-                          const isSelected = selectedProgramTier === tier.label;
-                          return (
-                            <button
-                              key={tier.label}
-                              type="button"
-                              onClick={() =>
-                                setValue("programTier", isSelected ? "" : tier.label, {
-                                  shouldValidate: true,
-                                })
-                              }
-                              className={`flex cursor-pointer flex-col gap-2 rounded-xl border-2 p-4 text-left transition-colors ${
-                                isSelected
-                                  ? "border-studio-pink bg-studio-pink-light"
-                                  : "border-gray-200 hover:border-studio-purple/40"
-                              }`}
-                            >
-                              <div className="flex items-center justify-between gap-2">
-                                <span className="text-studio-purple font-serif text-sm leading-snug font-semibold">
-                                  {tier.label}
-                                </span>
-                                <svg
-                                  className={`text-studio-pink h-4 w-4 flex-shrink-0 transition-opacity ${isSelected ? "opacity-100" : "opacity-0"}`}
-                                  fill="none"
-                                  viewBox="0 0 24 24"
-                                  stroke="currentColor"
-                                  strokeWidth={2.5}
-                                >
-                                  <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
-                                </svg>
-                              </div>
-                              <span className="bg-studio-purple-light text-studio-purple-mid self-start rounded-full px-2 py-0.5 text-xs font-semibold">
-                                {tier.price}
-                              </span>
-                            </button>
-                          );
-                        })}
-                      </div>
-                    </div>
-                  )}
-
-                  {summerSession.classPricing.length > 0 && summerSession.lessonOptions.length > 0 && (
-                    <hr className="border-gray-100" />
-                  )}
-
-                  {summerSession.lessonOptions.length > 0 && (
-                    <div>
-                      <SectionHeading size="sm">Private Lesson Add-on</SectionHeading>
-                      <p className="text-sm text-gray-500 mb-4">
-                        Optional. Select a private lesson type to add on top of your program.
-                      </p>
-                      <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
-                        {summerSession.lessonOptions.map((option) => {
-                          const isSelected = selectedLessonAddOn === option.label;
-                          return (
-                            <button
-                              key={option.label}
-                              type="button"
-                              onClick={() =>
-                                setValue("lessonAddOn", isSelected ? "" : option.label, {
-                                  shouldValidate: true,
-                                })
-                              }
-                              className={`flex cursor-pointer flex-col gap-2 rounded-xl border-2 p-4 text-left transition-colors ${
-                                isSelected
-                                  ? "border-studio-pink bg-studio-pink-light"
-                                  : "border-gray-200 hover:border-studio-purple/40"
-                              }`}
-                            >
-                              <div className="flex items-center justify-between gap-2">
-                                <span className="text-studio-purple font-serif text-sm leading-snug font-semibold">
-                                  {option.label}
-                                </span>
-                                <svg
-                                  className={`text-studio-pink h-4 w-4 flex-shrink-0 transition-opacity ${isSelected ? "opacity-100" : "opacity-0"}`}
-                                  fill="none"
-                                  viewBox="0 0 24 24"
-                                  stroke="currentColor"
-                                  strokeWidth={2.5}
-                                >
-                                  <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
-                                </svg>
-                              </div>
-                              <span className="bg-studio-purple-light text-studio-purple-mid self-start rounded-full px-2 py-0.5 text-xs font-semibold">
-                                {option.price}
-                              </span>
-                            </button>
-                          );
-                        })}
-                      </div>
-                    </div>
-                  )}
-                </div>
-              )}
-
-              {/* Classes — hidden only if user has selected a summer session program */}
-              {(!summerSession.enabled || !selectedProgramTier) && (
-                <div className="rounded-2xl bg-white p-6 shadow-sm sm:p-8">
+              {/* Classes */}
+              <div className="rounded-2xl bg-white p-6 shadow-sm sm:p-8">
                   <SectionHeading size="sm">Choose Classes</SectionHeading>
                   <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
                     {classCheckboxes.map(({ id, title, ages }) => (
@@ -486,7 +367,6 @@ function RegistrationPage(): ReactElement {
                     ))}
                   </div>
                 </div>
-              )}
 
               {/* Terms & Signature */}
               <div className="rounded-2xl bg-white p-6 shadow-sm sm:p-8">

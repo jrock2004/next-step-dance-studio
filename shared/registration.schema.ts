@@ -14,8 +14,6 @@ export const RegistrationApiSchema = z.object({
   homePhone: z.string().min(1).max(30),
   email: z.string().email().max(254),
   classes: z.string().max(500),
-  programTier: z.string().max(200).optional(),
-  lessonAddOn: z.string().max(200).optional(),
   parentOrGuardianSignature: z.string().min(1).max(200),
   signatureDate: z.string().min(1),
 });
@@ -41,8 +39,6 @@ const registrationFormBaseFields = {
   acceptTerms: z.literal(true, {
     errorMap: () => ({ message: "You must accept the terms" }),
   }),
-  programTier: z.string().optional(),
-  lessonAddOn: z.string().optional(),
   parentOrGuardianSignature: z.string().min(1, "Signature is required"),
   signatureDate: z.coerce.date({ invalid_type_error: "Date is required" }),
 };
