@@ -105,8 +105,8 @@ Set these in the Netlify UI (or `.env` for local `netlify dev`) when email deliv
 | Variable | Required | Description |
 |----------|----------|-------------|
 | `RESEND_API_KEY` | Yes | [Resend](https://resend.com) API key for sending email |
-| `TO_EMAIL` | No | Recipient inbox (defaults to `missy@thenextstepdance.com`) |
-| `FROM_EMAIL` | No | Verified sender domain address (defaults to `noreply@thenextstepdance.com`) |
+| `TO_EMAIL` | No | Recipient inbox (defaults to the studio contact email) |
+| `FROM_EMAIL` | No | Verified sender domain address (defaults to `noreply@` on the studio domain) |
 
 ---
 
@@ -123,42 +123,9 @@ Set these in the Netlify UI (or `.env` for local `netlify dev`) when email deliv
 
 ---
 
-## Design Tokens
-
-Colors and fonts are defined as CSS custom properties in `src/index.css` and available as Tailwind classes:
-
-| Token | Value | Tailwind class example |
-|---|---|---|
-| `--color-studio-purple` | `#2d0052` | `bg-studio-purple`, `text-studio-purple` |
-| `--color-studio-purple-mid` | `#6b21a8` | `text-studio-purple-mid` |
-| `--color-studio-purple-light` | `#f3e8ff` | `bg-studio-purple-light` |
-| `--color-studio-pink` | `#db2777` | `bg-studio-pink`, `text-studio-pink` |
-| `--color-studio-pink-light` | `#fce7f3` | `bg-studio-pink-light` |
-
-Fonts: **Playfair Display** (serif, used for `h1`/`h2` via `font-serif`) and **Nunito Sans** (sans-serif, body text).
-
----
-
-## Known Issues
+## Notes
 
 - `sharp` and `svgo` optional dependencies for `vite-plugin-image-optimizer` may log warnings during install — this is harmless.
-- Some class and marketing images still reference the old website's CDN (`nebula.wsimg.com`). Replace with self-hosted assets when convenient. Staff headshots live under `public/images/staff/`.
-
-### Forms & email
-
-Forms use Netlify's built-in form handling — submissions are stored in the Netlify dashboard. Netlify Functions (`send-contact`, `send-registration`) using Resend are present but not yet wired to the forms. Shared validation lives in `shared/` so the browser and functions stay aligned.
-
-### Local email preview
-
-With `pnpm dev` / Vite dev, visit `/dev/email-preview` to render the same HTML as production email templates (not included in production builds).
-
-### Bundle size & images
-
-Routes besides the home page are **lazy-loaded** in `src/router.tsx`, so Framer Motion, the gallery carousel, and other page-specific code stay in separate chunks until navigation.
-
-### Gallery pipeline
-
-Full-size JPEGs live in `src/assets/gallery/` (not shipped as giant imports). On **`pnpm build`** and **`pnpm dev:vite`** (via `predev:vite`), `scripts/optimize-gallery.mjs` runs **sharp** to write responsive WebP widths + JPEG fallbacks under `public/gallery/`, and refreshes `src/data/gallery-manifest.gen.ts`.
-
-- Add or remove photos in `src/assets/gallery/`, then run **`pnpm optimize:gallery`** (or just run dev/build).
-- Generated binaries are in **`public/gallery/`** (gitignored); the manifest is committed so TypeScript knows each image `stem` and `alt` text.
+- Some images still reference the old website's CDN. Replace with self-hosted files under `public/images/` when convenient.
+- Form submissions are stored in the Netlify dashboard. Netlify Functions for email delivery via Resend are present but not yet wired to the forms.
+- Full-size gallery photos live in `src/assets/gallery/`. Run `pnpm optimize:gallery` (or just `pnpm dev` / `pnpm build`) to generate optimized WebP/JPEG files under `public/gallery/`.
