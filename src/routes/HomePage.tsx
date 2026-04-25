@@ -67,7 +67,8 @@ function HomePage(): ReactElement {
       {/* Hero */}
       <section className="relative h-[520px] overflow-hidden md:h-[620px]">
         <img
-          className="absolute inset-0 h-full w-full object-cover object-top"
+          className="absolute inset-0 h-full w-full object-cover"
+          style={{ objectPosition: homepage.heroImagePosition }}
           src={homepage.heroImage}
           alt="Next Step Dance Studio dancers"
         />

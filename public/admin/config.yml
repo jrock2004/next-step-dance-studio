@@ -22,6 +22,21 @@ collections:
               widget: image,
               hint: "The large background photo shown at the top of the home page.",
             }
+          - label: "Hero Image Position"
+            name: heroImagePosition
+            widget: select
+            default: top
+            hint: "Controls which part of the image stays visible when it's cropped. Try 'Center' if heads are being cut off."
+            options:
+              - { label: "Top Left", value: "top left" }
+              - { label: "Top Center", value: "top center" }
+              - { label: "Top Right", value: "top right" }
+              - { label: "Center Left", value: "center left" }
+              - { label: "Center", value: center }
+              - { label: "Center Right", value: "center right" }
+              - { label: "Bottom Left", value: "bottom left" }
+              - { label: "Bottom Center", value: "bottom center" }
+              - { label: "Bottom Right", value: "bottom right" }
 
   - name: summer-session
     label: Summer Session
